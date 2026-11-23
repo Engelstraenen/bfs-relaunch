@@ -213,7 +213,8 @@
     const m = isMobile(), S = tagSpots();
     // Titel
     const tOut = seg(p, .1, .24);
-    title.style.opacity = 1 - tOut; title.style.transform = `translateY(calc(${m ? 0 : -50}% - ${tOut * 80}px))`;
+    const compact = m || mq('(max-height:500px) and (orientation:landscape)');
+    title.style.opacity = 1 - tOut; title.style.transform = `translateY(calc(${compact ? 0 : -50}% - ${tOut * 80}px))`;
     title.style.pointerEvents = tOut > .5 ? 'none' : '';
     hint.style.opacity = 1 - seg(p, 0, .05);
     // Schlüssel: Drehen, Schrumpfen, Wegfliegen
