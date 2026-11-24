@@ -21,7 +21,7 @@
       img.src = `${base}-${meta.sizes[meta.sizes.length - 1]}.webp`;
       img.width = meta.w; img.height = meta.h;
       img.decoding = 'async';
-      if (!img.closest('.stage') && !img.closest('.flow')) img.loading = 'lazy';
+      if (!img.closest('.stage') && !img.closest('.flow') && !img.closest('.film')) img.loading = 'lazy';
       const done = () => img.classList.add('is-in');
       img.complete ? done() : img.addEventListener('load', done, { once: true });
       img.addEventListener('error', () => img.classList.add('is-missing'), { once: true });
