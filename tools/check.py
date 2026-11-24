@@ -3,8 +3,8 @@
 import sys, asyncio, os
 from playwright.async_api import async_playwright
 URL=sys.argv[1] if len(sys.argv)>1 else 'http://localhost:4370/'
-OUT='/private/tmp/claude-501/shots'; os.makedirs(OUT,exist_ok=True)
-SIZES=[(1440,900),(1280,800),(390,844),(360,740),(430,932),(844,390)]
+OUT=os.environ.get('SHOTS','/private/tmp/claude-501/shots'); os.makedirs(OUT,exist_ok=True)
+SIZES=[tuple(map(int,s.split('x'))) for s in os.environ.get('SIZES','1440x900,1280x800,390x844,360x740,430x932,844x390').split(',')]
 STOPS=[float(x) for x in (sys.argv[2].split(',') if len(sys.argv)>2 else '0,0.03,0.08,0.13,0.17,0.22,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1'.split(','))]
 async def main():
     async with async_playwright() as p:

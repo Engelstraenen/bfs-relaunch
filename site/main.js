@@ -21,13 +21,14 @@
       img.src = `${base}-${meta.sizes[meta.sizes.length - 1]}.webp`;
       img.width = meta.w; img.height = meta.h;
       img.decoding = 'async';
-      if (!img.closest('.stage')) img.loading = 'lazy';
+      if (!img.closest('.stage') && !img.closest('.flow')) img.loading = 'lazy';
       const done = () => img.classList.add('is-in');
       img.complete ? done() : img.addEventListener('load', done, { once: true });
       img.addEventListener('error', () => img.classList.add('is-missing'), { once: true });
     });
     // Bereiche ohne Kernbild ganz ausblenden
     if (!A.img['room-before'] && !A.video.renovation) $('#vorher-nachher')?.classList.add('is-missing');
+    if (!A.img['room-after']) { $('.film__wipe')?.classList.add('is-missing'); $('.f-after')?.classList.add('is-missing'); $$('.film__label').forEach((l) => l.classList.add('is-missing')); }
     if (!A.img.caretaker) $('.dial__photo')?.classList.add('is-missing');
     $$('.flow__panel').forEach((p) => { const im = $('.flow__img img', p); if (im && im.classList.contains('is-missing')) $('.flow__img', p).classList.add('is-missing'); });
     $$('.pick').forEach((p) => { if ($('img', p).classList.contains('is-missing')) p.classList.add('no-img'); });
@@ -278,14 +279,14 @@
       const vp = seg(p, 0, .78);
       if (Math.abs(fv.currentTime - vp * fvDur) > .03) fv.currentTime = Math.min(fvDur - .05, vp * fvDur);
       x = 1 - seg(p, .8, .92) * .5; // Am Ende: Regler auf die Mitte → Vergleich
-    } else x = 1 - seg(p, .08, .9);
+    } else x = A.img['room-after'] ? 1 - seg(p, .08, .9) : 1;
     if (dragX !== null && p > .9) x = dragX;
     setWipe(x);
     wipe.style.opacity = hasV ? seg(p, .8, .86) : (p > .02 && p < .99 ? 1 : 0);
     const prog = Math.round(seg(p, .02, .9) * 100);
     bar.style.setProperty('--p', prog / 100); $('b', bar).textContent = prog + '%';
     steps.forEach((s, i) => s.classList.toggle('is-on', prog >= i * 20 + 5));
-    const sw = seg(p, .45, .6); fb.style.opacity = 1 - sw; fa.style.opacity = sw;
+    const sw = A.img['room-after'] ? seg(p, .45, .6) : 0; fb.style.opacity = 1 - sw; fa.style.opacity = sw;
     fb.style.transform = `translateY(${-sw * 30}px)`; fa.style.transform = `translateY(${(1 - sw) * 30}px)`;
   }
   if (!$('#vorher-nachher').classList.contains('is-missing')) {

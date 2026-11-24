@@ -12,6 +12,7 @@
 html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
 body{font-family:var(--body);color:var(--navy);background:var(--white);font-size:17px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img,video,canvas{display:block;max-width:100%}
+img{height:auto}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 h1,h2,h3{font-family:var(--head);letter-spacing:-.035em;line-height:.95;font-weight:800}
@@ -50,6 +51,7 @@ h1,h2,h3{font-family:var(--head);letter-spacing:-.035em;line-height:.95;font-wei
 .nav.is-dark .nav__links a:hover{background:rgba(255,255,255,.1)}
 .nav.is-hidden{transform:translateY(-120%)}
 .menu{position:fixed;inset:0;z-index:45;background:var(--navy-3);color:#fff;padding:120px var(--pad) 40px;display:flex;flex-direction:column;justify-content:space-between;overflow:auto}
+.menu[hidden]{display:none}
 .menu nav{display:flex;flex-direction:column}
 .menu nav a{font-family:var(--head);font-weight:700;font-size:clamp(30px,8vw,48px);letter-spacing:-.03em;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08)}
 .menu .menu__cta{color:var(--bronze-3)}
@@ -58,18 +60,19 @@ h1,h2,h3{font-family:var(--head);letter-spacing:-.035em;line-height:.95;font-wei
 @media (max-width:1240px){.nav__links,.nav__cta{display:none}.nav__burger{display:block}}
 
 /* Stage */
-.stage{position:relative;height:520vh;background:radial-gradient(120% 80% at 70% 40%,#fff 0%,#f4f1ec 70%,#ece7df 100%)}
+.stage{position:relative;height:520vh;background:#fff}
 .stage__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.stage__title{position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);z-index:3;max-width:min(900px,92vw)}
+.stage__title{position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);z-index:3;max-width:92vw}
+@media (min-width:1025px){.stage h1 .t1{white-space:nowrap}}
 .stage h1{font-size:clamp(54px,10.5vw,172px);color:var(--navy)}
 .t-line{display:block}
 .t2{color:var(--bronze);font-size:.46em;letter-spacing:-.02em;margin-top:.18em}
 .stage__lead{max-width:520px;margin:28px 0 30px;font-size:clamp(16px,1.35vw,19px);color:#3c465c}
 .stage__ctas{display:flex;flex-wrap:wrap;gap:12px}
-.keys{position:absolute;right:-4vw;top:50%;width:min(64vw,1150px);transform:translateY(-50%);z-index:4;pointer-events:none}
-.keys__img{width:100%;mix-blend-mode:multiply}
-.house{position:absolute;inset:0;z-index:2;pointer-events:none}
-.house__img{position:absolute;left:50%;top:52%;width:min(92vw,1500px);transform:translate(-50%,-50%);mix-blend-mode:multiply;opacity:0}
+.keys{position:absolute;right:-2vw;top:50%;width:min(50vw,94vh);transform:translateY(-50%);z-index:4;pointer-events:none;mix-blend-mode:multiply}
+.keys__img{width:100%}
+.house{position:absolute;inset:0;pointer-events:none}
+.house__img{position:absolute;left:46%;top:53%;height:min(84vh,52vw);width:auto;max-width:none;transform:translate(-50%,-50%);opacity:0}
 .tags{list-style:none;position:absolute;inset:0;z-index:5;pointer-events:none}
 .tag{position:absolute;left:62%;top:46%;opacity:0}
 .tag button{pointer-events:auto;display:flex;align-items:center;gap:12px;min-height:50px;padding:0 22px 0 14px;border-radius:14px 30px 30px 14px;background:linear-gradient(140deg,#c9a466,#9d7a42 55%,#7c5e30);color:#fff;font-family:var(--head);font-weight:700;font-size:clamp(15px,1.3vw,20px);letter-spacing:-.01em;box-shadow:0 18px 40px -16px rgba(80,55,20,.7),inset 0 1px 0 rgba(255,255,255,.35);white-space:nowrap;position:relative;transition:transform .3s var(--ease)}
@@ -280,8 +283,8 @@ h1,h2,h3{font-family:var(--head);letter-spacing:-.035em;line-height:.95;font-wei
   .stage h1{font-size:clamp(46px,14vw,72px)}
   .stage__lead{font-size:16px;margin:16px 0 18px}
   .stage__ctas .btn--ghost{display:none}
-  .keys{width:120vw;right:-38vw;top:30%}
-  .house__img{width:150vw;top:42%}
+  .keys{width:96vw;right:-22vw;top:28%}
+  .house__img{height:58vh;height:58svh;left:50%;top:40%}
   .tag button{min-height:46px;font-size:15px;padding:0 16px 0 12px}
   .svc-card{bottom:84px;padding:22px 20px 20px}
   .svc-card__h{font-size:25px}
@@ -330,7 +333,8 @@ h1,h2,h3{font-family:var(--head);letter-spacing:-.035em;line-height:.95;font-wei
   .stage h1{font-size:44px}
   .stage__lead{display:none}
   .stage__ctas .btn--ghost{display:none}
-  .keys{width:52vw;top:52%}
+  .keys{width:44vw;top:50%}
+  .house__img{height:80vh}
   .film__copy{bottom:16px}
   .film h2{font-size:56px}
   .film__steps{margin:10px 0}
