@@ -44,8 +44,10 @@
     </div>
     <div class="media" id="m1">
       <img data-img="m1b-hand" data-fallback="m1a-vorher" alt="Treppenhaus mit Wasserfleck an der Decke, eine Hand hält ein Handy vor das QR-Schild „Schaden melden“" fetchpriority="high">
+      <button class="scr" id="scr" aria-label="Demo öffnen: Schaden melden"><span class="scr__b">BFS</span><span class="scr__h">Schaden<br>melden</span><span class="scr__go">Melden →</span></button>
       <p class="hint" id="hint">Tippen Sie aufs Handy: So meldet ein Mieter den Schaden.</p>
-      <div class="phone" id="phone">
+      <div class="phone" id="phone" hidden>
+        <button class="phone__x" id="phoneX" aria-label="Schließen">×</button>
         <div class="phone__scr" id="melden">
           <div class="phone__top"></div>
           <form class="ph" id="phForm" aria-label="Demo: Schaden melden">
@@ -120,7 +122,6 @@
     <div class="media" id="m4">
       <img data-img="m4-vorort" alt="Servicewagen von BAU Facility Services vor Hausnummer 12, ein Techniker geht mit Werkzeugkoffer zur Tür">
       <video data-video="vorort" muted playsinline preload="auto" aria-hidden="true"></video>
-      <div class="layer" id="wipe4" style="background:var(--or);transform:scaleX(0);transform-origin:0 50%"></div>
     </div>
   </div>
 </section>

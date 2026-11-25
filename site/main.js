@@ -48,7 +48,36 @@
     try { sessionStorage.setItem('bfsTicket', JSON.stringify(T)); } catch (er) {}
     $('#phForm').hidden = true; $('#phDone').hidden = false; $('#hint').hidden = true; paintTicket();
   });
-  $('#toPhone').addEventListener('click', e => { e.preventDefault(); const p = $('#phone'); p.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.06)' }, { transform: 'scale(1)' }], { duration: 600 }); $('.chip.on').focus({ preventScroll: true }); });
+  /* Handy-Bildschirm liegt exakt auf dem Handy im Foto; Tippen öffnet das große Formular */
+  const PHONE_SCREEN = { x: .768, y: .362, w: .118, h: .44 };
+  function cover(box, name, posX) {
+    const e = A.img[name], W = box.clientWidth, H = box.clientHeight; if (!e) return null;
+    const s = Math.max(W / e.w, H / e.h), dw = e.w * s, dh = e.h * s;
+    return { s, dw, dh, ox: (W - dw) * posX, oy: (H - dh) / 2 };
+  }
+  const m1 = $('#m1'), scr = $('#scr'), phone = $('#phone'), m1img = $('#m1 > img');
+  const hasHand = !!A.img['m1b-hand'];
+  function placeScr() {
+    if (!hasHand) { scr.hidden = true; return; }
+    const c = cover(m1, 'm1b-hand', parseFloat(getComputedStyle(m1img).objectPosition) / 100 || .5); if (!c) return;
+    Object.assign(scr.style, { left: c.ox + PHONE_SCREEN.x * c.dw + 'px', top: c.oy + PHONE_SCREEN.y * c.dh + 'px', width: PHONE_SCREEN.w * c.dw + 'px', height: PHONE_SCREEN.h * c.dh + 'px' });
+    const r = scr.getBoundingClientRect(), mr = m1.getBoundingClientRect(), hint = $('#hint');
+    Object.assign(hint.style, { left: Math.max(12, r.left - mr.left - 220) + 'px', top: r.top - mr.top + r.height * .55 + 'px' });
+  }
+  function openPhone() {
+    phone.hidden = false; $('#hint').hidden = true;
+    const mr = m1.getBoundingClientRect(), pw = phone.offsetWidth, ph = phone.offsetHeight;
+    const r = hasHand ? scr.getBoundingClientRect() : { left: mr.right - pw - 40, top: mr.top + 80, width: pw, height: ph };
+    const left = Math.min(mr.width - pw - 12, Math.max(12, r.left - mr.left + r.width / 2 - pw / 2)), top = Math.min(mr.height - ph - 12, Math.max(12, r.top - mr.top + r.height / 2 - ph / 2));
+    Object.assign(phone.style, { left: left + 'px', top: top + 'px' });
+    if (!reduced) phone.animate([{ transform: `scale(${Math.max(.3, r.width / pw)})`, opacity: .4 }, { transform: 'scale(1)', opacity: 1 }], { duration: 450, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    setTimeout(() => ($('.chip.on') || phone).focus({ preventScroll: true }), 80);
+  }
+  scr.addEventListener('click', openPhone);
+  $('#phoneX').addEventListener('click', () => { phone.hidden = true; });
+  $('#toPhone').addEventListener('click', e => { e.preventDefault(); openPhone(); });
+  if (!hasHand) { phone.hidden = false; Object.assign(phone.style, { right: '9%', bottom: '-6%' }); }
+  addEventListener('resize', placeScr); placeScr();
   if (T.t0) { $('#phForm').hidden = true; $('#phDone').hidden = false; $('#hint').hidden = true; }
   paintTicket();
 
@@ -131,7 +160,7 @@
   }
 
   /* ---------- Tablet-Bildschirm: Bericht exakt auf den Bildschirm legen ---------- */
-  const SCREEN = window.TABLET_SCREEN || { x: .30, y: .22, w: .46, h: .56 }; // Anteil am Foto
+  const SCREEN = window.TABLET_SCREEN || { x: .313, y: .222, w: .444, h: .5 }; // Anteil am Foto
   function placeReport() {
     const box = $('#m7'), img = $('#m7 > img'), r = $('#report');
     const W = box.clientWidth, H = box.clientHeight;
@@ -160,8 +189,10 @@
   /* 1 → 2: Handy wächst aus der Hand, Bildschirm wird zur Ticket-Karte */
   const tl1 = gsap.timeline();
   tl1.to('#m1 > img', { scale: 1.08, filter: 'blur(6px)', ease: 'none' }, 0)
-     .to('#phone', { xPercent: mob ? -40 : -60, yPercent: mob ? -40 : -30, scale: mob ? 1.15 : 1.25, rotate: -4, ease: 'power1.inOut' }, 0)
-     .to('#phone', { opacity: 0, duration: .25 }, .75);
+     .to('#scr', { x: () => { const r = scr.getBoundingClientRect(), m = m1.getBoundingClientRect(); return m.left + m.width / 2 - (r.left + r.width / 2); }, y: () => { const r = scr.getBoundingClientRect(), m = m1.getBoundingClientRect(); return m.top + m.height / 2 - (r.top + r.height / 2); }, scaleX: () => (mob ? 300 : 420) / Math.max(1, scr.offsetWidth), scaleY: () => (mob ? 130 : 160) / Math.max(1, scr.offsetHeight), rotate: -4, borderRadius: '6px', backgroundColor: '#f4ead6', ease: 'power1.inOut' }, 0)
+     .to('#scr > *', { opacity: 0, duration: .2 }, .1)
+     .to('#phone, #hint', { opacity: 0, duration: .15 }, 0)
+     .to('#scr', { opacity: 0, duration: .15 }, .85);
   pin('#gemeldet', mob ? 500 : 700, tl1);
 
   /* 2: Ticket fliegt auf die Tafel, dann wird die Tafel zum Büro-Foto */
@@ -190,8 +221,7 @@
 
   /* 3: roter Balken wird zur Straße → Film / Foto Vor Ort */
   const v4 = $('#m4 video'), tl3 = gsap.timeline();
-  tl3.fromTo('#wipe4', { scaleX: 1, transformOrigin: '100% 50%' }, { scaleX: 0, duration: .18, ease: 'power2.out' }, 0)
-     .fromTo('#m4 > img', { scale: 1.12 }, { scale: 1, ease: 'none', duration: 1 }, 0);
+  tl3.fromTo('#m4 > img', { scale: 1.12 }, { scale: 1, ease: 'none', duration: 1 }, 0);
   if (v4) tl3.to({}, { duration: 1, onUpdate() { if (v4.duration) v4.currentTime = Math.min(v4.duration - .05, this.progress() * v4.duration); } }, 0);
   pin('#vor-ort', mob ? 700 : 1000, tl3);
 
@@ -226,6 +256,6 @@
   gsap.from('.vsteps li', { x: -20, opacity: 0, stagger: .1, scrollTrigger: { trigger: '#objekt', start: 'top 60%' } });
 
   /* Erste Sekunde: Bewegung ab Laden */
-  if (!reduced) gsap.from('#phone', { y: 120, rotate: 6, duration: 1.4, ease: 'power3.out', delay: .2 });
-  addEventListener('load', () => { ScrollTrigger.refresh(); placeReport(); });
+  if (!reduced) { gsap.from('#m1 > img', { scale: 1.12, duration: 2.2, ease: 'power3.out' }); gsap.from('#scr', { opacity: 0, y: 30, duration: .9, delay: .6, ease: 'power3.out' }); }
+  addEventListener('load', () => { placeScr(); ScrollTrigger.refresh(); placeReport(); });
 })();
