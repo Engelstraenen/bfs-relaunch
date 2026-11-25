@@ -3,278 +3,289 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>BAU Facility Services · Alles für Ihre Immobilie – aus einer Hand · Ratingen</title>
-<meta name="description" content="BAU Facility Services GmbH aus Ratingen: Planung, Bau & Umbau, Sanierung & Renovierung und Hausmeister-Service. Ein Ansprechpartner für Ihre Immobilie.">
-<meta name="theme-color" content="#1b2a49">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<title>BAU Facility Services · Ein Hinweis genügt. Wir übernehmen.</title>
+<meta name="description" content="BAU Facility Services GmbH, Ratingen: Planung, Koordination, Bau & Umbau, Sanierung und Hausmeister-Leistungen aus einer Hand. Vom Schaden-Hinweis bis zum Foto-Bericht.">
+<meta name="theme-color" content="#e9e0d0">
+<link rel="icon" href="assets/logo.svg">
+<link rel="preload" href="assets/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"BAU Facility Services GmbH i. G.","address":{"@type":"PostalAddress","streetAddress":"Alter Kirchweg 9","postalCode":"40880","addressLocality":"Ratingen","addressCountry":"DE"},"telephone":"+49 176 23815829","email":"info@baufacilityservices.de","url":"https://baufacilityservices.de/","founder":"Osman Yilmaz","areaServed":"Ratingen, Düsseldorf und Umgebung"}
-</script>
+<script src="assets/manifest.js"></script>
 </head>
 <body>
-<a class="skip" href="#leistungen">Zum Inhalt springen</a>
-
-<header class="nav" id="nav">
-  <a class="nav__logo" href="#top" aria-label="BAU Facility Services – Start">
-    <img class="logo-dark" src="assets/logo.svg" alt="BAU Facility Services" width="170" height="61">
-    <img class="logo-light" src="assets/logo-w.svg" alt="" width="170" height="61" aria-hidden="true">
-  </a>
-  <nav class="nav__links" aria-label="Hauptnavigation">
-    <a href="#leistungen">Leistungen</a>
-    <a href="#vorher-nachher">Vorher/Nachher</a>
-    <a href="#ablauf">Ablauf</a>
-    <a href="#hausmeister">Hausmeister</a>
-    <a href="#karriere">Karriere</a>
-    <a href="#bewertungen">Bewertungen</a>
-  </nav>
-  <a class="btn btn--bronze nav__cta" href="#kontakt">Projekt anfragen</a>
-  <button class="nav__burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+<a class="sr" href="#gemeldet">Zum Inhalt</a>
+<header class="nav">
+  <a class="nav__logo" href="#gemeldet" aria-label="BAU Facility Services – Start"><img src="assets/logo.svg" alt="BAU Facility Services" width="170" height="61"></a>
+  <ol class="status" aria-label="Ticket-Status und Navigation">
+    <li><a href="#gemeldet" data-s="0"><i></i><span>Gemeldet</span></a></li>
+    <li><a href="#geplant" data-s="1"><i></i><span>Geplant</span></a></li>
+    <li><a href="#vor-ort" data-s="2"><i></i><span>Vor Ort</span></a></li>
+    <li><a href="#erledigt" data-s="3"><i></i><span>Erledigt</span></a></li>
+    <li><a href="#dokumentiert" data-s="4"><i></i><span>Dokumentiert</span></a></li>
+  </ol>
+  <div class="ticketchip" aria-live="polite"><b id="tNo">#10427</b><span id="tTitle">Wasserfleck · 2. OG</span></div>
+  <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span></button>
 </header>
+<div class="progress" aria-hidden="true"></div>
+<nav class="menu" id="menu" hidden aria-label="Menü">
+  <a href="#gemeldet">1 · Gemeldet</a><a href="#geplant">2 · Geplant</a><a href="#vor-ort">3 · Vor Ort</a><a href="#erledigt">4 · Erledigt</a><a href="#dokumentiert">5 · Dokumentiert</a>
+  <a href="#karriere">Karriere</a><a href="#kontakt">Kontakt</a><a href="leistungen.html">Alle Leistungen</a>
+</nav>
 
-<div class="menu" id="menu" hidden>
-  <nav aria-label="Mobile Navigation">
-    <a href="#leistungen">Leistungen</a>
-    <a href="#vorher-nachher">Vorher/Nachher</a>
-    <a href="#ablauf">Ablauf</a>
-    <a href="#hausmeister">Hausmeister</a>
-    <a href="#karriere">Karriere</a>
-    <a href="#bewertungen">Bewertungen</a>
-    <a href="#kontakt" class="menu__cta">Projekt anfragen</a>
-  </nav>
-  <div class="menu__contact">
-    <a href="tel:+4917623815829">+49 176 23815829</a>
-    <a href="mailto:info@baufacilityservices.de">info@baufacilityservices.de</a>
-  </div>
-</div>
-
-<main id="top">
-
-<!-- 1+2+3 · Bühne: Schlüssel → Tags fliegen → Haus → Explosionsansicht -->
-<section class="stage" id="leistungen" aria-label="Alles aus einer Hand">
-  <div class="stage__pin">
-    <div class="stage__title">
-      <h1><span class="t-line t1">Ein Schlüssel.</span><span class="t-line t2">Alles erledigt.</span></h1>
-      <p class="stage__lead">Planung, Bau &amp; Umbau, Sanierung und Hausmeister-Service für Ihre Immobilie in Ratingen, Düsseldorf und Umgebung – mit <b>einem</b> festen Ansprechpartner.</p>
-      <div class="stage__ctas"><a class="btn btn--navy" href="#kontakt">Projekt starten</a><a class="btn btn--ghost" href="#vorher-nachher">Vorher/Nachher ansehen</a></div>
+<main>
+<!-- 1 · GEMELDET -->
+<section class="ch" id="gemeldet" data-step="0">
+  <div class="stage">
+    <div class="copy">
+      <p class="eyebrow">BAU Facility Services · Ratingen</p>
+      <h1>Ein Hinweis genügt.<br>Wir übernehmen.</h1>
+      <p class="lead">Planung, Bau, Sanierung und Hausmeister-Leistungen aus einer Hand. Für Werterhalt, heute und morgen.</p>
+      <div class="row keep"><a class="btn btn--or" href="#melden" id="toPhone">Schaden melden <span class="arrow">→</span></a><a class="btn btn--ghost" href="meldung.html">Für Hausverwaltungen</a></div>
+      <p class="scrollhint"><i></i>Scrollen: Folgen Sie dem Ticket durchs Haus</p>
     </div>
-    <div class="keys" aria-hidden="true">
-      <img class="keys__img" data-src="assets/img/keys" alt="">
+    <div class="media" id="m1">
+      <img data-img="m1b-hand" data-fallback="m1a-vorher" alt="Treppenhaus mit Wasserfleck an der Decke, eine Hand hält ein Handy vor das QR-Schild „Schaden melden“" fetchpriority="high">
+      <p class="hint" id="hint">Tippen Sie aufs Handy: So meldet ein Mieter den Schaden.</p>
+      <div class="phone" id="phone">
+        <div class="phone__scr" id="melden">
+          <div class="phone__top"></div>
+          <form class="ph" id="phForm" aria-label="Demo: Schaden melden">
+            <small>Wohnanlage · Berliner Str. 12 · Ratingen</small>
+            <h3>Schaden melden</h3>
+            <div class="chips" role="radiogroup" aria-label="Art des Schadens">
+              <button type="button" class="chip on" data-k="Wasserfleck" role="radio" aria-checked="true">Wasser</button>
+              <button type="button" class="chip" data-k="Licht defekt" role="radio" aria-checked="false">Licht</button>
+              <button type="button" class="chip" data-k="Heizung kalt" role="radio" aria-checked="false">Heizung</button>
+              <button type="button" class="chip" data-k="Tür klemmt" role="radio" aria-checked="false">Tür</button>
+            </div>
+            <label for="phFloor">Wo?</label>
+            <select id="phFloor"><option>EG</option><option>1. OG</option><option selected>2. OG</option><option>3. OG</option><option>Keller</option><option>Außenanlage</option></select>
+            <button class="btn btn--or btn--sm" type="submit">Hinweis senden <span class="arrow">→</span></button>
+          </form>
+          <div class="ph ph__done" id="phDone" hidden>
+            <small>Danke! Ihr Ticket</small><b id="phNo">#10427</b>
+            <p>Status: <strong>Gemeldet</strong>. Scrollen Sie weiter, um zu sehen, was jetzt passiert.</p>
+            <small>Demo · es wird nichts gesendet</small>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="house" aria-hidden="true">
-      <img class="house__img house__img--a" data-src="assets/img/house" alt="">
-      <img class="house__img house__img--b" data-src="assets/img/house-exploded" alt="">
-    </div>
-    <ol class="tags">
-      <li class="tag" data-i="0"><button type="button" data-service="planung"><i>01</i>Planung</button></li>
-      <li class="tag" data-i="1"><button type="button" data-service="bau"><i>02</i>Bau &amp; Umbau</button></li>
-      <li class="tag" data-i="2"><button type="button" data-service="sanierung"><i>03</i>Sanierung</button></li>
-      <li class="tag" data-i="3"><button type="button" data-service="hausmeister"><i>04</i>Hausmeister</button></li>
-    </ol>
-    <div class="svc-card" role="dialog" aria-live="polite" hidden>
-      <button class="svc-card__x" type="button" aria-label="Schließen">×</button>
-      <span class="svc-card__no"></span>
-      <h3 class="svc-card__h"></h3>
-      <p class="svc-card__p"></p>
-      <ul class="svc-card__list"></ul>
-      <a class="btn btn--bronze btn--sm" href="#kontakt">Dazu anfragen</a>
-    </div>
-    <div class="stage__hint"><span>Scroll</span><i></i></div>
   </div>
 </section>
 
-<!-- Laufband -->
-<section class="band" aria-label="Unsere Leistungen im Überblick">
-  <div class="band__row band__row--a" aria-hidden="true"><span>Bau · Umbau · Sanierung · Renovierung · Hausmeister · Planung · Koordination · </span><span>Bau · Umbau · Sanierung · Renovierung · Hausmeister · Planung · Koordination · </span></div>
-  <div class="band__row band__row--b" aria-hidden="true"><span>Alles aus einer Hand · Zuverlässig umgesetzt · Starke Partner · Persönlich betreut · </span><span>Alles aus einer Hand · Zuverlässig umgesetzt · Starke Partner · Persönlich betreut · </span></div>
-  <div class="counters">
-    <div class="counter"><b data-to="1">0</b><span>Ansprechpartner für alles</span></div>
-    <div class="counter"><b data-to="4">0</b><span>Leistungen aus einer Hand</span></div>
-    <div class="counter"><b data-to="0" data-from="9">9</b><span>Stress für Sie</span></div>
+<!-- 2 · Übergang: Handy wird Ticket, Ticket landet auf der Tafel -->
+<section class="ch" id="geplant" data-step="1">
+  <div class="stage">
+    <div class="copy">
+      <p class="eyebrow">Schritt 2 · Geplant</p>
+      <h2 id="h2a">Aus Ihrem Hinweis wird ein Auftrag.</h2>
+      <p class="lead" id="l2a">Wir planen. Effizient. Transparent. Verlässlich. Ein fester Ansprechpartner behält alles im Blick.</p>
+      <a class="more" href="meldung.html">So läuft eine Meldung ab →</a>
+    </div>
+    <div class="media" id="m2">
+      <div class="board" id="board" aria-label="Planungstafel">
+        <div class="col"><h4>Offen</h4><div class="mini">Aufzugbeleuchtung<small>EG · #10419</small></div><div class="mini">Malerarbeiten<small>3. OG · #10420</small></div></div>
+        <div class="col"><h4>Geplant</h4><div class="slot" id="slot">Ihr Ticket</div><div class="mini">Heizungsprüfung<small>Keller · #10418</small></div></div>
+        <div class="col"><h4>In Bearbeitung</h4><div class="mini">Türschließer<small>1. OG · #10416</small></div><div class="mini">Grünpflege<small>Außen · #10412</small></div></div>
+      </div>
+      <div class="layer" id="m3" style="opacity:0"><img data-img="m3-planung" alt="Koordinatorin vor der Planungstafel mit Sanitär, Elektro und Maler"></div>
+      <aside class="datacard" id="data" style="opacity:0" aria-label="Daten zu Leitungswasserschäden">
+        <h4>Warum schnell handeln?</h4>
+        <div class="big"><span data-count="4600" data-prefix="über " data-suffix=" €">0 €</span><small>kostet ein Leitungswasserschaden im Schnitt, 7,5 % mehr als im Vorjahr</small></div>
+        <div class="bars">
+          <div class="bar"><b>2024</b><span><i data-w="96"></i></span><em>1,13 Mio.</em></div>
+          <div class="bar hot"><b>2025</b><span><i data-w="91"></i></span><em>1,07 Mio.</em></div>
+        </div>
+        <p class="note" style="color:rgba(255,255,255,.85);margin-top:10px">gemeldete Leitungswasserschäden pro Jahr, also rund 2 pro Minute. Über 20 Jahre betrachtet macht Leitungswasser rund die Hälfte des Schadenaufwands in der Wohngebäudeversicherung aus.</p>
+        <span class="src">Quelle: GDV, Mitteilung November 2026 (Wohngebäudeversicherung)</span>
+      </aside>
+      <aside class="gantt" id="gantt" style="opacity:0" aria-label="Einsatzplan für das Ticket">
+        <h5>Einsatzplan <span id="gNo">#10427</span></h5>
+        <div class="g hot"><span>Sanitär</span><div><i style="left:8%;width:0" data-w="30"></i></div></div>
+        <div class="g"><span>Trocknung</span><div><i style="left:38%;width:0" data-w="24"></i></div></div>
+        <div class="g"><span>Maler</span><div><i style="left:62%;width:0" data-w="30"></i></div></div>
+      </aside>
+    </div>
   </div>
 </section>
 
-<!-- 4 · Film Vorher/Nachher -->
-<section class="film" id="vorher-nachher" aria-label="Vorher und Nachher">
-  <div class="film__pin">
-    <div class="film__media">
-      <img class="film__after" data-src="assets/img/room-after" alt="Fertig sanierte, helle Wohnung mit Eichenboden">
-      <div class="film__beforewrap"><img class="film__before" data-src="assets/img/room-before" alt="Alte Wohnung vor der Sanierung"><video class="film__video" muted playsinline preload="auto"></video></div>
-      <div class="film__wipe" role="slider" tabindex="0" aria-label="Vorher/Nachher-Regler" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+<!-- 3 · VOR ORT -->
+<section class="ch" id="vor-ort" data-step="2">
+  <div class="stage">
+    <div class="copy">
+      <p class="eyebrow">Schritt 3 · Vor Ort</p>
+      <h2>Wir kommen.<br>Wie vereinbart.</h2>
+      <p class="lead">Fachgerecht, freundlich, in Ihrer Nähe. Wir koordinieren alle Gewerke und kommen zum vereinbarten Termin.</p>
+      <a class="more" href="leistungen.html">Unsere Leistungen →</a>
     </div>
-    <div class="film__shade"></div>
-    <div class="film__copy">
-      <p class="eyebrow">Sanierung &amp; Renovierung</p>
-      <h2><span class="f-word f-before">Vorher.</span><span class="f-word f-after">Nachher.</span></h2>
-      <ol class="film__steps">
-        <li>Abbruch</li><li>Trockenbau</li><li>Elektrik</li><li>Boden</li><li>Malerarbeiten</li>
-      </ol>
-      <div class="film__bar"><i></i><b>0%</b></div>
+    <div class="media" id="m4">
+      <img data-img="m4-vorort" alt="Servicewagen von BAU Facility Services vor Hausnummer 12, ein Techniker geht mit Werkzeugkoffer zur Tür">
+      <video data-video="vorort" muted playsinline preload="auto" aria-hidden="true"></video>
+      <div class="layer" id="wipe4" style="background:var(--or);transform:scaleX(0);transform-origin:0 50%"></div>
     </div>
-    <span class="film__label film__label--l">Vorher</span><span class="film__label film__label--r">Nachher</span>
   </div>
 </section>
 
-<!-- 5 · Ablauf horizontal -->
-<section class="flow" id="ablauf" aria-label="So läuft Ihr Projekt">
-  <div class="flow__pin">
-    <div class="flow__head"><p class="eyebrow">So läuft Ihr Projekt</p><div class="flow__progress"><i></i></div></div>
-    <div class="flow__track">
-      <article class="flow__panel">
-        <span class="flow__no">01</span>
-        <div class="flow__text"><h3>Beratung</h3><p>Wir nehmen uns Zeit für Ihr Anliegen – ob erste Idee, konkrete Planung oder laufendes Projekt – und finden gemeinsam die passende Lösung.</p></div>
-        <figure class="flow__img"><img data-src="assets/img/step-beratung" alt="Beratungsgespräch am Planungstisch"></figure>
+<!-- 4 · ARBEIT -->
+<section class="ch" id="arbeit" data-step="2">
+  <div class="stage">
+    <div class="copy">
+      <p class="eyebrow">Schritt 3 · Arbeit</p>
+      <h2>Wir lösen<br>das Problem.</h2>
+      <p class="lead">Mit Erfahrung. Mit Sorgfalt. Mit Blick fürs Ganze: Leitung reparieren, trocknen, spachteln, streichen.</p>
+      <a class="more" href="leistungen.html#sanierung">Sanierung & Renovierung →</a>
+    </div>
+    <div class="media" id="m5">
+      <img data-img="m5-arbeit" alt="Installateur repariert eine Kupferleitung an der offenen Decke, dahinter streicht eine Malerin">
+      <video data-video="reparatur" muted playsinline preload="auto" aria-hidden="true"></video>
+      <div class="scrub" aria-hidden="true"><span data-p="0" class="on">Vorher</span><em></em><span data-p="1">Arbeit</span><em></em><span data-p="2">Ergebnis</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · ERLEDIGT -->
+<section class="ch" id="erledigt" data-step="3">
+  <div class="stage">
+    <div class="copy">
+      <p class="eyebrow">Schritt 4 · Erledigt</p>
+      <h2>Sauber<br>abgeschlossen.</h2>
+      <p class="lead">Der Schaden ist behoben, und Ihr Alltag läuft weiter. Ziehen Sie den Regler und vergleichen Sie selbst.</p>
+    </div>
+    <div class="media" id="m6">
+      <div class="wipe" id="wipe" role="slider" tabindex="0" aria-label="Vorher-Nachher-Vergleich" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img class="before" data-img="m1a-vorher" alt="Vorher: Wasserfleck an der Decke" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <img class="after" data-img="m6-nachher" alt="Nachher: Decke repariert und frisch gestrichen" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <span class="tag tag--l">Vorher</span><span class="tag tag--r">Nachher</span>
+        <div class="wipe__line"></div><div class="wipe__knob" aria-hidden="true">‹ ›</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · DOKUMENTIERT -->
+<section class="ch" id="dokumentiert" data-step="4">
+  <div class="stage">
+    <div class="copy">
+      <p class="eyebrow">Schritt 5 · Dokumentiert</p>
+      <h2>Alles transparent dokumentiert.</h2>
+      <p class="lead">Mit Fotos, mit Zeitstempeln, mit digitaler Unterschrift. Ihre Hausverwaltung sieht jeden Schritt, ohne nachzufragen.</p>
+      <a class="more" href="dokumentation.html">Muster-Bericht ansehen →</a>
+      <p class="note">Vertrauen schafft bleibende Werte.</p>
+    </div>
+    <div class="media" id="m7">
+      <img data-img="m7-tablet" alt="Hand hält ein Tablet mit dem Foto-Bericht">
+      <article class="report" id="report" aria-label="Foto-Bericht zum Ticket">
+        <header><div><h4><span class="rNo">Auftrag #10427</span></h4><p class="addr"><span class="rTitle">Wasserfleck · 2. OG</span> · Berliner Str. 12, Ratingen</p></div><span class="stamp" id="stamp">Erledigt · 1 Tag</span></header>
+        <div class="shots">
+          <figure><img data-img="m1a-vorher" alt="Vorher"><figcaption>Vorher<small id="tA">Mo 08:14</small></figcaption></figure>
+          <figure><img data-img="m6-nachher" alt="Nachher"><figcaption>Nachher<small id="tB">Di 10:27</small></figcaption></figure>
+        </div>
+        <div class="sig"><div>Abnahme<small>digital unterschrieben</small></div><div><svg viewBox="0 0 160 40" width="100%" height="34" aria-hidden="true"><path id="sigp" d="M4 30 C14 6 22 6 24 26 S36 34 42 14 52 8 56 28 64 30 72 12 84 10 86 26 98 30 110 16 122 14 126 28 140 24 156 18"/></svg><small>Hausverwaltung</small></div></div>
       </article>
-      <article class="flow__panel flow__panel--plan">
-        <span class="flow__no">02</span>
-        <div class="flow__text"><h3>Aus Plan wird Raum.</h3><p>Wir planen Ihr Projekt von Anfang an strukturiert: klare Abläufe, verlässliche Termine, effiziente Umsetzung.</p></div>
-        <figure class="flow__img flow__img--morph"><canvas class="blueprint" aria-hidden="true"></canvas><img class="blueprint__photo" data-src="assets/img/room-after" alt="Aus dem Bauplan wird der fertige Raum"></figure>
-      </article>
-      <article class="flow__panel">
-        <span class="flow__no">03</span>
-        <div class="flow__text"><h3>Umsetzung</h3><p>Wir koordinieren alle beteiligten Gewerke mit passenden Fachbetrieben und begleiten die Arbeiten zuverlässig bis zur Fertigstellung.</p></div>
-        <figure class="flow__img"><img data-src="assets/img/step-umsetzung" alt="Handwerker bei der Umsetzung"></figure>
-      </article>
-      <article class="flow__panel">
-        <span class="flow__no">04</span>
-        <div class="flow__text"><h3>Betreuung</h3><p>Auch nach Abschluss bleiben wir an Ihrer Seite – mit Hausmeister- und Facility-Leistungen für Ihre Immobilie.</p></div>
-        <figure class="flow__img"><img data-src="assets/img/step-betreuung" alt="Hausmeister betreut das Objekt"></figure>
-      </article>
     </div>
   </div>
 </section>
 
-<!-- 6 · Hausmeister 24h -->
-<section class="clock" id="hausmeister" aria-label="Hausmeister-Service">
-  <div class="clock__pin">
-    <div class="clock__copy">
-      <p class="eyebrow">Hausmeister-Service</p>
-      <h2>24 Stunden<br>für Ihr Objekt.</h2>
-      <p class="clock__lead">Wir kümmern uns um die laufende Betreuung Ihrer Immobilie und sorgen dafür, dass Gebäude und Außenbereiche gepflegt bleiben.</p>
-      <ul class="clock__tasks">
-        <li data-at="4.5"><time>04:30</time><b>Winterdienst</b><span>Räumen und Streuen, bevor die ersten Mieter los müssen.</span></li>
-        <li data-at="6.17"><time>06:10</time><b>Heizung</b><span>Kontrolle von Druck und Anlage – bevor es kalt wird.</span></li>
-        <li data-at="9"><time>09:00</time><b>Treppenhaus</b><span>Sauberkeit, Licht und Fluchtwege im Blick.</span></li>
-        <li data-at="14"><time>14:00</time><b>Außenanlage</b><span>Grünpflege, Wege und Mülltonnen in Ordnung.</span></li>
-        <li data-at="18"><time>18:00</time><b>Kleinreparaturen</b><span>Schnell erledigt – ein Anruf genügt.</span></li>
-      </ul>
-      <a class="btn btn--navy" href="#kontakt" data-pick="hausmeister">Objekt anfragen</a>
+<!-- 7 · KARRIERE -->
+<section class="ch" id="karriere" data-step="4">
+  <div class="stage stage--three">
+    <div class="copy">
+      <p class="eyebrow">Neues Ticket · #10428</p>
+      <h2>Neuer Auftrag:<br>Dich einstellen.</h2>
+      <p class="lead">Echte Perspektiven in einem starken Team. Haustechnik, Hausmeister-Service, Bau und Sanierung in Ratingen und Umgebung.</p>
+      <div class="row keep"><button class="btn btn--or" data-open="apply">In 60 Sekunden bewerben <span class="arrow">→</span></button></div>
+      <a class="more" href="karriere.html">Alle Infos zur Karriere →</a>
     </div>
-    <div class="dial" aria-hidden="true">
-      <svg viewBox="0 0 400 400" class="dial__svg">
-        <circle cx="200" cy="200" r="186" class="dial__track"/>
-        <circle cx="200" cy="200" r="186" class="dial__arc" pathLength="1000"/>
-        <g class="dial__ticks"></g>
-      </svg>
-      <div class="dial__photo"><img data-src="assets/img/caretaker" alt=""></div>
-      <div class="dial__time"><b>00:00</b><span>Uhr</span></div>
-      <i class="dial__dot"></i>
+    <div class="media" id="m8">
+      <img data-img="m8-team" alt="Technikerin von BAU Facility Services vor dem Servicewagen">
+      <video data-video="team" muted playsinline loop preload="metadata" aria-hidden="true"></video>
+    </div>
+    <div class="side">
+      <div class="kin" id="kin"><span><b>Feste Tour.</b></span><span><b>Eigenes Werkzeug.</b></span><span><b>Pünktlich Feierabend.</b></span></div>
+      <button class="btn btn--or" data-open="apply" style="align-self:flex-start">In 60 Sekunden bewerben <span class="arrow">→</span></button>
+      <div class="perks">
+        <div><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Unbefristet</div>
+        <div><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Regionales Einsatzgebiet</div>
+        <div><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c1-4 4-6 6-6s5 2 6 6M12 20c.7-3 2.6-6 4-6 2 0 5 2 6 6"/></svg>Starkes Team</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Versprechen + Zitat -->
-<section class="promise" aria-label="Unser Versprechen">
-  <blockquote class="quote">
-    <p class="quote__text">„Wir schaffen Orte, die wieder funktionieren, Wert gewinnen und Menschen ein gutes Gefühl geben.“</p>
-    <footer>Osman Yilmaz · Geschäftsführer</footer>
-  </blockquote>
-  <div class="values">
-    <div class="value"><span>01</span><h3>Alles aus einer Hand</h3><p>Von der Planung bis zur Umsetzung koordinieren wir alle Schritte zuverlässig und übersichtlich.</p></div>
-    <div class="value"><span>02</span><h3>Zuverlässig umgesetzt</h3><p>Wir arbeiten strukturiert, termintreu und mit einem klaren Blick für jedes Detail.</p></div>
-    <div class="value"><span>03</span><h3>Starke Partner</h3><p>Für jedes Projekt setzen wir auf passende Fachbetriebe und eingespielte Partner.</p></div>
-    <div class="value"><span>04</span><h3>Persönlich betreut</h3><p>Ein fester Ansprechpartner begleitet Sie und hält Sie jederzeit auf dem Laufenden.</p></div>
-  </div>
-  <div class="about">
-    <p class="eyebrow">Über uns</p>
-    <p>Die BAU Facility Services GmbH ist Ihr zuverlässiger Partner für Bau-, Umbau-, Sanierungs- und Renovierungsprojekte sowie für die laufende Betreuung von Immobilien. Als zentrale Schnittstelle behalten wir alle wichtigen Abläufe im Blick und stimmen die beteiligten Gewerke sorgfältig aufeinander ab. Für Sie bedeutet das: klare Zuständigkeiten, kurze Kommunikationswege und ein persönlicher Ansprechpartner, der den Überblick behält.</p>
-  </div>
-</section>
-
-<!-- 8 · Karriere -->
-<section class="jobs" id="karriere" aria-label="Karriere">
-  <div class="jobs__media"><img data-src="assets/img/recruit" alt="Junge Handwerkerin auf der Baustelle bei Sonnenaufgang"><video class="jobs__video" muted playsinline loop preload="none"></video></div>
-  <div class="jobs__shade"></div>
-  <div class="jobs__inner">
-    <div class="jobs__words" aria-label="Bau. Technik. Zukunft.">
-      <span>Bau.</span><span>Technik.</span><span>Zukunft.</span>
+<!-- 8 · ABSCHLUSS: Ihr Objekt -->
+<section class="ch" id="objekt" data-step="4">
+  <div class="end">
+    <div class="copy">
+      <p class="eyebrow">Ihr Objekt</p>
+      <h2>Starke Gebäude.<br>Zufriedene Menschen.</h2>
+      <p class="lead">BAU Facility Services: der Unterschied, wenn ein fester Ansprechpartner alle Gewerke für Ihre Immobilie koordiniert.</p>
+      <p class="note">Heute für morgen.</p>
     </div>
-    <p class="jobs__lead">Handwerk, Technik oder Organisation: Wir suchen Leute, die anpacken – und Azubis, die mit uns wachsen wollen.</p>
-    <div class="swipe" aria-live="polite">
-      <p class="swipe__step">Bewerben in 60 Sekunden · <b>Frage <span class="swipe__n">1</span> von 4</b></p>
-      <div class="swipe__card"></div>
-      <div class="swipe__btns"></div>
-      <form class="swipe__form" hidden>
-        <label>Dein Name<input name="name" autocomplete="name" required></label>
-        <label>Telefon<input name="tel" type="tel" autocomplete="tel" required></label>
-        <button class="btn btn--bronze" type="submit">Bewerbung abschicken</button>
-        <p class="swipe__note">Öffnet dein E-Mail-Programm mit deinen Antworten.</p>
-      </form>
+    <div class="handy" aria-label="Ihr Objekt in 3 Fragen">
+      <div class="phone__scr">
+        <div class="phone__top"></div>
+        <ol class="vsteps"><li class="done"><i></i>Gemeldet</li><li class="done"><i></i>Geplant</li><li class="done"><i></i>Vor Ort</li><li class="done"><i></i>Erledigt</li><li class="done"><i></i>Dokumentiert</li></ol>
+        <form class="calc" id="calc">
+          <h3>Ihr Objekt in 3 Fragen</h3>
+          <label class="sr" for="cA">Objektart</label>
+          <select id="cA" class="ph-sel"><option value="wohn">Wohnanlage / WEG</option><option value="gew">Gewerbeimmobilie</option><option value="haus">Ein- oder Zweifamilienhaus</option></select>
+          <label class="sr" for="cB">Größe</label>
+          <select id="cB"><option value="s">bis 10 Einheiten</option><option value="m" selected>11 bis 40 Einheiten</option><option value="l">über 40 Einheiten</option></select>
+          <label class="sr" for="cC">Anliegen</label>
+          <select id="cC"><option value="betreuung">Laufende Betreuung</option><option value="sanierung">Sanierung / Renovierung</option><option value="umbau">Bau & Umbau</option><option value="schaden">Akuter Schaden</option></select>
+          <div class="out" id="cOut" aria-live="polite"></div>
+          <a class="btn btn--or btn--sm" id="cMail" href="#kontakt" style="justify-content:center">Angebot anfragen <span class="arrow">→</span></a>
+        </form>
+      </div>
+    </div>
+    <div class="reviews" aria-label="Kundenstimmen (Beispiele)">
+      <div class="rev"><small>Beispiel · noch keine echte Bewertung</small><p id="revTxt">„Schnell, professionell und zuverlässig. Genau so wünscht man sich das.“</p></div>
+      <p class="note">Hier erscheinen echte Google-Bewertungen, sobald das Unternehmensprofil eingerichtet ist.</p>
     </div>
   </div>
 </section>
 
-<!-- Bewertungen -->
-<section class="reviews" id="bewertungen" aria-label="Bewertungen">
-  <p class="eyebrow">Bewertungen</p>
-  <h2>Was unsere Kunden sagen.</h2>
-  <div class="reviews__status">
-    <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-    <p><b>Google-Bewertungen folgen.</b> Unser Google-Unternehmensprofil ist in Vorbereitung – hier erscheinen bald echte Bewertungen mit Note und Anzahl.</p>
+<!-- KONTAKT -->
+<section class="contact" id="kontakt">
+  <div style="display:grid;gap:18px;align-content:start">
+    <p class="eyebrow" style="color:#e9e0d0">Kontakt</p>
+    <h2>Wir sind für Sie da.</h2>
+    <p class="lead">Ob erste Idee, konkrete Planung oder laufendes Projekt: persönlich, zuverlässig und unkompliziert.</p>
+    <p><a href="tel:+4917623815829">+49 176 23815829</a><br><a href="mailto:info@baufacilityservices.de">info@baufacilityservices.de</a><br>Alter Kirchweg 9, 40880 Ratingen</p>
+    <div class="boss"><div><q>Wir schaffen Orte, die wieder funktionieren, Wert gewinnen und Menschen ein gutes Gefühl geben.</q><b>Osman Yilmaz · Geschäftsführer</b></div></div>
   </div>
-  <div class="reviews__stack">
-    <article class="rcard"><span class="rcard__tag">Beispiel · noch keine echte Bewertung</span><p>„Ein Ansprechpartner für Umbau und Hausmeister – das spart uns als Verwaltung enorm viel Abstimmung.“</p></article>
-    <article class="rcard"><span class="rcard__tag">Beispiel · noch keine echte Bewertung</span><p>„Absprachen wurden eingehalten, die Baustelle war jeden Abend sauber.“</p></article>
-    <article class="rcard"><span class="rcard__tag">Beispiel · noch keine echte Bewertung</span><p>„Schnelle Rückmeldung, klare Termine, saubere Arbeit.“</p></article>
-  </div>
-</section>
-
-<!-- 9 · Kontakt / Baukasten -->
-<section class="start" id="kontakt" aria-label="Projekt starten">
-  <p class="eyebrow">Projekt starten</p>
-  <h2>Was dürfen wir für Sie erledigen?</h2>
-  <div class="picks" role="group" aria-label="Leistung wählen">
-    <button class="pick" type="button" data-pick="umbau" aria-pressed="false"><img data-src="assets/img/tile-umbau" alt=""><span>Bau &amp; Umbau</span></button>
-    <button class="pick" type="button" data-pick="sanierung" aria-pressed="false"><img data-src="assets/img/tile-sanierung" alt=""><span>Sanierung</span></button>
-    <button class="pick" type="button" data-pick="hausmeister" aria-pressed="false"><img data-src="assets/img/tile-hausmeister" alt=""><span>Hausmeister</span></button>
-    <button class="pick" type="button" data-pick="planung" aria-pressed="false"><img data-src="assets/img/tile-planung" alt=""><span>Planung</span></button>
-  </div>
-  <form class="contact" novalidate>
-    <div class="contact__row">
-      <label>Objekt<select name="objekt"><option>Wohnung</option><option>Mehrfamilienhaus</option><option>Einfamilienhaus</option><option>Gewerbeimmobilie</option></select></label>
-      <label>Zeitraum<select name="zeit"><option>So bald wie möglich</option><option>In 1–3 Monaten</option><option>Später / erst informieren</option></select></label>
-    </div>
-    <div class="contact__row">
-      <label>Name<input name="name" autocomplete="name" required></label>
-      <label>Telefon<input name="tel" type="tel" autocomplete="tel"></label>
-    </div>
+  <form class="f" id="contactForm">
+    <label>Name<input name="name" autocomplete="name" required></label>
+    <label>Telefon<input name="tel" type="tel" autocomplete="tel"></label>
     <label>E-Mail<input name="mail" type="email" autocomplete="email" required></label>
-    <label>Nachricht<textarea name="msg" rows="4" placeholder="Worum geht es?"></textarea></label>
-    <button class="btn btn--bronze btn--lg" type="submit">Anfrage senden</button>
-    <p class="contact__note">Öffnet Ihr E-Mail-Programm mit allen Angaben. Mit dem Absenden stimmen Sie der Verarbeitung gemäß <a href="datenschutz.html">Datenschutzerklärung</a> zu.</p>
+    <label>Nachricht<textarea name="msg" id="msg"></textarea></label>
+    <button class="btn btn--or" type="submit" style="justify-self:start">Nachricht senden <span class="arrow">→</span></button>
+    <p class="note" style="color:rgba(255,255,255,.75)">Öffnet Ihr E-Mail-Programm mit der fertigen Nachricht.</p>
   </form>
-  <div class="direct">
-    <a class="direct__item" href="tel:+4917623815829"><small>Anrufen</small>+49 176 23815829</a>
-    <a class="direct__item" href="mailto:info@baufacilityservices.de"><small>E-Mail</small>info@baufacilityservices.de</a>
-    <a class="direct__item" href="https://www.google.com/maps/search/?api=1&query=Alter+Kirchweg+9+40880+Ratingen" target="_blank" rel="noopener"><small>Adresse</small>Alter Kirchweg 9, 40880 Ratingen</a>
-  </div>
 </section>
-
 </main>
 
 <footer class="foot">
   <img src="assets/logo-w.svg" alt="BAU Facility Services" width="200" height="72">
-  <p>Alles für Ihre Immobilie – aus einer Hand.</p>
-  <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  <nav aria-label="Seiten"><a href="leistungen.html">Leistungen</a><a href="karriere.html">Karriere</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
   <small>© 2026 BAU Facility Services GmbH i. G. · Ratingen</small>
 </footer>
 
-<div class="mbar" aria-label="Schnellkontakt"><a href="tel:+4917623815829">Anrufen</a><a href="#kontakt">Anfragen</a></div>
+<div class="modal" id="apply" hidden role="dialog" aria-modal="true" aria-labelledby="apT">
+  <div class="modal__box">
+    <button class="modal__x" data-close aria-label="Schließen">×</button>
+    <div class="row" style="justify-content:space-between"><h3 id="apT" style="font:700 22px var(--f-d)">Bewerben in 60 Sekunden</h3><span class="timer" id="timer">60</span></div>
+    <div class="steps"><i class="on"></i><i></i><i></i></div>
+    <form class="f" id="applyForm">
+      <fieldset data-st="0" style="border:0;display:grid;gap:12px"><label>Was machst du?<select name="job"><option>Haustechnik / Installation</option><option>Hausmeister-Service</option><option>Maler / Trockenbau</option><option>Ausbildung</option><option>Quereinstieg</option></select></label><button type="button" class="btn btn--or" data-next>Weiter →</button></fieldset>
+      <fieldset data-st="1" hidden style="border:0;display:grid;gap:12px"><label>Führerschein Klasse B?<select name="fs"><option>Ja</option><option>Nein</option><option>Mache ich gerade</option></select></label><label>Ab wann?<select name="ab"><option>Sofort</option><option>In 1 Monat</option><option>In 3 Monaten</option></select></label><button type="button" class="btn btn--or" data-next>Weiter →</button></fieldset>
+      <fieldset data-st="2" hidden style="border:0;display:grid;gap:12px"><label>Name<input name="n" required autocomplete="name"></label><label>Telefon<input name="t" type="tel" required autocomplete="tel"></label><button class="btn btn--or" type="submit">Bewerbung abschicken →</button><p class="note">Öffnet Ihr E-Mail-Programm, kein Lebenslauf nötig.</p></fieldset>
+    </form>
+  </div>
+</div>
 
 <script src="assets/js/gsap.min.js"></script>
 <script src="assets/js/ScrollTrigger.min.js"></script>
 <script src="assets/js/lenis.min.js"></script>
-<script src="assets/manifest.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
