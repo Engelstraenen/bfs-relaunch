@@ -3,271 +3,204 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>BAU Facility Services · Ein Hinweis genügt. Wir übernehmen.</title>
-<meta name="description" content="BAU Facility Services GmbH, Ratingen: Planung, Koordination, Bau & Umbau, Sanierung und Hausmeister-Leistungen aus einer Hand. Vom Schaden-Hinweis bis zum Foto-Bericht.">
-<meta name="theme-color" content="#e9e0d0">
+<title>BAU Facility Services · Alles für Ihre Immobilie – aus einer Hand</title>
+<meta name="description" content="BAU Facility Services GmbH, Ratingen: Planung & Organisation, Koordination & Durchführung, Bau & Umbau, Sanierung & Renovierung und Hausmeister-Leistungen. Ein Ansprechpartner für das ganze Haus.">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="assets/logo.svg">
 <link rel="preload" href="assets/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script src="assets/manifest.js"></script>
 </head>
 <body>
-<a class="sr" href="#gemeldet">Zum Inhalt</a>
+<a class="sr" href="#start">Zum Inhalt</a>
 <header class="nav">
-  <a class="nav__logo" href="#gemeldet" aria-label="BAU Facility Services – Start"><img src="assets/logo.svg" alt="BAU Facility Services" width="170" height="61"></a>
-  <ol class="status" aria-label="Ticket-Status und Navigation">
-    <li><a href="#gemeldet" data-s="0"><i></i><span>Gemeldet</span></a></li>
-    <li><a href="#geplant" data-s="1"><i></i><span>Geplant</span></a></li>
-    <li><a href="#vor-ort" data-s="2"><i></i><span>Vor Ort</span></a></li>
-    <li><a href="#erledigt" data-s="3"><i></i><span>Erledigt</span></a></li>
-    <li><a href="#dokumentiert" data-s="4"><i></i><span>Dokumentiert</span></a></li>
-  </ol>
-  <div class="ticketchip" aria-live="polite"><b id="tNo">#10427</b><span id="tTitle">Wasserfleck · 2. OG</span></div>
+  <a class="nav__logo" href="#start" aria-label="BAU Facility Services – Start"><img src="assets/logo.svg" alt="BAU Facility Services" width="170" height="61"></a>
+  <ul class="nav__links">
+    <li><a href="#haus">Leistungen</a></li>
+    <li><a href="#koordination">Ansprechpartner</a></li>
+    <li><a href="#werte">Über uns</a></li>
+    <li><a href="#team">Karriere</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <span class="nav__loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Ratingen</span>
+  <a class="btn btn--or btn--sm" href="#kontakt">Anfrage</a>
   <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span></button>
 </header>
 <div class="progress" aria-hidden="true"></div>
 <nav class="menu" id="menu" hidden aria-label="Menü">
-  <a href="#gemeldet">1 · Gemeldet</a><a href="#geplant">2 · Geplant</a><a href="#vor-ort">3 · Vor Ort</a><a href="#erledigt">4 · Erledigt</a><a href="#dokumentiert">5 · Dokumentiert</a>
-  <a href="#karriere">Karriere</a><a href="#kontakt">Kontakt</a><a href="leistungen.html">Alle Leistungen</a>
+  <a href="#haus">Das ganze Haus</a><a href="#keller">Hausmeister-Leistungen</a><a href="#eg">Bau & Umbau</a><a href="#og">Sanierung & Renovierung</a><a href="#dach">Planung & Organisation</a><a href="#koordination">Koordination & Durchführung</a><a href="#team">Karriere</a><a href="#kontakt">Kontakt</a>
 </nav>
 
 <main>
-<!-- 1 · GEMELDET -->
-<section class="ch" id="gemeldet" data-step="0">
-  <div class="stage">
-    <div class="copy">
-      <p class="eyebrow">BAU Facility Services · Ratingen</p>
-      <h1>Ein Hinweis genügt.<br>Wir übernehmen.</h1>
-      <p class="lead">Planung, Bau, Sanierung und Hausmeister-Leistungen aus einer Hand. Für Werterhalt, heute und morgen.</p>
-      <div class="row keep"><a class="btn btn--or" href="#melden" id="toPhone">Schaden melden <span class="arrow">→</span></a><a class="btn btn--ghost" href="meldung.html">Für Hausverwaltungen</a></div>
-      <p class="scrollhint"><i></i>Scrollen: Folgen Sie dem Ticket durchs Haus</p>
+<!-- 1 · HERO -->
+<section class="hero" id="start">
+  <div class="hero__copy">
+    <p class="eyebrow">BAU Facility Services · Ratingen</p>
+    <h1>Alles für Ihre Immobilie – aus einer Hand.</h1>
+    <p class="lead">Von der Renovierung über den Umbau bis zum Hausmeisterservice: Wir sorgen dafür, dass Gebäude funktionieren, gepflegt bleiben und wieder Orte werden, an denen man sich wohlfühlt.</p>
+    <div class="row"><a class="btn btn--or" href="#haus">Das ganze Haus ansehen <span class="arrow">↓</span></a><a class="btn btn--ghost" href="#kontakt">Anfrage stellen</a></div>
+    <p class="scrollhint"><i></i>Scrollen: einmal durchs ganze Haus</p>
+  </div>
+  <div class="hero__media">
+    <img data-img="m4-vorort" alt="Servicewagen von BAU Facility Services vor dem Haus Nr. 12, ein Techniker geht zur Tür" fetchpriority="high">
+    <video data-video="vorort" muted playsinline preload="auto" aria-hidden="true"></video>
+  </div>
+</section>
+
+<!-- 2–7 · DAS GANZE HAUS -->
+<section class="haus" id="haus">
+  <div class="stage" id="stage">
+    <div class="haus__intro" id="intro">
+      <p class="eyebrow">Das ganze Haus</p>
+      <h2>Ihre Immobilie in besten Händen. Auf allen Ebenen.</h2>
+      <p class="lead">Vom Keller bis zum Dach, von der Außenanlage bis zur Haustechnik: Wir denken Ihre Immobilie ganzheitlich. Tippen Sie eine Etage an.</p>
     </div>
-    <div class="media" id="m1">
-      <img data-img="m1b-hand" data-fallback="m1a-vorher" alt="Treppenhaus mit Wasserfleck an der Decke, eine Hand hält ein Handy vor das QR-Schild „Schaden melden“" fetchpriority="high">
-      <button class="scr" id="scr" aria-label="Demo öffnen: Schaden melden"><span class="scr__b">BFS</span><span class="scr__h">Schaden<br>melden</span><span class="scr__go">Melden →</span></button>
-      <p class="hint" id="hint">Tippen Sie aufs Handy: So meldet ein Mieter den Schaden.</p>
-      <div class="phone" id="phone" hidden>
-        <button class="phone__x" id="phoneX" aria-label="Schließen">×</button>
-        <div class="phone__scr" id="melden">
-          <div class="phone__top"></div>
-          <form class="ph" id="phForm" aria-label="Demo: Schaden melden">
-            <small>Wohnanlage · Berliner Str. 12 · Ratingen</small>
-            <h3>Schaden melden</h3>
-            <div class="chips" role="radiogroup" aria-label="Art des Schadens">
-              <button type="button" class="chip on" data-k="Wasserfleck" role="radio" aria-checked="true">Wasser</button>
-              <button type="button" class="chip" data-k="Licht defekt" role="radio" aria-checked="false">Licht</button>
-              <button type="button" class="chip" data-k="Heizung kalt" role="radio" aria-checked="false">Heizung</button>
-              <button type="button" class="chip" data-k="Tür klemmt" role="radio" aria-checked="false">Tür</button>
-            </div>
-            <label for="phFloor">Wo?</label>
-            <select id="phFloor"><option>EG</option><option>1. OG</option><option selected>2. OG</option><option>3. OG</option><option>Keller</option><option>Außenanlage</option></select>
-            <button class="btn btn--or btn--sm" type="submit">Hinweis senden <span class="arrow">→</span></button>
-          </form>
-          <div class="ph ph__done" id="phDone" hidden>
-            <small>Danke! Ihr Ticket</small><b id="phNo">#10427</b>
-            <p>Status: <strong>Gemeldet</strong>. Scrollen Sie weiter, um zu sehen, was jetzt passiert.</p>
-            <small>Demo · es wird nichts gesendet</small>
-          </div>
+    <div class="house" id="house">
+      <img class="cut" data-img="s1-schnitt" alt="Schnitt durch das ganze Haus: Keller, Erdgeschoss, 1. Obergeschoss und Dach">
+      <img class="facade" data-img="s2-fassade" alt="Fassade des Hauses">
+      <div class="hl" id="hl"></div>
+      <div class="labels" id="labels">
+        <a class="lab" href="#dach" data-f="dach"><i></i><b>Dach · Planung</b></a>
+        <a class="lab" href="#og" data-f="og"><i></i><b>1. OG · Sanierung</b></a>
+        <a class="lab" href="#eg" data-f="eg"><i></i><b>Erdgeschoss · Umbau</b></a>
+        <a class="lab" href="#keller" data-f="keller"><i></i><b>Keller · Hausmeister</b></a>
+        <a class="lab" href="#team" data-f="aussen"><i></i><b>Außen · Pflege</b></a>
+      </div>
+    </div>
+
+    <!-- 3 Keller -->
+    <article class="panel" id="p-keller" aria-labelledby="t-keller">
+      <div class="panel__media"><span class="floorTag">Keller</span><img data-img="k1-keller" alt="Techniker prüft die Heizungsanlage im Keller"></div>
+      <div class="panel__copy">
+        <p class="crumb">Leistungen › <b>Hausmeister-Leistungen</b></p>
+        <h2 id="t-keller">Hausmeister-Leistungen</h2>
+        <p class="lead">Damit im Hintergrund alles reibungslos läuft: Wir kümmern uns um die laufende Betreuung Ihrer Immobilie, drinnen wie draußen.</p>
+        <ul class="ticks"><li>Kontrollgänge und Haustechnik</li><li>Kleinreparaturen und Instandhaltung</li><li>Treppenhaus, Außenanlagen, Grünpflege</li><li>Winterdienst</li></ul>
+        <a class="more" href="hausmeister.html">Mehr zu Hausmeister-Leistungen <span class="arrow">→</span></a>
+      </div>
+    </article>
+
+    <!-- 4 Erdgeschoss -->
+    <article class="panel" id="p-eg" aria-labelledby="t-eg">
+      <div class="panel__media">
+        <div class="wipe" id="wipe" role="slider" tabindex="0" aria-label="Vorher-Nachher-Vergleich Umbau" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <img data-img="e1-eg-vorher" alt="Vorher: alter Büroraum">
+          <img class="after" data-img="e2-eg-nachher" alt="Nachher: heller, offener Wohnraum">
+          <span class="tag tag--l">Vorher</span><span class="tag tag--r">Nachher</span>
+          <div class="wipe__line"></div><div class="wipe__knob" aria-hidden="true">‹ ›</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- 2 · Übergang: Handy wird Ticket, Ticket landet auf der Tafel -->
-<section class="ch" id="geplant" data-step="1">
-  <div class="stage">
-    <div class="copy">
-      <p class="eyebrow">Schritt 2 · Geplant</p>
-      <h2 id="h2a">Aus Ihrem Hinweis wird ein Auftrag.</h2>
-      <p class="lead" id="l2a">Wir planen. Effizient. Transparent. Verlässlich. Ein fester Ansprechpartner behält alles im Blick.</p>
-      <a class="more" href="meldung.html">So läuft eine Meldung ab →</a>
-    </div>
-    <div class="media" id="m2">
-      <div class="board" id="board" aria-label="Planungstafel">
-        <div class="col"><h4>Offen</h4><div class="mini">Aufzugbeleuchtung<small>EG · #10419</small></div><div class="mini">Malerarbeiten<small>3. OG · #10420</small></div></div>
-        <div class="col"><h4>Geplant</h4><div class="slot" id="slot">Ihr Ticket</div><div class="mini">Heizungsprüfung<small>Keller · #10418</small></div></div>
-        <div class="col"><h4>In Bearbeitung</h4><div class="mini">Türschließer<small>1. OG · #10416</small></div><div class="mini">Grünpflege<small>Außen · #10412</small></div></div>
+      <div class="panel__copy">
+        <p class="crumb">Leistungen › <b>Bau & Umbau</b></p>
+        <h2 id="t-eg">Bau & Umbau</h2>
+        <p class="lead">Aus Räumen Chancen machen. Ob neue Raumaufteilung, Modernisierung oder umfangreicher Umbau: fachgerecht und zuverlässig umgesetzt.</p>
+        <ul class="ticks"><li>Neue Raumaufteilung, Wände versetzen</li><li>Modernisierung von Wohnungen und Büros</li><li>Trockenbau, Böden, Türen</li></ul>
+        <a class="more" href="bau-umbau.html">Mehr zu Bau & Umbau <span class="arrow">→</span></a>
       </div>
-      <div class="layer" id="m3" style="opacity:0"><img data-img="m3-planung" alt="Koordinatorin vor der Planungstafel mit Sanitär, Elektro und Maler"></div>
-      <aside class="datacard" id="data" style="opacity:0" aria-label="Daten zu Leitungswasserschäden">
-        <h4>Warum schnell handeln?</h4>
-        <div class="big"><span data-count="4600" data-prefix="über " data-suffix=" €">0 €</span><small>kostet ein Leitungswasserschaden im Schnitt, 7,5 % mehr als im Vorjahr</small></div>
-        <div class="bars">
-          <div class="bar"><b>2024</b><span><i data-w="96"></i></span><em>1,13 Mio.</em></div>
-          <div class="bar hot"><b>2025</b><span><i data-w="91"></i></span><em>1,07 Mio.</em></div>
-        </div>
-        <p class="note" style="color:rgba(255,255,255,.85);margin-top:10px">gemeldete Leitungswasserschäden pro Jahr, also rund 2 pro Minute. Über 20 Jahre betrachtet macht Leitungswasser rund die Hälfte des Schadenaufwands in der Wohngebäudeversicherung aus.</p>
-        <span class="src">Quelle: GDV, Mitteilung November 2026 (Wohngebäudeversicherung)</span>
-      </aside>
-      <aside class="gantt" id="gantt" style="opacity:0" aria-label="Einsatzplan für das Ticket">
-        <h5>Einsatzplan <span id="gNo">#10427</span></h5>
-        <div class="g hot"><span>Sanitär</span><div><i style="left:8%;width:0" data-w="30"></i></div></div>
-        <div class="g"><span>Trocknung</span><div><i style="left:38%;width:0" data-w="24"></i></div></div>
-        <div class="g"><span>Maler</span><div><i style="left:62%;width:0" data-w="30"></i></div></div>
-      </aside>
-    </div>
-  </div>
-</section>
+    </article>
 
-<!-- 3 · VOR ORT -->
-<section class="ch" id="vor-ort" data-step="2">
-  <div class="stage">
-    <div class="copy">
-      <p class="eyebrow">Schritt 3 · Vor Ort</p>
-      <h2>Wir kommen.<br>Wie vereinbart.</h2>
-      <p class="lead">Fachgerecht, freundlich, in Ihrer Nähe. Wir koordinieren alle Gewerke und kommen zum vereinbarten Termin.</p>
-      <a class="more" href="leistungen.html">Unsere Leistungen →</a>
-    </div>
-    <div class="media" id="m4">
-      <img data-img="m4-vorort" alt="Servicewagen von BAU Facility Services vor Hausnummer 12, ein Techniker geht mit Werkzeugkoffer zur Tür">
-      <video data-video="vorort" muted playsinline preload="auto" aria-hidden="true"></video>
-    </div>
-  </div>
-</section>
-
-<!-- 4 · ARBEIT -->
-<section class="ch" id="arbeit" data-step="2">
-  <div class="stage">
-    <div class="copy">
-      <p class="eyebrow">Schritt 3 · Arbeit</p>
-      <h2>Wir lösen<br>das Problem.</h2>
-      <p class="lead">Mit Erfahrung. Mit Sorgfalt. Mit Blick fürs Ganze: Leitung reparieren, trocknen, spachteln, streichen.</p>
-      <a class="more" href="leistungen.html#sanierung">Sanierung & Renovierung →</a>
-    </div>
-    <div class="media" id="m5">
-      <img data-img="m5-arbeit" alt="Installateur repariert eine Kupferleitung an der offenen Decke, dahinter streicht eine Malerin">
-      <video data-video="reparatur" muted playsinline preload="auto" aria-hidden="true"></video>
-      <div class="scrub" aria-hidden="true"><span data-p="0" class="on">Vorher</span><em></em><span data-p="1">Arbeit</span><em></em><span data-p="2">Ergebnis</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 5 · ERLEDIGT -->
-<section class="ch" id="erledigt" data-step="3">
-  <div class="stage">
-    <div class="copy">
-      <p class="eyebrow">Schritt 4 · Erledigt</p>
-      <h2>Sauber<br>abgeschlossen.</h2>
-      <p class="lead">Der Schaden ist behoben, und Ihr Alltag läuft weiter. Ziehen Sie den Regler und vergleichen Sie selbst.</p>
-    </div>
-    <div class="media" id="m6">
-      <div class="wipe" id="wipe" role="slider" tabindex="0" aria-label="Vorher-Nachher-Vergleich" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-        <img class="before" data-img="m1a-vorher" alt="Vorher: Wasserfleck an der Decke" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-        <img class="after" data-img="m6-nachher" alt="Nachher: Decke repariert und frisch gestrichen" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-        <span class="tag tag--l">Vorher</span><span class="tag tag--r">Nachher</span>
-        <div class="wipe__line"></div><div class="wipe__knob" aria-hidden="true">‹ ›</div>
+    <!-- 5 1. OG -->
+    <article class="panel" id="p-og" aria-labelledby="t-og">
+      <div class="panel__media"><span class="floorTag">1. OG</span>
+        <div class="steps3" id="steps3"><img class="on" data-img="o1-bad-vorher" alt="Vorher: altes Bad"><img data-img="o2-bad-arbeit" alt="Arbeit: Fliesenleger verlegt neue Fliesen"><img data-img="o3-bad-ergebnis" alt="Ergebnis: neues Bad"></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- 6 · DOKUMENTIERT -->
-<section class="ch" id="dokumentiert" data-step="4">
-  <div class="stage">
-    <div class="copy">
-      <p class="eyebrow">Schritt 5 · Dokumentiert</p>
-      <h2>Alles transparent dokumentiert.</h2>
-      <p class="lead">Mit Fotos, mit Zeitstempeln, mit digitaler Unterschrift. Ihre Hausverwaltung sieht jeden Schritt, ohne nachzufragen.</p>
-      <a class="more" href="dokumentation.html">Muster-Bericht ansehen →</a>
-      <p class="note">Vertrauen schafft bleibende Werte.</p>
-    </div>
-    <div class="media" id="m7">
-      <img data-img="m7-tablet" alt="Hand hält ein Tablet mit dem Foto-Bericht">
-      <article class="report" id="report" aria-label="Foto-Bericht zum Ticket">
-        <header><div><h4><span class="rNo">Auftrag #10427</span></h4><p class="addr"><span class="rTitle">Wasserfleck · 2. OG</span> · Berliner Str. 12, Ratingen</p></div><span class="stamp" id="stamp">Erledigt · 1 Tag</span></header>
-        <div class="shots">
-          <figure><img data-img="m1a-vorher" alt="Vorher"><figcaption>Vorher<small id="tA">Mo 08:14</small></figcaption></figure>
-          <figure><img data-img="m6-nachher" alt="Nachher"><figcaption>Nachher<small id="tB">Di 10:27</small></figcaption></figure>
-        </div>
-        <div class="sig"><div>Abnahme<small>digital unterschrieben</small></div><div><svg viewBox="0 0 160 40" width="100%" height="34" aria-hidden="true"><path id="sigp" d="M4 30 C14 6 22 6 24 26 S36 34 42 14 52 8 56 28 64 30 72 12 84 10 86 26 98 30 110 16 122 14 126 28 140 24 156 18"/></svg><small>Hausverwaltung</small></div></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- 7 · KARRIERE -->
-<section class="ch" id="karriere" data-step="4">
-  <div class="stage stage--three">
-    <div class="copy">
-      <p class="eyebrow">Neues Ticket · #10428</p>
-      <h2>Neuer Auftrag:<br>Dich einstellen.</h2>
-      <p class="lead">Echte Perspektiven in einem starken Team. Haustechnik, Hausmeister-Service, Bau und Sanierung in Ratingen und Umgebung.</p>
-      <div class="row keep"><button class="btn btn--or" data-open="apply">In 60 Sekunden bewerben <span class="arrow">→</span></button></div>
-      <a class="more" href="karriere.html">Alle Infos zur Karriere →</a>
-    </div>
-    <div class="media" id="m8">
-      <img data-img="m8-team" alt="Technikerin von BAU Facility Services vor dem Servicewagen">
-      <video data-video="team" muted playsinline loop preload="metadata" aria-hidden="true"></video>
-    </div>
-    <div class="side">
-      <div class="kin" id="kin"><span><b>Feste Tour.</b></span><span><b>Eigenes Werkzeug.</b></span><span><b>Pünktlich Feierabend.</b></span></div>
-      <button class="btn btn--or" data-open="apply" style="align-self:flex-start">In 60 Sekunden bewerben <span class="arrow">→</span></button>
-      <div class="perks">
-        <div><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Unbefristet</div>
-        <div><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Regionales Einsatzgebiet</div>
-        <div><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c1-4 4-6 6-6s5 2 6 6M12 20c.7-3 2.6-6 4-6 2 0 5 2 6 6"/></svg>Starkes Team</div>
+      <div class="panel__copy">
+        <p class="crumb">Leistungen › <b>Sanierung & Renovierung</b></p>
+        <h2 id="t-og">Sanierung & Renovierung</h2>
+        <p class="lead">Für Immobilien mit Zukunft: Wir bringen Räume wieder in Bestform, modern und funktional, damit sie langfristig ihren Wert behalten.</p>
+        <div class="prog" id="prog"><i></i><button data-s="0" class="on">Vorher</button><button data-s="1">Arbeit</button><button data-s="2">Ergebnis</button></div>
+        <a class="more" href="sanierung.html">Mehr zu Sanierung & Renovierung <span class="arrow">→</span></a>
       </div>
+    </article>
+
+    <!-- 6 Dach -->
+    <article class="panel" id="p-dach" aria-labelledby="t-dach">
+      <div class="panel__media"><span class="floorTag">Dach</span><img data-img="d1-dach" alt="Planer mit Grundrissen im Dachbüro"></div>
+      <div class="panel__copy">
+        <p class="crumb">Leistungen › <b>Planung & Organisation</b></p>
+        <h2 id="t-dach">Planung & Organisation</h2>
+        <p class="lead">Strukturiert. Wirtschaftlich. Verlässlich. Wir planen Ihr Projekt von Anfang an mit klaren Abläufen und festen Terminen.</p>
+        <ol class="phases"><li><span>1</span><div><b>Analyse</b><p>Bestand erfassen, Bedarf klären.</p></div></li><li><span>2</span><div><b>Konzeption</b><p>Lösung entwickeln, Kosten und Termine planen.</p></div></li><li><span>3</span><div><b>Umsetzung</b><p>Gewerke koordinieren, Qualität sichern.</p></div></li><li><span>4</span><div><b>Übergabe</b><p>Abnahme, danach laufende Betreuung.</p></div></li></ol>
+        <a class="more" href="planung.html">Mehr zu Planung & Organisation <span class="arrow">→</span></a>
+      </div>
+    </article>
+
+    <!-- 7 Koordination -->
+    <div class="coord" id="coord"><svg id="coordSvg" aria-hidden="true"></svg></div>
+    <div class="coord-copy" id="coordCopy">
+      <p class="eyebrow">Koordination & Durchführung</p>
+      <h2>Ein Ansprechpartner. Alle Gewerke.</h2>
+      <p class="lead">Wir bündeln die notwendigen Arbeiten, koordinieren alle beteiligten Gewerke und behalten den gesamten Ablauf für Sie im Blick.</p>
+      <a class="more" href="koordination.html">Mehr zur Koordination <span class="arrow">→</span></a>
+    </div>
+    <div class="contact-card" id="contactCard">
+      <img data-img="a1-ansprechpartner" alt="Ihr fester Ansprechpartner bei BAU Facility Services (Symbolbild)">
+      <h3>Ihr Projekt in besten Händen.</h3>
+      <p>Persönlich. Erfahren. Verlässlich.</p>
     </div>
   </div>
 </section>
+<span id="keller" class="sr"></span><span id="eg" class="sr"></span><span id="og" class="sr"></span><span id="dach" class="sr"></span><span id="koordination" class="sr"></span>
 
-<!-- 8 · ABSCHLUSS: Ihr Objekt -->
-<section class="ch" id="objekt" data-step="4">
-  <div class="end">
-    <div class="copy">
-      <p class="eyebrow">Ihr Objekt</p>
-      <h2>Starke Gebäude.<br>Zufriedene Menschen.</h2>
-      <p class="lead">BAU Facility Services: der Unterschied, wenn ein fester Ansprechpartner alle Gewerke für Ihre Immobilie koordiniert.</p>
-      <p class="note">Heute für morgen.</p>
-    </div>
-    <div class="handy" aria-label="Ihr Objekt in 3 Fragen">
-      <div class="phone__scr">
-        <div class="phone__top"></div>
-        <ol class="vsteps"><li class="done"><i></i>Gemeldet</li><li class="done"><i></i>Geplant</li><li class="done"><i></i>Vor Ort</li><li class="done"><i></i>Erledigt</li><li class="done"><i></i>Dokumentiert</li></ol>
-        <form class="calc" id="calc">
-          <h3>Ihr Objekt in 3 Fragen</h3>
-          <label class="sr" for="cA">Objektart</label>
-          <select id="cA" class="ph-sel"><option value="wohn">Wohnanlage / WEG</option><option value="gew">Gewerbeimmobilie</option><option value="haus">Ein- oder Zweifamilienhaus</option></select>
-          <label class="sr" for="cB">Größe</label>
-          <select id="cB"><option value="s">bis 10 Einheiten</option><option value="m" selected>11 bis 40 Einheiten</option><option value="l">über 40 Einheiten</option></select>
-          <label class="sr" for="cC">Anliegen</label>
-          <select id="cC"><option value="betreuung">Laufende Betreuung</option><option value="sanierung">Sanierung / Renovierung</option><option value="umbau">Bau & Umbau</option><option value="schaden">Akuter Schaden</option></select>
-          <div class="out" id="cOut" aria-live="polite"></div>
-          <a class="btn btn--or btn--sm" id="cMail" href="#kontakt" style="justify-content:center">Angebot anfragen <span class="arrow">→</span></a>
-        </form>
-      </div>
-    </div>
-    <div class="reviews" aria-label="Kundenstimmen (Beispiele)">
-      <div class="rev"><small>Beispiel · noch keine echte Bewertung</small><p id="revTxt">„Schnell, professionell und zuverlässig. Genau so wünscht man sich das.“</p></div>
-      <p class="note">Hier erscheinen echte Google-Bewertungen, sobald das Unternehmensprofil eingerichtet ist.</p>
-    </div>
+<!-- 8 · AUSSEN / TEAM -->
+<section class="team" id="team">
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <p class="eyebrow">Außen · Team · Karriere</p>
+    <div class="kin" id="kin"><span><b>Feste Crew.</b></span><span><b>Dienstwagen.</b></span><span><b>Pünktlich Feierabend.</b></span></div>
+    <p class="lead">Ein starkes Team für gepflegte Immobilien in Ratingen und Umgebung. Haustechnik, Hausmeister-Service, Bau und Sanierung.</p>
+    <div class="perks"><span>Unbefristet</span><span>Regionales Einsatzgebiet</span><span>Fester Ansprechpartner</span></div>
+    <div class="row"><button class="btn btn--or" data-open="apply">In 60 Sekunden bewerben <span class="arrow">→</span></button><a class="more" href="karriere.html">Alle Infos zur Karriere <span class="arrow">→</span></a></div>
+  </div>
+  <div class="team__media"><img data-img="t1-team" alt="Team von BAU Facility Services bei der Pflege des Außenbereichs"></div>
+</section>
+
+<!-- 9 · WERTE, ÜBER UNS, STIMMEN -->
+<section class="werte" id="werte">
+  <p class="eyebrow">Unser Versprechen</p>
+  <h2>Wir sind für Sie da.</h2>
+  <div class="werte__grid">
+    <article class="wert"><svg viewBox="0 0 48 48"><path d="M8 22 24 9l16 13v17H8z"/><path d="M19 39V28h10v11"/></svg><h3>Alles aus einer Hand</h3><p>Von der Planung bis zur Umsetzung koordinieren wir alle Schritte zuverlässig und übersichtlich.</p></article>
+    <article class="wert"><svg viewBox="0 0 48 48"><path d="M24 6 9 12v11c0 9 6.5 16 15 19 8.5-3 15-10 15-19V12z"/><path d="m17 24 5 5 9-10"/></svg><h3>Zuverlässig umgesetzt</h3><p>Strukturiert, termintreu und mit einem klaren Blick für jedes Detail.</p></article>
+    <article class="wert"><svg viewBox="0 0 48 48"><circle cx="16" cy="16" r="6"/><circle cx="32" cy="16" r="6"/><path d="M4 38c1.5-7 6.5-11 12-11s10.5 4 12 11M24 38c1.5-7 4-11 8-11 5.5 0 10.5 4 12 11"/></svg><h3>Starke Partner</h3><p>Für jedes Projekt passende Fachbetriebe und eingespielte Partner.</p></article>
+    <article class="wert"><svg viewBox="0 0 48 48"><path d="M24 41s-15-8.6-15-20a8 8 0 0 1 15-4 8 8 0 0 1 15 4c0 11.4-15 20-15 20z"/></svg><h3>Persönlich betreut</h3><p>Ein fester Ansprechpartner begleitet Sie und hält Sie jederzeit auf dem Laufenden.</p></article>
+  </div>
+</section>
+<section class="about" aria-label="Über uns">
+  <div class="quote">
+    <q>Wir schaffen Orte, die wieder funktionieren, Wert gewinnen und Menschen ein gutes Gefühl geben.</q>
+    <b>Osman Yilmaz<span>Geschäftsführer, BAU Facility Services GmbH</span></b>
+    <p class="note">Als zentrale Schnittstelle stimmen wir alle Gewerke aufeinander ab und arbeiten mit ausgewählten Fachbetrieben zusammen. Für Sie heißt das: klare Zuständigkeiten, kurze Wege und ein Ansprechpartner, der den Überblick behält.</p>
+  </div>
+  <div class="revs" aria-label="Kundenstimmen (Beispiele)">
+    <p class="eyebrow">Kundenstimmen</p>
+    <div class="rev"><small>Beispiel · noch keine echte Bewertung</small><p id="revTxt">„Ein Ansprechpartner für das ganze Haus. Genau so haben wir uns das gewünscht.“</p></div>
+    <p class="note">Hier erscheinen echte Google-Bewertungen, sobald das Unternehmensprofil eingerichtet ist.</p>
   </div>
 </section>
 
 <!-- KONTAKT -->
 <section class="contact" id="kontakt">
-  <div style="display:grid;gap:18px;align-content:start">
-    <p class="eyebrow" style="color:#e9e0d0">Kontakt</p>
-    <h2>Wir sind für Sie da.</h2>
-    <p class="lead">Ob erste Idee, konkrete Planung oder laufendes Projekt: persönlich, zuverlässig und unkompliziert.</p>
-    <p><a href="tel:+4917623815829">+49 176 23815829</a><br><a href="mailto:info@baufacilityservices.de">info@baufacilityservices.de</a><br>Alter Kirchweg 9, 40880 Ratingen</p>
-    <div class="boss"><div><q>Wir schaffen Orte, die wieder funktionieren, Wert gewinnen und Menschen ein gutes Gefühl geben.</q><b>Osman Yilmaz · Geschäftsführer</b></div></div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <p class="eyebrow">Kontakt</p>
+    <h2>Jetzt unverbindlich anfragen.</h2>
+    <p class="lead">Ob erste Idee, konkrete Planung oder laufendes Projekt: Sprechen Sie uns an. Persönlich, zuverlässig und unkompliziert.</p>
+    <p style="font-size:18px;line-height:1.7"><a href="tel:+4917623815829">+49 176 23815829</a><br><a href="mailto:info@baufacilityservices.de">info@baufacilityservices.de</a><br>Alter Kirchweg 9, 40880 Ratingen</p>
   </div>
   <form class="f" id="contactForm">
     <label>Name<input name="name" autocomplete="name" required></label>
     <label>Telefon<input name="tel" type="tel" autocomplete="tel"></label>
     <label>E-Mail<input name="mail" type="email" autocomplete="email" required></label>
-    <label>Nachricht<textarea name="msg" id="msg"></textarea></label>
-    <button class="btn btn--or" type="submit" style="justify-self:start">Nachricht senden <span class="arrow">→</span></button>
-    <p class="note" style="color:rgba(255,255,255,.75)">Öffnet Ihr E-Mail-Programm mit der fertigen Nachricht.</p>
+    <label>Worum geht es?<select name="topic"><option>Hausmeister-Leistungen</option><option>Bau & Umbau</option><option>Sanierung & Renovierung</option><option>Planung & Organisation</option><option>Koordination & Durchführung</option></select></label>
+    <label>Nachricht<textarea name="msg"></textarea></label>
+    <button class="btn btn--or" type="submit" style="justify-self:start">Anfrage senden <span class="arrow">→</span></button>
+    <p class="note">Öffnet Ihr E-Mail-Programm mit der fertigen Nachricht.</p>
   </form>
 </section>
 </main>
 
 <footer class="foot">
   <img src="assets/logo-w.svg" alt="BAU Facility Services" width="200" height="72">
-  <nav aria-label="Seiten"><a href="leistungen.html">Leistungen</a><a href="karriere.html">Karriere</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  <nav aria-label="Seiten"><a href="hausmeister.html">Hausmeister</a><a href="bau-umbau.html">Bau & Umbau</a><a href="sanierung.html">Sanierung</a><a href="planung.html">Planung</a><a href="koordination.html">Koordination</a><a href="karriere.html">Karriere</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
   <small>© 2026 BAU Facility Services GmbH i. G. · Ratingen</small>
 </footer>
 
@@ -275,7 +208,7 @@
   <div class="modal__box">
     <button class="modal__x" data-close aria-label="Schließen">×</button>
     <div class="row" style="justify-content:space-between"><h3 id="apT" style="font:700 22px var(--f-d)">Bewerben in 60 Sekunden</h3><span class="timer" id="timer">60</span></div>
-    <div class="steps"><i class="on"></i><i></i><i></i></div>
+    <div class="stepbar"><i class="on"></i><i></i><i></i></div>
     <form class="f" id="applyForm">
       <fieldset data-st="0" style="border:0;display:grid;gap:12px"><label>Was machst du?<select name="job"><option>Haustechnik / Installation</option><option>Hausmeister-Service</option><option>Maler / Trockenbau</option><option>Ausbildung</option><option>Quereinstieg</option></select></label><button type="button" class="btn btn--or" data-next>Weiter →</button></fieldset>
       <fieldset data-st="1" hidden style="border:0;display:grid;gap:12px"><label>Führerschein Klasse B?<select name="fs"><option>Ja</option><option>Nein</option><option>Mache ich gerade</option></select></label><label>Ab wann?<select name="ab"><option>Sofort</option><option>In 1 Monat</option><option>In 3 Monaten</option></select></label><button type="button" class="btn btn--or" data-next>Weiter →</button></fieldset>

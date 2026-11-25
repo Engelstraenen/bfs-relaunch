@@ -35,6 +35,7 @@ Globale Regeln. Bilder/Videos gratis über sjinn Unlimited, bezahlt nur nach OK.
 - Datenschutz der alten Seite hat Lücken ([Name des Hosting-Anbieters] usw.) → Kollege muss ergänzen. Teilleistungen (Winterdienst, Trockenbau …) mit Kollegen abgleichen.
 
 ## 9. Entschieden
+- 25.11.2026 23:20: Eugen lehnt Ticket-Seite ab („das ist gar nix“): Overlays auf iPad/Handy schlecht, Hausmeister = ganzes Haus, Hintergrund WEISS, Aufbau nach den Leistungen der alten Seite (Planung & Organisation, Koordination & Durchführung, Bau & Umbau, Sanierung & Renovierung, Hausmeister-Leistungen + Werte, Über uns, Kontakt). Film B (Transporter) darf bleiben. → 3 neue Storyboards.
 - 25.11.2026: NEUBAU nach V2.75. Eugen wählt Storyboard 2 „Ein Ticket geht durchs Haus“ (konzepte/v3-2-ticket.png, Sand #e9e0d0 + Ziegelrot #b5452f, Navy-Tinte). Plan: konzepte/ticket-plan.md. Alte B+-Seite wird ersetzt.
 - 23.11.2026 11:45: Eugen wählt B (hell), „cooler, nicht langweilig“ → Bau als B+ (Storyboard BFSB-PLUS in Arbeit). 12:15 Eugen: andere sjinn-Sitzungen NICHT pausieren, warten.
 - 23.11.2026: Eugen wählt Mix aus 1 (Schlüsselbund) + 2 (Das Objekt) → BFSMIX-A (dunkel Navy) / BFSMIX-B (hell) für BAU Facility Services.

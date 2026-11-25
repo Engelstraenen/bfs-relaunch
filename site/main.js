@@ -1,266 +1,176 @@
-/* BAU Facility Services · „Ein Ticket geht durchs Haus“ */
+/* BAU Facility Services · W1 „Das Haus im Schnitt“ */
 (() => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const A = window.ASSETS || { img: {}, video: {} };
   const mob = matchMedia('(max-width:700px)').matches;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Medien: fehlende Bilder ausblenden, nie Platzhalter ---------- */
-  function srcFor(name) {
-    const e = A.img[name]; if (!e) return null;
-    const s = e.sizes.map(w => `assets/img/${name}-${w}.webp ${w}w`).join(', ');
-    return { srcset: s, src: `assets/img/${name}-${e.sizes[0]}.webp` };
-  }
-  $$('img[data-img]').forEach(img => {
-    let s = srcFor(img.dataset.img);
-    if (!s && img.dataset.fallback) s = srcFor(img.dataset.fallback);
-    if (!s) { img.hidden = true; return; }
-    img.srcset = s.srcset; img.src = s.src;
-    img.sizes = img.closest('.shots') ? '(max-width:700px) 45vw, 22vw' : (img.closest('.wipe') || img.closest('#m1') ? '(max-width:1080px) 100vw, 70vw' : '(max-width:1080px) 100vw, 66vw');
-    img.decoding = 'async';
-  });
-  $$('video[data-video]').forEach(v => {
-    const e = A.video[v.dataset.video];
-    if (!e) { v.remove(); return; }
-    v.src = (mob && e.mobile) || e.desktop;
-    v.addEventListener('loadeddata', () => v.classList.add('ok'), { once: true });
-  });
+  /* Lage der Etagen im Schnitt-Bild (Anteile der 16:9-Fläche), nach dem Bild vermessen */
+  const FLOORS = window.FLOORS || {
+    dach:   { x: .305, y: .06, w: .40, h: .19 },
+    og:     { x: .302, y: .27, w: .404, h: .20 },
+    eg:     { x: .302, y: .48, w: .404, h: .22 },
+    keller: { x: .302, y: .71, w: .404, h: .20 },
+    aussen: { x: .125, y: .53, w: .165, h: .31 }
+  };
+  const SHORT = { dach: 'Dach', og: '1. OG', eg: 'EG', keller: 'Keller', aussen: 'Außen' };
 
-  /* ---------- Ticket (Demo) ---------- */
-  const T = { no: '#10427', title: 'Wasserfleck · 2. OG', t0: null };
-  try { Object.assign(T, JSON.parse(sessionStorage.getItem('bfsTicket') || '{}')); } catch (e) {}
-  const fmt = d => d.toLocaleDateString('de-DE', { weekday: 'short' }) + ' ' + d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-  function paintTicket() {
-    $('#tNo').textContent = T.no; $('#tTitle').textContent = T.title;
-    $$('.rNo').forEach(e => e.textContent = 'Auftrag ' + T.no); $$('.rTitle').forEach(e => e.textContent = T.title);
-    $('#gNo').textContent = T.no; $('#phNo').textContent = T.no;
-    $$('.tkNo').forEach(e => e.textContent = T.no); $$('.tkTitle').forEach(e => e.textContent = T.title);
-    if (T.t0) { const a = new Date(T.t0), b = new Date(T.t0 + 26 * 3600e3 + 13 * 60e3); $('#tA').textContent = fmt(a); $('#tB').textContent = fmt(b); $$('.tkTime').forEach(e => e.textContent = a.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })); }
-  }
-  let kind = 'Wasserfleck';
-  $$('.chip').forEach(c => c.addEventListener('click', () => {
-    $$('.chip').forEach(x => { x.classList.remove('on'); x.setAttribute('aria-checked', 'false'); });
-    c.classList.add('on'); c.setAttribute('aria-checked', 'true'); kind = c.dataset.k;
-  }));
-  $('#phForm').addEventListener('submit', e => {
-    e.preventDefault();
-    T.no = '#' + (10428 + Math.floor(Math.random() * 70)); T.title = kind + ' · ' + $('#phFloor').value; T.t0 = Date.now();
-    try { sessionStorage.setItem('bfsTicket', JSON.stringify(T)); } catch (er) {}
-    $('#phForm').hidden = true; $('#phDone').hidden = false; $('#hint').hidden = true; paintTicket();
+  /* ---------- Medien: fehlende Bilder ausblenden ---------- */
+  function srcFor(name) { const e = A.img[name]; if (!e) return null; return { srcset: e.sizes.map(w => `assets/img/${name}-${w}.webp ${w}w`).join(', '), src: `assets/img/${name}-${e.sizes[0]}.webp` }; }
+  $$('img[data-img]').forEach(img => {
+    const s = srcFor(img.dataset.img); if (!s) { img.hidden = true; return; }
+    img.srcset = s.srcset; img.src = s.src; img.decoding = 'async';
+    img.sizes = img.closest('.house') ? '92vw' : img.closest('.contact-card') ? '240px' : '(max-width:1020px) 100vw, 60vw';
   });
-  /* Handy-Bildschirm liegt exakt auf dem Handy im Foto; Tippen öffnet das große Formular */
-  const PHONE_SCREEN = { x: .768, y: .362, w: .118, h: .44 };
-  function cover(box, name, posX) {
-    const e = A.img[name], W = box.clientWidth, H = box.clientHeight; if (!e) return null;
-    const s = Math.max(W / e.w, H / e.h), dw = e.w * s, dh = e.h * s;
-    return { s, dw, dh, ox: (W - dw) * posX, oy: (H - dh) / 2 };
-  }
-  const m1 = $('#m1'), scr = $('#scr'), phone = $('#phone'), m1img = $('#m1 > img');
-  const hasHand = !!A.img['m1b-hand'];
-  function placeScr() {
-    if (!hasHand) { scr.hidden = true; return; }
-    const c = cover(m1, 'm1b-hand', parseFloat(getComputedStyle(m1img).objectPosition) / 100 || .5); if (!c) return;
-    Object.assign(scr.style, { left: c.ox + PHONE_SCREEN.x * c.dw + 'px', top: c.oy + PHONE_SCREEN.y * c.dh + 'px', width: PHONE_SCREEN.w * c.dw + 'px', height: PHONE_SCREEN.h * c.dh + 'px' });
-    const r = scr.getBoundingClientRect(), mr = m1.getBoundingClientRect(), hint = $('#hint');
-    Object.assign(hint.style, { left: Math.max(12, r.left - mr.left - 220) + 'px', top: r.top - mr.top + r.height * .55 + 'px' });
-  }
-  function openPhone() {
-    phone.hidden = false; $('#hint').hidden = true;
-    const mr = m1.getBoundingClientRect(), pw = phone.offsetWidth, ph = phone.offsetHeight;
-    const r = hasHand ? scr.getBoundingClientRect() : { left: mr.right - pw - 40, top: mr.top + 80, width: pw, height: ph };
-    const left = Math.min(mr.width - pw - 12, Math.max(12, r.left - mr.left + r.width / 2 - pw / 2)), top = Math.min(mr.height - ph - 12, Math.max(12, r.top - mr.top + r.height / 2 - ph / 2));
-    Object.assign(phone.style, { left: left + 'px', top: top + 'px' });
-    if (!reduced) phone.animate([{ transform: `scale(${Math.max(.3, r.width / pw)})`, opacity: .4 }, { transform: 'scale(1)', opacity: 1 }], { duration: 450, easing: 'cubic-bezier(.2,.8,.2,1)' });
-    setTimeout(() => ($('.chip.on') || phone).focus({ preventScroll: true }), 80);
-  }
-  scr.addEventListener('click', openPhone);
-  $('#phoneX').addEventListener('click', () => { phone.hidden = true; });
-  $('#toPhone').addEventListener('click', e => { e.preventDefault(); openPhone(); });
-  if (!hasHand) { phone.hidden = false; Object.assign(phone.style, { right: '9%', bottom: '-6%' }); }
-  addEventListener('resize', placeScr); placeScr();
-  if (T.t0) { $('#phForm').hidden = true; $('#phDone').hidden = false; $('#hint').hidden = true; }
-  paintTicket();
+  $$('video[data-video]').forEach(v => { const e = A.video[v.dataset.video]; if (!e) { v.remove(); return; } v.src = (mob && e.mobile) || e.desktop; });
+  const hasCut = !!A.img['s1-schnitt'];
+
+  /* ---------- Hero-Film: läuft sofort an, bleibt am Ende an der Tür stehen ---------- */
+  const hv = $('.hero__media video');
+  if (hv) { const go = () => hv.play().catch(() => {}); hv.addEventListener('canplay', go, { once: true }); if (reduced) hv.removeAttribute('autoplay'); }
 
   /* ---------- Menü ---------- */
   const burger = $('.burger'), menu = $('#menu');
   burger.addEventListener('click', () => { const o = menu.hidden; menu.hidden = !o; burger.setAttribute('aria-expanded', String(o)); });
-  $$('#menu a').forEach(a => a.addEventListener('click', () => { menu.hidden = true; burger.setAttribute('aria-expanded', 'false'); }));
 
-  /* ---------- Wisch-Regler ---------- */
+  /* ---------- Vorher/Nachher ---------- */
   const wipe = $('#wipe');
   function setX(p) { p = Math.max(0, Math.min(100, p)); wipe.style.setProperty('--x', p + '%'); wipe.setAttribute('aria-valuenow', Math.round(p)); }
-  let drag = false;
-  const px = e => { const r = wipe.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
+  let drag = false; const px = e => { const r = wipe.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
   wipe.addEventListener('pointerdown', e => { drag = true; wipe.setPointerCapture(e.pointerId); setX(px(e)); });
   wipe.addEventListener('pointermove', e => { if (drag) setX(px(e)); });
   wipe.addEventListener('pointerup', () => drag = false); wipe.addEventListener('pointercancel', () => drag = false);
   wipe.addEventListener('keydown', e => { const v = +wipe.getAttribute('aria-valuenow'); if (e.key === 'ArrowLeft') setX(v - 5); if (e.key === 'ArrowRight') setX(v + 5); });
   setX(50);
 
-  /* ---------- Rechner „Ihr Objekt in 3 Fragen“ ---------- */
-  const OUT = {
-    betreuung: ['Laufende Betreuung', 'Hausmeister-Service mit festen Rundgängen, Treppenhaus und Außenanlagen, Winterdienst, Kleinreparaturen, QR-Meldeweg für Mieter und Foto-Bericht für die Verwaltung.'],
-    sanierung: ['Sanierung & Renovierung', 'Bestandsaufnahme vor Ort, ein Plan für alle Gewerke, ein Termin- und Kostenrahmen, Umsetzung mit Partnerbetrieben und dokumentierte Abnahme.'],
-    umbau: ['Bau & Umbau', 'Planung & Organisation, Koordination aller Gewerke, ein fester Ansprechpartner bis zur Übergabe.'],
-    schaden: ['Akuter Schaden', 'Meldung aufnehmen, Fachleute einplanen, Schaden beheben, alles mit Fotos und Zeitstempeln für Versicherung und Verwaltung dokumentieren.']
-  };
-  const SIZE = { s: 'bis 10 Einheiten', m: '11 bis 40 Einheiten', l: 'über 40 Einheiten' };
-  const ART = { wohn: 'Wohnanlage / WEG', gew: 'Gewerbeimmobilie', haus: 'Ein- oder Zweifamilienhaus' };
-  function calc() {
-    const a = $('#cA').value, b = $('#cB').value, c = $('#cC').value, o = OUT[c];
-    $('#cB').disabled = a === 'haus';
-    $('#cOut').innerHTML = `<b>${o[0]}</b>${o[1]}<br><small>Fester Ansprechpartner für Ihr Objekt.</small>`;
-    const txt = `Anfrage: ${o[0]} für ${ART[a]}${a === 'haus' ? '' : ' (' + SIZE[b] + ')'}.`;
-    $('#cMail').onclick = e => { e.preventDefault(); $('#msg').value = txt + '\n\nBitte melden Sie sich für ein Angebot.'; $('#kontakt').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); };
-  }
-  $$('#calc select').forEach(s => s.addEventListener('change', calc)); calc();
+  /* ---------- Vorher · Arbeit · Ergebnis ---------- */
+  const s3 = $$('#steps3 img'), pb = $$('#prog button'), pbar = $('#prog i');
+  function setStep3(n) { s3.forEach((im, i) => im.classList.toggle('on', i === n)); pb.forEach((b, i) => b.classList.toggle('on', i <= n)); pbar.style.width = `calc(${n * 50}% - ${n ? 8 : 0}px)`; }
+  pb.forEach((b, i) => b.addEventListener('click', () => setStep3(i))); setStep3(0);
 
-  /* ---------- Bewertungen: Beispiele nacheinander ---------- */
-  const REV = ['„Schnell, professionell und zuverlässig. Genau so wünscht man sich das.“', '„Ein Ansprechpartner für alles, und wir sehen jeden Einsatz mit Foto.“', '„Der Wasserschaden war nach einem Tag erledigt und sauber dokumentiert.“'];
+  /* ---------- Bewertungen (Beispiele) ---------- */
+  const REV = ['„Ein Ansprechpartner für das ganze Haus. Genau so haben wir uns das gewünscht.“', '„Umbau termingerecht, alles sauber koordiniert, und danach kümmern sie sich weiter ums Haus.“', '„Schnell, zuverlässig, und man weiß immer, wer zuständig ist.“'];
   let ri = 0; const rt = $('#revTxt');
-  setInterval(() => { rt.parentElement.style.opacity = 0; setTimeout(() => { ri = (ri + 1) % REV.length; rt.textContent = REV[ri]; rt.parentElement.style.opacity = 1; }, 600); }, 6000);
+  setInterval(() => { rt.parentElement.style.opacity = 0; setTimeout(() => { ri = (ri + 1) % REV.length; rt.textContent = REV[ri]; rt.parentElement.style.opacity = 1; }, 600); }, 6500);
 
   /* ---------- Formulare → E-Mail ---------- */
   $('#contactForm').addEventListener('submit', e => {
     e.preventDefault(); const f = new FormData(e.target);
-    const body = `Name: ${f.get('name')}\nTelefon: ${f.get('tel')}\nE-Mail: ${f.get('mail')}\n\n${f.get('msg')}`;
-    location.href = 'mailto:info@baufacilityservices.de?subject=' + encodeURIComponent('Anfrage über die Webseite') + '&body=' + encodeURIComponent(body);
+    const body = `Name: ${f.get('name')}\nTelefon: ${f.get('tel')}\nE-Mail: ${f.get('mail')}\nThema: ${f.get('topic')}\n\n${f.get('msg')}`;
+    location.href = 'mailto:info@baufacilityservices.de?subject=' + encodeURIComponent('Anfrage: ' + f.get('topic')) + '&body=' + encodeURIComponent(body);
   });
   const modal = $('#apply'); let tm, left;
-  function openApply() {
-    modal.hidden = false; left = 60; $('#timer').textContent = left; step(0);
-    clearInterval(tm); tm = setInterval(() => { left = Math.max(0, left - 1); $('#timer').textContent = left; }, 1000);
-    setTimeout(() => $('select', modal).focus(), 50);
-  }
-  function step(i) { $$('fieldset', modal).forEach((f, k) => f.hidden = k !== i); $$('.steps i', modal).forEach((s, k) => s.classList.toggle('on', k <= i)); }
+  const step = i => { $$('fieldset', modal).forEach((f, k) => f.hidden = k !== i); $$('.stepbar i', modal).forEach((s, k) => s.classList.toggle('on', k <= i)); };
+  const openApply = () => { modal.hidden = false; left = 60; $('#timer').textContent = left; step(0); clearInterval(tm); tm = setInterval(() => { left = Math.max(0, left - 1); $('#timer').textContent = left; }, 1000); setTimeout(() => $('select', modal).focus(), 50); };
+  const closeM = () => { modal.hidden = true; clearInterval(tm); };
   $$('[data-open="apply"]').forEach(b => b.addEventListener('click', openApply));
   $$('[data-next]', modal).forEach((b, i) => b.addEventListener('click', () => step(i + 1)));
-  const closeM = () => { modal.hidden = true; clearInterval(tm); };
   $('[data-close]', modal).addEventListener('click', closeM);
   modal.addEventListener('click', e => { if (e.target === modal) closeM(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeM(); });
   $('#applyForm').addEventListener('submit', e => {
     e.preventDefault(); const f = new FormData(e.target);
-    const body = `Bewerbung (60 Sekunden)\nBereich: ${f.get('job')}\nFührerschein B: ${f.get('fs')}\nStart: ${f.get('ab')}\nName: ${f.get('n')}\nTelefon: ${f.get('t')}`;
-    location.href = 'mailto:info@baufacilityservices.de?subject=' + encodeURIComponent('Bewerbung über die Webseite') + '&body=' + encodeURIComponent(body);
+    location.href = 'mailto:info@baufacilityservices.de?subject=' + encodeURIComponent('Bewerbung über die Webseite') + '&body=' + encodeURIComponent(`Bereich: ${f.get('job')}\nFührerschein B: ${f.get('fs')}\nStart: ${f.get('ab')}\nName: ${f.get('n')}\nTelefon: ${f.get('t')}`);
     closeM();
   });
 
-  /* ---------- Status-Leiste ---------- */
-  const links = $$('.status a');
-  function setStep(n) { links.forEach((a, i) => { a.classList.toggle('on', i === n); a.classList.toggle('done', i < n); }); }
-  setStep(0);
-
-  /* ---------- Zähler ---------- */
-  function countUp(el) {
-    const to = +el.dataset.count, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
-    if (reduced) { el.textContent = pre + to.toLocaleString('de-DE') + suf; return; }
-    const t0 = performance.now();
-    (function f(t) { const k = Math.min(1, (t - t0) / 1400), v = Math.round(to * (1 - Math.pow(1 - k, 3))); el.textContent = pre + v.toLocaleString('de-DE') + suf; if (k < 1) requestAnimationFrame(f); })(t0);
+  /* ---------- Etagen-Labels + Hervorhebung ---------- */
+  const house = $('#house'), stage = $('#stage'), hl = $('#hl');
+  function placeLabels() {
+    $$('.lab').forEach(l => {
+      const f = FLOORS[l.dataset.f]; if (!f) return;
+      const narrow = innerWidth < 700;
+      if (narrow) l.querySelector('b').textContent = SHORT[l.dataset.f];
+      if (l.dataset.f === 'aussen') Object.assign(l.style, { left: 'auto', right: (1 - f.x) * 100 + '%', top: (f.y + f.h * .3) * 100 + '%', transform: 'translateY(-50%)', flexDirection: 'row-reverse' });
+      else Object.assign(l.style, { left: (f.x + f.w) * 100 + '%', top: (f.y + f.h / 2) * 100 + '%', transform: 'translateY(-50%)' });
+      const hw = house.getBoundingClientRect().width || innerWidth * .9;
+      const room = l.dataset.f === 'aussen' ? hw * f.x - (narrow ? 60 : 150) : hw * (1 - f.x - f.w) - (narrow ? 70 : 190);
+      l.style.setProperty('--len', Math.max(16, Math.min(110, room)) + 'px');
+    });
   }
-
-  /* ---------- Tablet-Bildschirm: Bericht exakt auf den Bildschirm legen ---------- */
-  const SCREEN = window.TABLET_SCREEN || { x: .313, y: .222, w: .444, h: .5 }; // Anteil am Foto
-  function placeReport() {
-    const box = $('#m7'), img = $('#m7 > img'), r = $('#report');
-    const W = box.clientWidth, H = box.clientHeight;
-    const e = A.img['m7-tablet']; const iw = e ? e.w : 16, ih = e ? e.h : 9;
-    const s = Math.max(W / iw, H / ih), dw = iw * s, dh = ih * s, ox = (W - dw) / 2, oy = (H - dh) / 2;
-    if (img.hidden || W < 600) { Object.assign(r.style, { left: '5%', top: '8%', width: '90%', height: 'auto' }); return; }
-    Object.assign(r.style, { left: ox + SCREEN.x * dw + 'px', top: oy + SCREEN.y * dh + 'px', width: SCREEN.w * dw + 'px', height: SCREEN.h * dh + 'px', overflow: 'hidden' });
-  }
-  addEventListener('resize', placeReport); placeReport();
+  function showHl(k) { const f = FLOORS[k]; if (!f) { hl.style.opacity = 0; return; } Object.assign(hl.style, { left: f.x * 100 + '%', top: f.y * 100 + '%', width: f.w * 100 + '%', height: f.h * 100 + '%', opacity: 1 }); }
+  $$('.lab').forEach(l => { l.addEventListener('mouseenter', () => showHl(l.dataset.f)); l.addEventListener('focus', () => showHl(l.dataset.f)); l.addEventListener('mouseleave', () => showHl()); l.addEventListener('blur', () => showHl()); });
+  placeLabels(); addEventListener('resize', placeLabels);
+  if (!hasCut) { $('#labels').hidden = true; }
 
   /* ---------- Scroll-Regie ---------- */
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
   let lenis;
-  if (window.Lenis && !reduced) {
-    lenis = new Lenis({ lerp: .12 });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
-    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length > 1 && $(id)) { e.preventDefault(); lenis.scrollTo($(id), { offset: 0 }); } }));
-  }
+  if (window.Lenis && !reduced) { lenis = new Lenis({ lerp: .12 }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
   gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
 
-  const pin = (el, len, tl) => ScrollTrigger.create({ trigger: el, start: 'top top', end: '+=' + len, pin: true, scrub: true, animation: tl, anticipatePin: 1 });
-
-  /* 1 → 2: Handy wächst aus der Hand, Bildschirm wird zur Ticket-Karte */
-  const tl1 = gsap.timeline();
-  tl1.to('#m1 > img', { scale: 1.08, filter: 'blur(6px)', ease: 'none' }, 0)
-     .to('#scr', { x: () => { const r = scr.getBoundingClientRect(), m = m1.getBoundingClientRect(); return m.left + m.width / 2 - (r.left + r.width / 2); }, y: () => { const r = scr.getBoundingClientRect(), m = m1.getBoundingClientRect(); return m.top + m.height / 2 - (r.top + r.height / 2); }, scaleX: () => (mob ? 300 : 420) / Math.max(1, scr.offsetWidth), scaleY: () => (mob ? 130 : 160) / Math.max(1, scr.offsetHeight), rotate: -4, borderRadius: '6px', backgroundColor: '#f4ead6', ease: 'power1.inOut' }, 0)
-     .to('#scr > *', { opacity: 0, duration: .2 }, .1)
-     .to('#phone, #hint', { opacity: 0, duration: .15 }, 0)
-     .to('#scr', { opacity: 0, duration: .15 }, .85);
-  pin('#gemeldet', mob ? 500 : 700, tl1);
-
-  /* 2: Ticket fliegt auf die Tafel, dann wird die Tafel zum Büro-Foto */
-  const tk = document.createElement('div');
-  tk.className = 'ticket'; tk.id = 'tk';
-  tk.innerHTML = `<span class="ticket__no tkNo">${T.no}</span><div class="ticket__t"><svg width="22" height="28" viewBox="0 0 22 28" aria-hidden="true"><path d="M11 1C11 1 2 12 2 18a9 9 0 0 0 18 0C20 12 11 1 11 1z" fill="none" stroke="#1b2a49" stroke-width="2"/></svg><span class="tkTitle">${T.title}</span> · <span class="tkTime">08:14</span></div><p class="ticket__a">Wohnanlage, Berliner Straße 12, 40878 Ratingen</p><span class="ticket__s">Geplant</span>`;
-  Object.assign(tk.style, { position: 'absolute', left: '50%', top: '50%', zIndex: 6 });
-  $('#m2').appendChild(tk); paintTicket();
-  const toSlot = () => { const s = $('#slot').getBoundingClientRect(), m = $('#m2').getBoundingClientRect(), k = tk.getBoundingClientRect(); return { x: s.left + s.width / 2 - (m.left + m.width / 2), y: s.top + s.height / 2 - (m.top + m.height / 2), sc: Math.min(1, s.width / k.width * 1.02) }; };
-  gsap.set(tk, { xPercent: -50, yPercent: -50, scale: 1.25, rotate: -4 });
-  const tl2 = gsap.timeline();
-  tl2.fromTo(tk, { opacity: 0 }, { opacity: 1, duration: .08 }, 0)
-     .to(tk, { x: () => toSlot().x, y: () => toSlot().y, scale: () => toSlot().sc * .9, rotate: 0, ease: 'power2.inOut', duration: .35 }, .05)
-     .to('#slot', { opacity: 0, duration: .05 }, .38)
-     .to(['#board', tk], { scale: .72, opacity: 0, ease: 'power1.in', duration: .2, transformOrigin: '50% 50%' }, .5)
-     .to('#m3', { opacity: 1, duration: .2 }, .52)
-     .add(() => {}, .6)
-     .to('#data', { opacity: 1, y: 0, duration: .12 }, .64)
-     .to('#gantt', { opacity: 1, duration: .12 }, .7)
-     .to('#h2a', { opacity: 0, duration: .05 }, .55).set('#h2a', { innerHTML: 'Die richtigen Fachleute.<br>Zur richtigen Zeit.' }, .6).to('#h2a', { opacity: 1, duration: .08 }, .6)
-     .to('#l2a', { opacity: 0, duration: .05 }, .55).set('#l2a', { textContent: 'Wir koordinieren alle Gewerke für eine schnelle und saubere Lösung: Sanitär, Trocknung, Maler. Starke Partner, ein Plan.' }, .6).to('#l2a', { opacity: 1, duration: .08 }, .6)
-     .to('#gantt .g i', { width: (i, el) => el.dataset.w + '%', stagger: .04, duration: .12 }, .76)
-     .to('#gantt .g.hot i', { width: '100%', left: 0, duration: .14, ease: 'power2.in' }, .9);
-  pin('#geplant', mob ? 1400 : 1800, tl2);
-  ScrollTrigger.create({ trigger: '#geplant', start: 'top top', end: () => '+=' + (mob ? 1400 : 1800), onUpdate: st => { if (st.progress > .62 && !st._c) { st._c = 1; countUp($('#data [data-count]')); $$('#data .bar i').forEach(b => b.style.width = b.dataset.w + '%'); } } });
-
-  /* 3: roter Balken wird zur Straße → Film / Foto Vor Ort */
-  const v4 = $('#m4 video'), tl3 = gsap.timeline();
-  tl3.fromTo('#m4 > img', { scale: 1.12 }, { scale: 1, ease: 'none', duration: 1 }, 0);
-  if (v4) tl3.to({}, { duration: 1, onUpdate() { if (v4.duration) v4.currentTime = Math.min(v4.duration - .05, this.progress() * v4.duration); } }, 0);
-  pin('#vor-ort', mob ? 700 : 1000, tl3);
-
-  /* 4: Film Vorher → Arbeit → Ergebnis, Scroll spult */
-  const v5 = $('#m5 video'), labs = $$('#m5 .scrub span'), tl4 = gsap.timeline();
-  tl4.fromTo('#m5 > img', { scale: 1.06 }, { scale: 1, ease: 'none', duration: 1 }, 0);
-  tl4.eventCallback('onUpdate', () => {
-    const p = tl4.progress(); labs.forEach((l, i) => l.classList.toggle('on', i === (p < .2 ? 0 : p < .85 ? 1 : 2)));
-    if (v5 && v5.duration) v5.currentTime = Math.min(v5.duration - .05, p * v5.duration);
+  /* Kamera auf eine Etage richten */
+  function camTo(k, fill) {
+    const f = FLOORS[k], W = house.offsetWidth, H = house.offsetHeight, sw = stage.offsetWidth, sh = stage.offsetHeight;
+    const s = Math.min(sw * (fill || .9) / (f.w * W), sh * .75 / (f.h * H));
+    const dx = (f.x + f.w / 2 - .5) * W, dy = (f.y + f.h / 2 - .5) * H;
+    return { x: -dx * s, y: -dy * s, scale: s };
+  }
+  const introX = () => innerWidth > 1020 ? stage.offsetWidth * .17 : 0;
+  gsap.set(house, { xPercent: -50, yPercent: -50, x: introX(), y: 0, scale: 1 });
+  const LEN = mob ? 7000 : 9000;
+  const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
+  const at = {}; // Fortschritt je Etage für Anker
+  // Fassade löst sich von oben nach unten auf
+  tl.fromTo('#house .facade', { clipPath: 'inset(0% 0 0 0)' }, { clipPath: 'inset(100% 0 0 0)', duration: .08, ease: 'none' }, 0)
+    .fromTo('#house', { scale: .9, x: introX }, { scale: .96, x: introX, duration: .08, ease: 'none' }, 0)
+    .to('.lab', { opacity: 1, duration: .02, stagger: .012 }, .07)
+    .fromTo('.lab i', { scaleX: 0 }, { scaleX: 1, duration: .02, stagger: .012 }, .07);
+  let t = .15;
+  ['keller', 'eg', 'og', 'dach'].forEach(k => {
+    const p = '#p-' + k;
+    if (k === 'keller') tl.to('#intro', { opacity: 0, y: -20, duration: .03 }, t);
+    tl.to('.labels', { opacity: 0, duration: .02 }, t)
+      .to(house, { x: () => camTo(k).x, y: () => camTo(k).y, scale: () => camTo(k).scale, duration: .05 }, t)
+      .to(p, { autoAlpha: 1, duration: .025, ease: 'power1.out' }, t + .045)
+      .fromTo(p + ' .panel__media', { scale: .94 }, { scale: 1, duration: .04, ease: 'power2.out' }, t + .045)
+      .fromTo(p + ' .panel__copy > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, stagger: .005, duration: .025 }, t + .05);
+    at[k] = t + .08;
+    if (k === 'eg') tl.to({ v: 92 }, { v: 50, duration: .05, ease: 'power2.inOut', onUpdate() { setX(this.targets()[0].v); } }, t + .07);
+    if (k === 'og') tl.to({ v: 0 }, { v: 2.99, duration: .07, ease: 'none', onUpdate() { setStep3(Math.floor(this.targets()[0].v)); } }, t + .07);
+    tl.to(p, { autoAlpha: 0, duration: .02 }, t + .15)
+      .to(house, { x: 0, y: 0, scale: 1, duration: .04 }, t + .155)
+      .to('.labels', { opacity: k === 'dach' ? 0 : 1, duration: .02 }, t + .175);
+    t += .17;
   });
-  pin('#arbeit', mob ? 900 : 1400, tl4);
+  // Koordination: Haus rückt nach links, Linien zu einem Ansprechpartner
+  at.koordination = t + .06;
+  tl.to(house, { x: 0, y: () => mob ? -stage.offsetHeight * .1 : stage.offsetHeight * .04, scale: mob ? .7 : .62, duration: .05 }, t)
+    .to('#coord', { opacity: 1, duration: .02 }, t + .045)
+    .fromTo('#coordSvg path', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .05, stagger: .008, ease: 'none' }, t + .05)
+    .to('#contactCard', { opacity: 1, y: 0, duration: .03 }, t + .07)
+    .to('#coordCopy', { opacity: 1, duration: .03 }, t + .05)
+    .to({}, { duration: .06 }, t + .1);
 
-  /* 5: Wischer fährt einmal auf, dann frei ziehbar */
-  ScrollTrigger.create({ trigger: '#erledigt', start: 'top 60%', once: true, onEnter: () => { if (reduced) return; const o = { x: 96 }; gsap.to(o, { x: 50, duration: 1.6, ease: 'power3.inOut', onUpdate: () => setX(o.x) }); } });
+  const st = ScrollTrigger.create({ trigger: '#haus', start: 'top top', end: '+=' + LEN, pin: '#stage', scrub: true, animation: tl, anticipatePin: 1, onRefresh: drawCoord });
 
-  /* 6: Bericht, Stempel, Unterschrift */
-  const sp = $('#sigp'), L = sp.getTotalLength(); sp.style.strokeDasharray = L; sp.style.strokeDashoffset = L;
-  const tl6 = gsap.timeline();
-  tl6.from('#m7 > img', { scale: 1.1, ease: 'none', duration: 1 }, 0)
-     .from('#report .shots figure', { y: 30, opacity: 0, stagger: .08, duration: .2 }, .1)
-     .to(sp, { strokeDashoffset: 0, duration: .3, ease: 'none' }, .35)
-     .to('#stamp', { scale: 1, duration: .1, ease: 'back.out(3)' }, .7);
-  pin('#dokumentiert', mob ? 700 : 1000, tl6);
+  /* Linien von jeder Etage zum Ansprechpartner (nach Endstellung berechnet) */
+  function drawCoord() {
+    const svg = $('#coordSvg'), card = $('#contactCard img'); if (!svg || !card) return;
+    const sw = stage.offsetWidth, sh = stage.offsetHeight, head = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head')) || 68;
+    const W = house.offsetWidth, H = house.offsetHeight, s = mob ? .7 : .62, cx = sw / 2, cy = (sh + head) / 2 + (mob ? -sh * .1 : sh * .04);
+    const cr = card.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+    const tx = cr.left - sr.left + (mob ? cr.width / 2 : 0), ty = cr.top - sr.top + (mob ? 0 : cr.height / 2) - head;
+    let d = '';
+    ['dach', 'og', 'eg', 'keller'].forEach(k => { const f = FLOORS[k]; const x = cx + (f.x + f.w - .5) * W * s, y = cy + (f.y + f.h / 2 - .5) * H * s - head; const mx = (x + tx) / 2; d += `<path pathLength="1" stroke-dasharray="1" d="M${x},${y} C${mx},${y} ${mx},${ty} ${tx},${ty}"/><circle cx="${x}" cy="${y}" r="4"/>`; });
+    svg.innerHTML = d;
+  }
+  drawCoord();
 
-  /* 7: Ticket dreht um → Karriere, Kinetik-Typo */
-  gsap.from('#karriere .copy', { rotateY: -70, opacity: 0, transformOrigin: '0 50%', scrollTrigger: { trigger: '#karriere', start: 'top 80%', end: 'top 30%', scrub: true } });
-  ScrollTrigger.create({ trigger: '#karriere', start: 'top 45%', once: true, onEnter: () => { gsap.to('#kin b', { y: 0, stagger: .35, duration: .7, ease: 'power3.out' }); const v = $('#m8 video'); if (v) v.play().catch(() => {}); } });
-  if (mob) gsap.set('#kin b', { y: 0 });
+  /* Anker aus Menü/Labels springen an die passende Stelle der Fahrt */
+  function goto(id) {
+    const k = id.slice(1);
+    if (at[k] != null) { const y = st.start + at[k] * (st.end - st.start); lenis ? lenis.scrollTo(y) : scrollTo({ top: y, behavior: 'smooth' }); return true; }
+    const el = $(id); if (el) { lenis ? lenis.scrollTo(el) : el.scrollIntoView({ behavior: 'smooth' }); return true; }
+    return false;
+  }
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length > 1 && goto(id)) { e.preventDefault(); menu.hidden = true; burger.setAttribute('aria-expanded', 'false'); } }));
+  if (location.hash) setTimeout(() => goto(location.hash), 400);
 
-  /* 8: Status-Liste schrumpft ins Handy */
-  gsap.from('.handy', { y: 80, opacity: 0, scale: .92, scrollTrigger: { trigger: '#objekt', start: 'top 85%', end: 'top 35%', scrub: true } });
-  gsap.from('.vsteps li', { x: -20, opacity: 0, stagger: .1, scrollTrigger: { trigger: '#objekt', start: 'top 60%' } });
-
-  /* Status-Leiste erst nach allen Pins anlegen, sonst stimmen die Positionen nicht */
-  const stepEls = $$('section[data-step]').map(s => ({ el: s.parentElement.classList.contains('pin-spacer') ? s.parentElement : s, n: +s.dataset.step }));
-  let curStep = -1;
-  const upd = () => { const mid = innerHeight * .5; let n = 0; stepEls.forEach(o => { const r = o.el.getBoundingClientRect(); if (r.top <= mid) n = o.n; }); if (n !== curStep) { curStep = n; setStep(n); } };
-  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: upd, onRefresh: upd });
-
-  /* Erste Sekunde: Bewegung ab Laden */
-  if (!reduced) { gsap.from('#m1 > img', { scale: 1.12, duration: 2.2, ease: 'power3.out' }); gsap.from('#scr', { opacity: 0, y: 30, duration: .9, delay: .6, ease: 'power3.out' }); }
-  addEventListener('load', () => { placeScr(); ScrollTrigger.refresh(); placeReport(); });
+  /* Team: Kinetik-Typo */
+  ScrollTrigger.create({ trigger: '#team', start: 'top 70%', once: true, onEnter: () => gsap.to('#kin b', { y: 0, stagger: .3, duration: .7, ease: 'power3.out' }) });
+  gsap.from('.wert', { y: 40, opacity: 0, stagger: .1, duration: .7, scrollTrigger: { trigger: '#werte', start: 'top 75%' } });
+  gsap.from('.hero__media', { scale: .96, opacity: 0, duration: 1.1, ease: 'power3.out' });
+  addEventListener('load', () => { placeLabels(); ScrollTrigger.refresh(); });
 })();
