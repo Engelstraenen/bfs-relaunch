@@ -296,3 +296,5 @@ details p{padding:0 0 14px;color:var(--muted)}
 .hint{right:auto;bottom:auto}
 #m1>img{object-position:80% 50%}
 @media (max-width:1080px){#m1>img{object-position:88% 50%}}
+small{font-size:max(14px,.83em)}
+#report small{font-size:14px}
