@@ -182,7 +182,6 @@
     $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length > 1 && $(id)) { e.preventDefault(); lenis.scrollTo($(id), { offset: 0 }); } }));
   }
   gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
-  $$('section[data-step]').forEach(s => ScrollTrigger.create({ trigger: s, start: 'top 55%', end: 'bottom 55%', onToggle: st => st.isActive && setStep(+s.dataset.step) }));
 
   const pin = (el, len, tl) => ScrollTrigger.create({ trigger: el, start: 'top top', end: '+=' + len, pin: true, scrub: true, animation: tl, anticipatePin: 1 });
 
@@ -254,6 +253,12 @@
   /* 8: Status-Liste schrumpft ins Handy */
   gsap.from('.handy', { y: 80, opacity: 0, scale: .92, scrollTrigger: { trigger: '#objekt', start: 'top 85%', end: 'top 35%', scrub: true } });
   gsap.from('.vsteps li', { x: -20, opacity: 0, stagger: .1, scrollTrigger: { trigger: '#objekt', start: 'top 60%' } });
+
+  /* Status-Leiste erst nach allen Pins anlegen, sonst stimmen die Positionen nicht */
+  const stepEls = $$('section[data-step]').map(s => ({ el: s.parentElement.classList.contains('pin-spacer') ? s.parentElement : s, n: +s.dataset.step }));
+  let curStep = -1;
+  const upd = () => { const mid = innerHeight * .5; let n = 0; stepEls.forEach(o => { const r = o.el.getBoundingClientRect(); if (r.top <= mid) n = o.n; }); if (n !== curStep) { curStep = n; setStep(n); } };
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: upd, onRefresh: upd });
 
   /* Erste Sekunde: Bewegung ab Laden */
   if (!reduced) { gsap.from('#m1 > img', { scale: 1.12, duration: 2.2, ease: 'power3.out' }); gsap.from('#scr', { opacity: 0, y: 30, duration: .9, delay: .6, ease: 'power3.out' }); }
