@@ -26,7 +26,7 @@ Globale Regeln. Bilder/Videos gratis über sjinn Unlimited, bezahlt nur nach OK.
 - Bilder W1: `assets-roh/<name>.png` (s1-schnitt, s2-fassade, k1-keller, e1-eg-vorher, e2-eg-nachher, o1/o2/o3-bad-*, d1-dach, a1-ansprechpartner, t1-team, m4-vorort), dann `python3 tools/assets.py` (schärft nach, WebP 1800/2560/nativ + manifest.js). Etagen-Lage im Schnitt-Bild: FLOORS in site/main.js. Unterseiten: `python3 tools/subpages.py`. Abnahme: `python3 tools/abnahme.py` → abnahme/. Download Dreamina: tools/dl.sh <hash8> <name>.
 - Videos: `site/assets/video/vorort-desktop.mp4` (+ `-mobile.mp4`) = Film B Hero; danach assets.py
 - Prüfen: `python3 tools/check.py http://127.0.0.1:4370/` (6 Größen, Konsole, Querscroll, Kopfzeile, Schrift <14 px, Screens in Scratchpad)
-- Repo: github.com/Engelstraenen/bfs-relaunch (öffentlich). Pages über gh-pages (V2.77, nie push $(subtree split)): `C=$(git commit-tree $(git rev-parse main:site) -m pages); [ ${#C} = 40 ] && git -c http.postBuffer=524288000 push -f origin $C:refs/heads/gh-pages`
+- Repo: github.com/Engelstraenen/bfs-relaunch (öffentlich). Pages über gh-pages (V2.77, nie push $(subtree split)): `C=$(git commit-tree $(git rev-parse main:site) -m pages); [ ${#C} = 40 ] && git -c http.postBuffer=524288000 push -f origin "${C}:refs/heads/gh-pages"`
 - sjinn-Zuordnung Auftrag → Datei: BFS-K1 keys · BFS-G1 house · BFS-G2 house-exploded · BFS-R1 room-before · BFS-H1 caretaker · BFS-J1 recruit · BFS-S1/S3/S4 step-beratung/-umsetzung/-betreuung · BFS-T1..T4 tile-umbau/-sanierung/-hausmeister/-planung · room-after = Edit von R1 (Referenz-Upload)
 
 ## 8. Offene Fragen
