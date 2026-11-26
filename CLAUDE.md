@@ -23,7 +23,7 @@ Globale Regeln. Bilder/Videos gratis über sjinn Unlimited, bezahlt nur nach OK.
 
 ## 7. Befehle
 - Vorschau: `cd site && python3 -m http.server 4370 --bind 127.0.0.1` → http://127.0.0.1:4370/ (Port 4370 = HAUSWERK, vor Link <title> prüfen)
-- Bilder W1: `assets-roh/<name>.png` (s1-schnitt, s2-fassade, k1-keller, e1-eg-vorher, e2-eg-nachher, o1/o2/o3-bad-*, d1-dach, a1-ansprechpartner, t1-team, m4-vorort), dann `python3 tools/assets.py` (schärft nach, WebP 1800/2560/nativ + manifest.js). Etagen-Lage im Schnitt-Bild: FLOORS in site/main.js. Unterseiten: `python3 tools/subpages.py`. Abnahme: `python3 tools/abnahme.py` → abnahme/. Download Dreamina: tools/dl.sh <hash8> <name>.
+- Bilder W1: `assets-roh/<name>.png` (w1-schnitt/w2-fassade Wohnanlage, f1-schnitt/f2-fassade Firmenanlage, Rohfassungen in assets-roh/anlagen/, k1-keller, e1-eg-vorher, e2-eg-nachher, o1/o2/o3-bad-*, d1-dach, a1-ansprechpartner, t1-team, m4-vorort), dann `python3 tools/assets.py` (schärft nach, WebP 1800/2560/nativ + manifest.js). Etagen-Lage + Texte je Objektart: MODES in site/main.js. Fahrt prüfen: `python3 tools/ride.py <url> <ordner>`, Karten: `python3 tools/cards.py <ordner> <url>`. Unterseiten: `python3 tools/subpages.py`. Abnahme: `python3 tools/abnahme.py` → abnahme/. Download Dreamina: tools/dl.sh <hash8> <name>.
 - Videos: `site/assets/video/vorort-desktop.mp4` (+ `-mobile.mp4`) = Film B Hero; danach assets.py
 - Prüfen: `python3 tools/check.py http://127.0.0.1:4370/` (6 Größen, Konsole, Querscroll, Kopfzeile, Schrift <14 px, Screens in Scratchpad)
 - Repo: github.com/Engelstraenen/bfs-relaunch (öffentlich). Pages über gh-pages (V2.77, nie push $(subtree split)): `C=$(git commit-tree $(git rev-parse main:site) -m pages); [ ${#C} = 40 ] && git -c http.postBuffer=524288000 push -f origin "${C}:refs/heads/gh-pages"`
@@ -35,6 +35,7 @@ Globale Regeln. Bilder/Videos gratis über sjinn Unlimited, bezahlt nur nach OK.
 - Datenschutz der alten Seite hat Lücken ([Name des Hosting-Anbieters] usw.) → Kollege muss ergänzen. Teilleistungen (Winterdienst, Trockenbau …) mit Kollegen abgleichen.
 
 ## 9. Entschieden
+- 26.11.2026 06:00: Kein Einfamilienhaus mehr. Umschalter Privat/Gewerblich (Kopfzeile, links neben Hausmeister): Wohnanlage (w1-schnitt/w2-fassade) und Firmenanlage (f1-schnitt/f2-fassade), je eigene Hausmeister-Aufgaben. Erst Hausmeister-Leistungen, dann Zusatzleistungen (Bau, Sanierung, Planung) mit Überleitung. Türen: jede genau eine Klinke.
 - 26.11.2026 00:20: Eugen wählt W1 „Das Haus im Schnitt“ (konzepte/v4-1-schnitt.png, Plan konzepte/w1-plan.md), weiß + CI Navy/Bronze. Gebaut + geprüft, live auf GitHub Pages.
 - 25.11.2026 23:20: Eugen lehnt Ticket-Seite ab („das ist gar nix“): Overlays auf iPad/Handy schlecht, Hausmeister = ganzes Haus, Hintergrund WEISS, Aufbau nach den Leistungen der alten Seite (Planung & Organisation, Koordination & Durchführung, Bau & Umbau, Sanierung & Renovierung, Hausmeister-Leistungen + Werte, Über uns, Kontakt). Film B (Transporter) darf bleiben. → 3 neue Storyboards.
 - 25.11.2026: NEUBAU nach V2.75. Eugen wählt Storyboard 2 „Ein Ticket geht durchs Haus“ (konzepte/v3-2-ticket.png, Sand #e9e0d0 + Ziegelrot #b5452f, Navy-Tinte). Plan: konzepte/ticket-plan.md. Alte B+-Seite wird ersetzt.
