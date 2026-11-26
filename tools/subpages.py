@@ -17,10 +17,14 @@ FOOT = '''<nav class="subnav" aria-label="Weitere Leistungen">{links}</nav>
 PAGES = [
  ('hausmeister', 'Hausmeister-Leistungen', 'keller', 'Vom Keller bis zum Dach', 'Damit im Hintergrund alles reibungslos läuft.',
   'Wir kümmern uns um die laufende Betreuung Ihrer Immobilie und sorgen dafür, dass Gebäude und Außenbereiche gepflegt bleiben. Mit festen Rundgängen, einem festen Ansprechpartner und dokumentierten Einsätzen.', 'k1-keller', 'Techniker prüft die Heizung im Keller',
-  '''<h2>Was wir übernehmen</h2><div class="grid3">
-<article class="card"><h3>Kontrolle & Haustechnik</h3><ul><li>Kontrollgänge: Gebäude und Außenanlage</li><li>Funktionskontrolle Heizung, Aufzug, Beleuchtung</li><li>Zählerstände ablesen</li><li>Brandschutz: Fluchtwege frei, Türen schließen</li><li>Schäden mit Foto an die Verwaltung melden</li></ul></article>
-<article class="card"><h3>Gebäude & Treppenhaus</h3><ul><li>Treppenhaus- und Gebäudereinigung</li><li>Schließdienst: Türen, Schlüssel, Schließanlage</li><li>Kleine Reparaturen: Schlösser, Dichtungen, Leuchtmittel</li><li>Keller- und Müllräume, Sperrmüll entsorgen</li><li>Handwerker einlassen und begleiten</li></ul></article>
-<article class="card"><h3>Dach & Außenanlagen</h3><ul><li>Dachrinnen und Fallrohre reinigen</li><li>Gartenpflege: Rasen, Hecken, Laub</li><li>Müllservice: Tonnen raus- und reinstellen</li><li>Winterdienst mit Protokoll</li><li>Parkplätze und Tiefgarage kontrollieren</li></ul></article></div>
+  '''<h2>In Wohnanlagen</h2><div class="grid3">
+<article class="card"><h3>Keller & Haustechnik</h3><ul><li>Heizung kontrollieren: Druck, Störungen</li><li>Zählerstände ablesen</li><li>Waschküche, Fahrrad- und Kellerräume</li><li>Sperrmüll und Gerümpel entsorgen</li></ul></article>
+<article class="card"><h3>Treppenhaus & Wohnetagen</h3><ul><li>Treppenhausreinigung</li><li>Briefkasten-, Klingel- und Schließanlage</li><li>Beleuchtung, Aufzug, kleine Reparaturen</li><li>Handwerker in Wohnungen begleiten</li><li>Ansprechpartner für Mieter</li></ul></article>
+<article class="card"><h3>Dach & Außenanlage</h3><ul><li>Dachrinnen und Fallrohre reinigen</li><li>Winterdienst mit Protokoll</li><li>Grünpflege, Müllplatz, Tonnen</li><li>Spielplatz, Wege, Parkplätze kontrollieren</li></ul></article></div>
+<h2>In Firmenanlagen</h2><div class="grid3">
+<article class="card"><h3>Technikräume</h3><ul><li>Funktionskontrolle Heizung, Lüftung, Klima</li><li>Zählerstände ablesen</li><li>Wartungstermine der Fachfirmen begleiten</li><li>Technikräume frei und ordentlich</li></ul></article>
+<article class="card"><h3>Empfang & Büroetagen</h3><ul><li>Schließdienst und Schlüsselverwaltung</li><li>Türen, Automatiktüren, Beleuchtung, Aufzug</li><li>Kleine Reparaturen, Möbel aufbauen, Büros umräumen</li><li>Brandschutz-Kontrollgang: Fluchtwege, Feuerlöscher-Standorte</li></ul></article>
+<article class="card"><h3>Dach & Gelände</h3><ul><li>Dachrinnen und Lichtkuppeln reinigen</li><li>Sichtkontrolle Klima- und Solaranlagen</li><li>Winterdienst für Parkplätze und Zufahrten</li><li>Schranke, Tore, Anlieferzone, Container</li></ul></article></div>
 <h2>Warum regelmäßige Kontrollgänge sich lohnen</h2><div class="grid3">
 <article class="card"><span class="n" data-count="4600" data-prefix="über " data-suffix=" €">0</span><p>kostet ein Leitungswasserschaden im Schnitt (2025, +7,5 % zum Vorjahr).</p></article>
 <article class="card"><span class="n">1,07 Mio.</span><p>Leitungswasserschäden wurden 2025 in der Wohngebäudeversicherung gemeldet, rund 2 pro Minute.</p></article>

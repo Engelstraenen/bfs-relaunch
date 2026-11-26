@@ -8,7 +8,7 @@ async def main():
     b=await p.chromium.launch()
     for w,h,mob in ((360,740,True),(390,844,True),(430,932,True),(844,390,True),(1280,800,False),(1440,900,False)):
       pg=await b.new_page(viewport={'width':w,'height':h},is_mobile=mob,has_touch=mob,reduced_motion='reduce')
-      await pg.goto('http://127.0.0.1:4370/',wait_until='networkidle'); await pg.wait_for_timeout(1200)
+      await pg.goto(sys.argv[2] if len(sys.argv)>2 else 'http://127.0.0.1:4370/',wait_until='networkidle'); await pg.wait_for_timeout(1200)
       se=await pg.evaluate("(()=>{const t=ScrollTrigger.getAll().find(t=>t.pin);return [t.start,t.end]})()")
       at=await pg.evaluate("window.__at"); bad=[]
       for k,v in sorted(at.items(),key=lambda x:x[1]):

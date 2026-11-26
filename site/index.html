@@ -15,6 +15,7 @@
 <a class="sr" href="#start">Zum Inhalt</a>
 <header class="nav">
   <a class="nav__logo" href="#start" aria-label="BAU Facility Services – Start"><img src="assets/logo.svg" alt="BAU Facility Services" width="170" height="61"></a>
+  <div class="seg" role="group" aria-label="Objektart wählen"><button type="button" data-mode="wohn" aria-pressed="true">Privat</button><button type="button" data-mode="firma" aria-pressed="false">Gewerblich</button></div>
   <ul class="nav__links">
     <li><a href="#keller">Hausmeister</a></li>
     <li><a href="#umbau">Zusatzleistungen</a></li>
@@ -52,12 +53,12 @@
   <div class="stage" id="stage">
     <div class="haus__intro" id="intro">
       <p class="eyebrow">Das ganze Haus</p>
-      <h2>Vom Keller bis zum Dach. Drinnen wie draußen.</h2>
-      <p class="lead">Zuerst alles, was unser Hausmeister im ganzen Haus erledigt. Danach, was wir zusätzlich anbieten.</p>
+      <h2 id="introH">Die ganze Wohnanlage. Vom Keller bis zum Dach.</h2>
+      <p class="lead">Zuerst alles, was unser Hausmeister erledigt. Oben umschalten: Privat (Wohnanlage) oder Gewerblich (Firmenanlage). Danach, was wir zusätzlich anbieten.</p>
     </div>
     <div class="house" id="house">
-      <img class="cut" data-img="s1-schnitt" alt="Schnitt durch das ganze Haus: Keller, Erdgeschoss, 1. Obergeschoss und Dach">
-      <img class="facade" data-img="s2-fassade" alt="Fassade des Hauses">
+      <img class="cut" data-img="w1-schnitt" alt="Schnitt durch eine Wohnanlage: Keller, Treppenhaus, Wohnetagen und Dach">
+      <img class="facade" data-img="w2-fassade" alt="Fassade der Wohnanlage">
       <div class="hl" id="hl"></div>
       <div class="labels" id="labels">
         <a class="lab" href="#dach" data-f="dach"><i></i><b>Dach</b></a>
@@ -69,33 +70,11 @@
     </div>
 
     <!-- Akt 1 · Hausmeister-Rundgang (Kamera fährt ohne Rauszoomen vom Keller nach oben) -->
-    <article class="sc sc--hm" id="c-keller" aria-labelledby="t-keller">
-      <p class="crumb">Hausmeister-Leistungen · <b>Keller</b></p>
-      <h2 id="t-keller">Haustechnik im Blick.</h2>
-      <ul class="ticks"><li>Funktionskontrolle der Heizung: Druck, Störungen</li><li>Zählerstände ablesen und dokumentieren</li><li>Leitungen und Wände auf Feuchtigkeit prüfen</li><li>Keller- und Müllräume in Ordnung, Sperrmüll entsorgen</li></ul>
-      <p class="hm-note">Ein Leitungswasserschaden kostet im Schnitt über 4.600 € (GDV 2025). Wer regelmäßig nachsieht, entdeckt ihn früher.</p>
-    </article>
-    <article class="sc sc--hm" id="c-eg" aria-labelledby="t-eg">
-      <p class="crumb">Hausmeister-Leistungen · <b>Erdgeschoss & Treppenhaus</b></p>
-      <h2 id="t-eg">Der erste Eindruck stimmt.</h2>
-      <ul class="ticks"><li>Treppenhausreinigung, Eingang sauber und sicher</li><li>Schließdienst: Haustür, Schlüssel, Schließanlage</li><li>Beleuchtung prüfen, Leuchtmittel tauschen</li><li>Aufzug kontrollieren, Ansprechpartner für Mieter</li></ul>
-    </article>
-    <article class="sc sc--hm" id="c-og" aria-labelledby="t-og">
-      <p class="crumb">Hausmeister-Leistungen · <b>Obergeschosse</b></p>
-      <h2 id="t-og">Kleine Dinge, sofort erledigt.</h2>
-      <ul class="ticks"><li>Kleine Reparaturen: Schlösser, Dichtungen, Türschließer</li><li>Brandschutz-Kontrollgang: Fluchtwege frei, Türen schließen</li><li>Handwerker einlassen und begleiten</li><li>Schäden mit Foto an die Verwaltung melden</li></ul>
-    </article>
-    <article class="sc sc--hm" id="c-dach" aria-labelledby="t-dach">
-      <p class="crumb">Hausmeister-Leistungen · <b>Dach</b></p>
-      <h2 id="t-dach">Dicht, bevor es regnet.</h2>
-      <ul class="ticks"><li>Dachrinnen und Fallrohre reinigen</li><li>Sichtkontrolle nach Sturm und Unwetter</li><li>Dachboden und Lüftung kontrollieren</li><li>Schäden sofort melden, bevor Wasser eindringt</li></ul>
-    </article>
-    <article class="sc sc--hm" id="c-aussen" aria-labelledby="t-aussen">
-      <p class="crumb">Hausmeister-Leistungen · <b>Außenanlagen</b></p>
-      <h2 id="t-aussen">Draußen gepflegt, im Winter sicher.</h2>
-      <ul class="ticks"><li>Winterdienst: räumen, streuen, mit Protokoll</li><li>Gartenpflege: Rasen, Hecken, Laub</li><li>Müllservice: Tonnen raus- und reinstellen</li><li>Wege, Parkplätze und Tiefgarage kontrollieren</li></ul>
-      <a class="more" href="hausmeister.html">Alle Hausmeister-Leistungen <span class="arrow">→</span></a>
-    </article>
+    <article class="sc sc--hm" id="c-keller" aria-live="polite"></article>
+    <article class="sc sc--hm" id="c-eg" aria-live="polite"></article>
+    <article class="sc sc--hm" id="c-og" aria-live="polite"></article>
+    <article class="sc sc--hm" id="c-dach" aria-live="polite"></article>
+    <article class="sc sc--hm" id="c-aussen" aria-live="polite"></article>
 
     <div class="bridge" id="bridge" aria-hidden="true">
       <p class="eyebrow">Zusätzlich zum Hausmeisterdienst</p>

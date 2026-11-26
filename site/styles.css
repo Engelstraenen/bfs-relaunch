@@ -33,7 +33,10 @@ small{font-size:max(14px,.83em)}
 /* Kopfzeile */
 .nav{position:fixed;inset:0 0 auto 0;height:var(--head);z-index:50;display:flex;align-items:center;gap:28px;padding:0 var(--pad);background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav__logo img{height:40px;width:auto}
-.nav__links{display:flex;gap:4px;margin-left:auto;list-style:none}
+.seg{display:flex;margin-left:auto;padding:3px;border:1.5px solid var(--line);border-radius:999px;background:#fff;flex:none}
+.seg button{min-height:38px;padding:0 14px;border-radius:999px;font:600 14px var(--f);color:var(--muted);transition:background .25s,color .25s}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.nav__links{display:flex;gap:4px;list-style:none}
 .nav__links a{display:flex;align-items:center;min-height:44px;padding:0 12px;font:500 15px var(--f);text-decoration:none;border-radius:8px}
 .nav__links a:hover,.nav__links a.on{color:var(--or)}
 .nav__loc{display:flex;align-items:center;gap:6px;font:500 14px var(--f);color:var(--muted)}
@@ -66,7 +69,8 @@ h2{font-size:clamp(30px,3.4vw,52px)}
 .haus{position:relative}
 .stage{position:relative;height:100svh;overflow:hidden;background:#fff}
 .house{position:absolute;left:50%;top:calc(50% + var(--head) / 2);width:min(92vw,calc((100svh - var(--head) - 40px) * 1.7778));aspect-ratio:16/9;transform:translate(-50%,-50%);transform-origin:50% 50%;will-change:transform}
-.house img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.house img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .45s}
+.house.swap img{opacity:0}
 .house .facade{clip-path:inset(0 0 0 0)}
 .hl{position:absolute;border:2px solid var(--or);border-radius:6px;opacity:0;pointer-events:none;box-shadow:0 0 0 9999px rgba(255,255,255,0);transition:opacity .3s}
 .labels{position:absolute;inset:0;pointer-events:none}
@@ -197,12 +201,13 @@ details p{padding:0 0 14px;color:var(--muted)}
 
 @media (max-height:860px) and (min-width:701px){.sc .phases p{display:none}.sc .phases li{padding:5px 0;grid-template-columns:32px 1fr}.sc .phases span{width:32px;height:32px}.sc .phases li:not(:last-child)::after{top:38px;left:15px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media (max-width:1180px){.nav__loc{display:none}}
+@media (max-width:1440px){.nav__loc{display:none}}
+@media (max-width:1180px){.nav__links a{padding:0 9px}}
 @media (max-width:1020px){
   .haus__intro{right:var(--pad);max-width:none}
   .sc{width:min(400px,44vw)}.sc--svc{width:min(460px,48vw)}
   .sc .phases li:nth-child(n+3){display:none}
-  .nav__links{display:none}.burger{display:flex;margin-left:6px}.nav .btn--or{margin-left:auto}
+  .nav__links{display:none}.burger{display:flex;margin-left:6px}.nav .btn--or{margin-left:12px}
   .hero,.team,.about,.contact,.sub__hero{grid-template-columns:1fr}
   .hero{padding-top:calc(var(--head) + 20px);min-height:auto}
   .werte__grid,.grid3{grid-template-columns:1fr 1fr}
@@ -210,6 +215,8 @@ details p{padding:0 0 14px;color:var(--muted)}
 @media (max-width:700px){
   :root{--head:60px}
   .nav__logo img{height:34px}
+  .seg button{padding:0 10px;min-height:36px}
+  .nav{gap:10px}
   h1{font-size:clamp(32px,9vw,44px)}h2{font-size:clamp(28px,8vw,38px)}
   .house{width:118vw;top:62%}
   .nav .btn--or{display:none}

@@ -5,15 +5,44 @@
   const mob = matchMedia('(max-width:700px)').matches;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Lage der Etagen im Schnitt-Bild (Anteile der 16:9-Fläche), nach dem Bild vermessen */
-  const FLOORS = window.FLOORS || {
-    dach:   { x: .305, y: .06, w: .40, h: .19 },
-    og:     { x: .302, y: .27, w: .404, h: .20 },
-    eg:     { x: .302, y: .48, w: .404, h: .22 },
-    keller: { x: .302, y: .71, w: .404, h: .20 },
-    aussen: { x: .125, y: .53, w: .165, h: .31 }
+  /* ---------- Objektart: Privat (Wohnanlage) / Gewerblich (Firmenanlage) ----------
+     Je Objektart eigenes Schnitt-Bild, eigene Etagen-Lage (Anteile der 16:9-Fläche, nach dem Bild vermessen)
+     und eigene Hausmeister-Aufgaben. */
+  const MODES = window.MODES || {
+    wohn: {
+      cut: 'w1-schnitt', facade: 'w2-fassade', intro: 'Die ganze Wohnanlage. Vom Keller bis zum Dach.', crumb: 'Hausmeister · Wohnanlage',
+      floors: { dach: { x: .40, y: .017, w: .4875, h: .19 }, og: { x: .40, y: .294, w: .4875, h: .311 }, eg: { x: .40, y: .622, w: .4875, h: .156 }, keller: { x: .40, y: .794, w: .4875, h: .161 }, aussen: { x: .006, y: .533, w: .306, h: .41 } },
+      bld: { x: .006, y: .017, w: .969, h: .95 },
+      names: { keller: 'Keller', eg: 'Eingang & Treppenhaus', og: 'Wohnetagen', dach: 'Dach', aussen: 'Außenanlage' },
+      short: { keller: 'Keller', eg: 'Eingang', og: 'Wohnetagen', dach: 'Dach', aussen: 'Außen' },
+      cards: {
+        keller: ['Haustechnik im Blick.', ['Heizung kontrollieren: Druck, Störungen', 'Zählerstände ablesen und dokumentieren', 'Waschküche, Fahrrad- und Kellerräume in Ordnung', 'Sperrmüll und Gerümpel entsorgen'], 'Ein Leitungswasserschaden kostet im Schnitt über 4.600 € (GDV 2025). Wer regelmäßig nachsieht, entdeckt ihn früher.'],
+        eg: ['Der erste Eindruck stimmt.', ['Treppenhausreinigung, Eingang sauber und sicher', 'Briefkasten-, Klingel- und Schließanlage', 'Beleuchtung prüfen, Leuchtmittel tauschen', 'Aufzug kontrollieren, Störungen melden']],
+        og: ['Ansprechpartner für die Mieter.', ['Kleine Reparaturen: Schlösser, Dichtungen, Türschließer', 'Brandschutz-Kontrollgang: Fluchtwege frei', 'Handwerker in Wohnungen einlassen und begleiten', 'Schäden mit Foto an die Hausverwaltung melden']],
+        dach: ['Dicht, bevor es regnet.', ['Dachrinnen und Fallrohre reinigen', 'Sichtkontrolle nach Sturm und Unwetter', 'Dachausstieg und Dachboden kontrollieren', 'Schäden sofort melden, bevor Wasser eindringt']],
+        aussen: ['Draußen gepflegt, im Winter sicher.', ['Winterdienst: räumen, streuen, mit Protokoll', 'Grünpflege: Rasen, Hecken, Laub', 'Müllplatz sauber, Tonnen raus und rein', 'Spielplatz, Wege und Parkplätze kontrollieren']]
+      }
+    },
+    firma: {
+      cut: 'f1-schnitt', facade: 'f2-fassade', intro: 'Die ganze Firmenanlage. Vom Technikraum bis zum Dach.', crumb: 'Hausmeister · Firmenanlage',
+      floors: { dach: { x: .40, y: .03, w: .55, h: .16 }, og: { x: .447, y: .183, w: .49, h: .361 }, eg: { x: .447, y: .561, w: .49, h: .206 }, keller: { x: .447, y: .778, w: .49, h: .15 }, aussen: { x: .01, y: .356, w: .42, h: .567 } },
+      bld: { x: .01, y: .05, w: .95, h: .9 },
+      names: { keller: 'Technikräume', eg: 'Empfang & Eingang', og: 'Büroetagen', dach: 'Dach & Anlagen', aussen: 'Parkplatz & Gelände' },
+      short: { keller: 'Technik', eg: 'Empfang', og: 'Büros', dach: 'Dach', aussen: 'Gelände' },
+      cards: {
+        keller: ['Technik läuft, bevor jemand fragt.', ['Funktionskontrolle Heizung, Lüftung und Klima', 'Zählerstände ablesen und dokumentieren', 'Wartungstermine der Fachfirmen begleiten', 'Technikräume frei und ordentlich halten']],
+        eg: ['Jeden Morgen startklar.', ['Schließdienst: auf- und abschließen, Schlüsselverwaltung', 'Eingang, Türen und Automatiktüren prüfen', 'Beleuchtung und Aufzug kontrollieren', 'Ansprechpartner vor Ort für Mitarbeiter und Besucher']],
+        og: ['Kleine Störungen, schnell behoben.', ['Kleine Reparaturen und Leuchtmittelwechsel', 'Möbel aufbauen, Büros umräumen', 'Brandschutz-Kontrollgang: Fluchtwege, Feuerlöscher-Standorte', 'Handwerker und Prüfdienste begleiten']],
+        dach: ['Dach und Anlagen im Blick.', ['Dachrinnen und Lichtkuppeln reinigen', 'Sichtkontrolle von Klima- und Solaranlagen', 'Kontrolle nach Sturm und Unwetter', 'Schäden sofort melden']],
+        aussen: ['Gelände sicher, Zufahrt frei.', ['Winterdienst für Parkplätze und Zufahrten, mit Protokoll', 'Grünflächen und Hecken pflegen', 'Müll- und Wertstoffcontainer im Blick', 'Schranke, Tore und Anlieferzone kontrollieren']]
+      }
+    }
   };
-  const SHORT = { dach: 'Dach', og: '1. OG', eg: 'EG', keller: 'Keller', aussen: 'Außen' };
+  const qMode = new URLSearchParams(location.search).get('anlage');
+  let mode = qMode === 'firma' || qMode === 'gewerblich' ? 'firma' : 'wohn';
+  try { if (!qMode && localStorage.getItem('bfs-anlage') === 'firma') mode = 'firma'; } catch (_) {}
+  let FLOORS = MODES[mode].floors;
+  let SHORT = MODES[mode].short;
 
   /* ---------- Medien: fehlende Bilder ausblenden ---------- */
   function srcFor(name) { const e = A.img[name]; if (!e) return null; return { srcset: e.sizes.map(w => `assets/img/${name}-${w}.webp ${w}w`).join(', '), src: `assets/img/${name}-${e.sizes[0]}.webp` }; }
@@ -23,7 +52,7 @@
     img.sizes = img.closest('.house') ? '(max-width:700px) 240vw, 260vw' : img.closest('.contact-card') ? '240px' : '(max-width:1020px) 100vw, 60vw';
   });
   $$('video[data-video]').forEach(v => { const e = A.video[v.dataset.video]; if (!e) { v.remove(); return; } v.src = (mob && e.mobile) || e.desktop; });
-  const hasCut = !!A.img['s1-schnitt'];
+  const hasCut = !!A.img[MODES[mode].cut];
 
   /* ---------- Hero-Film: läuft sofort an, bleibt am Ende an der Tür stehen ---------- */
   const hv = $('.hero__media video');
@@ -74,18 +103,36 @@
     closeM();
   });
 
+  /* ---------- Hausmeister-Karten je Objektart ---------- */
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  function renderCards() {
+    const M = MODES[mode];
+    ['keller', 'eg', 'og', 'dach', 'aussen'].forEach(k => {
+      const el = $('#c-' + k); if (!el) return; const [h, li, note] = M.cards[k];
+      el.setAttribute('aria-labelledby', 't-' + k);
+      el.innerHTML = `<p class="crumb">${M.crumb} · <b>${M.names[k]}</b></p><h2 id="t-${k}">${esc(h)}</h2><ul class="ticks">${li.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` +
+        (note ? `<p class="hm-note">${esc(note)}</p>` : '') + (k === 'aussen' ? '<a class="more" href="hausmeister.html">Alle Hausmeister-Leistungen <span class="arrow">→</span></a>' : '');
+    });
+    const ih = $('#introH'); if (ih) ih.textContent = M.intro;
+    $$('.lab').forEach(l => { const k = l.dataset.f; l.querySelector('b').textContent = innerWidth < 700 ? M.short[k] : M.names[k]; });
+  }
+  function setImgs() {
+    const M = MODES[mode];
+    [['.house .cut', M.cut], ['.house .facade', M.facade]].forEach(([sel, name]) => { const im = $(sel); if (!im) return; im.dataset.img = name; const s = srcFor(name); if (!s) { im.hidden = true; return; } im.hidden = false; im.srcset = s.srcset; im.src = s.src; });
+  }
+  renderCards(); setImgs();
+
   /* ---------- Etagen-Labels + Hervorhebung ---------- */
   const house = $('#house'), stage = $('#stage'), hl = $('#hl');
   function placeLabels() {
     $$('.lab').forEach(l => {
       const f = FLOORS[l.dataset.f]; if (!f) return;
       const narrow = innerWidth < 700;
-      if (narrow) l.querySelector('b').textContent = SHORT[l.dataset.f];
-      if (l.dataset.f === 'aussen') Object.assign(l.style, { left: 'auto', right: (1 - f.x) * 100 + '%', top: (f.y + f.h * .3) * 100 + '%', transform: 'translateY(-50%)', flexDirection: 'row-reverse' });
+      if (l.dataset.f === 'aussen') Object.assign(l.style, { left: (f.x + f.w * .1) * 100 + '%', right: 'auto', top: (f.y + f.h * .12) * 100 + '%', transform: 'translateY(-50%)', flexDirection: 'row' });
       else Object.assign(l.style, { left: (f.x + f.w) * 100 + '%', top: (f.y + f.h / 2) * 100 + '%', transform: 'translateY(-50%)' });
       const hw = house.getBoundingClientRect().width || innerWidth * .9;
-      const room = narrow ? 8 : (l.dataset.f === 'aussen' ? hw * f.x - 150 : hw * (1 - f.x - f.w) - 190);
-      l.style.setProperty('--len', Math.max(16, Math.min(110, room)) + 'px');
+      const room = l.dataset.f === 'aussen' ? 0 : narrow ? 8 : hw * (1 - f.x - f.w) - 190;
+      l.style.setProperty('--len', (l.dataset.f === 'aussen' ? 0 : Math.max(16, Math.min(110, room))) + 'px');
     });
   }
   function showHl(k) { const f = FLOORS[k]; if (!f) { hl.style.opacity = 0; return; } Object.assign(hl.style, { left: f.x * 100 + '%', top: f.y * 100 + '%', width: f.w * 100 + '%', height: f.h * 100 + '%', opacity: 1 }); }
@@ -104,7 +151,7 @@
      Akt 1: einmal in den Keller zoomen, dann OHNE Rauszoomen nach oben fahren (Keller → EG → OG → Dach → Außen).
      Akt 2: einmal ruhig zurück aufs ganze Haus, Haus steht links, Rahmen markiert, wo die Firmenleistung stattfindet. */
   const narrow = () => innerWidth <= 700;
-  const BLD = { x: .11, y: .04, w: .63, h: .89 }; // ganzes Gebäude inkl. Außenanlage
+  let BLD = MODES[mode].bld; // ganzes Gebäude inkl. Außenanlage
   const head = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head')) || 68;
   // Position, an der das Haus-Detail (Anteile im Bild) bei Skalierung s in der Bühne landen soll
   function aim(r, s, tx, ty) {
@@ -117,7 +164,7 @@
   function rideScale() {
     const W = house.offsetWidth, H = house.offsetHeight, sw = stage.offsetWidth, sh = stage.offsetHeight, hd = head(), f = FLOORS.eg;
     sRide = narrow() ? Math.min(sw * .98 / (f.w * W), (sh - hd) * .36 / (f.h * H))
-                     : Math.min(sw * .52 / (f.w * W), (sh - hd) * .62 / (f.h * H));
+                     : Math.min(sw * .6 / (f.w * W), (sh - hd) * .62 / (f.h * H));
     return sRide;
   }
   function camFloor(k) {
@@ -133,18 +180,20 @@
     return aim(BLD, s, Math.max(16, Math.min(64, sw * .04)) + free / 2, hd + (sh - hd) / 2);
   }
   const C = fn => ({ x: () => fn().x, y: () => fn().y, scale: () => fn().scale });
-  const introX = () => innerWidth > 1020 ? stage.offsetWidth * .17 : 0;
-  gsap.set(house, { xPercent: -50, yPercent: -50, x: introX(), y: 0, scale: 1 });
+  const introX = () => innerWidth > 1020 ? stage.offsetWidth * .15 : 0;
+  const introS = () => innerWidth > 1020 ? .74 : .8;
+  gsap.set(house, { xPercent: -50, yPercent: -50, x: introX(), y: 0, scale: introS() });
   const LEN = mob ? 10000 : 12500;
   const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
   const at = {}; window.__at = at; // Haltepunkte für Anker
   const cardIn = (id, t) => tl.to(id, { autoAlpha: 1, duration: .02, ease: 'power1.out' }, t).fromTo(id, { y: 24 }, { y: 0, duration: .025, ease: 'power2.out' }, t).fromTo(id + ' > *', { y: 14, opacity: 0 }, { y: 0, opacity: 1, stagger: .002, duration: .012 }, t + .004);
   const cardOut = (id, t) => tl.to(id, { autoAlpha: 0, y: -16, duration: .016, ease: 'power1.in' }, t);
-  const hlTo = (r, t, d = .03) => tl.to(hl, { left: r.x * 100 + '%', top: r.y * 100 + '%', width: r.w * 100 + '%', height: r.h * 100 + '%', opacity: 1, duration: d }, t);
+  const R = k => k === 'bld' ? BLD : FLOORS[k];
+  const hlTo = (k, t, d = .03) => tl.to(hl, { left: () => R(k).x * 100 + '%', top: () => R(k).y * 100 + '%', width: () => R(k).w * 100 + '%', height: () => R(k).h * 100 + '%', opacity: 1, duration: d }, t);
 
   // Fassade löst sich von oben nach unten auf (Röntgenblick), dann Etagen-Schilder
   tl.fromTo('#house .facade', { clipPath: 'inset(0% 0 0 0)' }, { clipPath: 'inset(100% 0 0 0)', duration: .08, ease: 'none' }, 0)
-    .fromTo('#house', { scale: .9, x: introX }, { scale: .96, x: introX, duration: .08, ease: 'none' }, 0)
+    .fromTo('#house', { scale: introS, x: introX }, { scale: () => introS() + .04, x: introX, duration: .08, ease: 'none' }, 0)
     .to('.lab', { opacity: 1, duration: .02, stagger: .012 }, .07)
     .fromTo('.lab i', { scaleX: 0 }, { scaleX: 1, duration: .02, stagger: .012 }, .07);
 
@@ -169,14 +218,14 @@
   tl.to('#bridge', { autoAlpha: 1, duration: .02 }, t + .02).fromTo('#bridge > *', { y: 18, opacity: 0 }, { y: 0, opacity: 1, stagger: .004, duration: .02 }, t + .02);
   at.zusatz = t + .06;
   tl.to('#bridge', { autoAlpha: 0, y: -16, duration: .016 }, t + .09);
-  hlTo(FLOORS.eg, t + .1, .02);
+  hlTo('eg', t + .1, .02);
   cardIn('#c-umbau', t + .105); at.umbau = t + .135;
   tl.to({ v: 92 }, { v: 50, duration: .05, onUpdate() { setX(this.targets()[0].v); } }, t + .125);
   t += .2;
-  cardOut('#c-umbau', t); hlTo(FLOORS.og, t + .01); cardIn('#c-sanierung', t + .03); at.sanierung = t + .065;
+  cardOut('#c-umbau', t); hlTo('og', t + .01); cardIn('#c-sanierung', t + .03); at.sanierung = t + .065;
   tl.to({ v: 0 }, { v: 2.99, duration: .07, ease: 'none', onUpdate() { setStep3(Math.floor(this.targets()[0].v)); } }, t + .05);
   t += .14;
-  cardOut('#c-sanierung', t); hlTo(BLD, t + .01); cardIn('#c-planung', t + .03); at.planung = t + .065;
+  cardOut('#c-sanierung', t); hlTo('bld', t + .01); cardIn('#c-planung', t + .03); at.planung = t + .065;
   t += .12;
   // Koordination: Linien von jeder Etage zum Ansprechpartner
   cardOut('#c-planung', t); tl.to(hl, { opacity: 0, duration: .02 }, t);
@@ -205,6 +254,22 @@
     });
   }
   drawCoord();
+
+  /* Umschalter Privat / Gewerblich: Bild, Etagen, Aufgaben tauschen, Fahrt neu berechnen */
+  function setMode(m) {
+    if (m === mode || !MODES[m]) return; mode = m;
+    try { localStorage.setItem('bfs-anlage', m); } catch (_) {}
+    $$('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    house.classList.add('swap');
+    setTimeout(() => {
+      FLOORS = MODES[m].floors; SHORT = MODES[m].short; BLD = MODES[m].bld;
+      setImgs(); renderCards(); placeLabels();
+      const p = st.progress; tl.invalidate(); ScrollTrigger.refresh(); tl.progress(p);
+      house.classList.remove('swap');
+    }, 300);
+  }
+  $$('.seg button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  $$('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
 
   /* Anker aus Menü/Labels springen an die passende Stelle der Fahrt */
   function goto(id) {
