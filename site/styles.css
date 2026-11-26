@@ -198,7 +198,7 @@ details p{padding:0 0 14px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:1180px){.nav__loc{display:none}}
 @media (max-width:1020px){
-  .nav__links{display:none}.burger{display:flex}
+  .nav__links{display:none}.burger{display:flex;margin-left:6px}.nav .btn--or{margin-left:auto}
   .hero,.team,.about,.contact,.sub__hero{grid-template-columns:1fr}
   .hero{padding-top:calc(var(--head) + 20px);min-height:auto}
   .panel{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;align-items:stretch;gap:16px;padding:16px var(--pad) 20px}
@@ -224,9 +224,11 @@ details p{padding:0 0 14px;color:var(--muted)}
   .werte__grid,.grid3{grid-template-columns:1fr}
 }
 @media (max-height:500px) and (orientation:landscape){
+  .hero{grid-template-columns:1fr 1fr;min-height:100svh;padding-top:calc(var(--head) + 12px)}.hero h1{font-size:30px}.hero .lead{display:none}
   .panel{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding:10px var(--pad)}
   .panel__copy .lead,.panel .ticks,.panel .phases{display:none}
   .haus__intro .lead,.coord-copy .lead{display:none}
   .haus__intro h2,.coord-copy h2{font-size:24px}
   .contact-card img{width:80px}.contact-card p{display:none}
 }
+.contact-card img{object-position:72% 25%}

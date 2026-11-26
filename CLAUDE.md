@@ -23,8 +23,8 @@ Globale Regeln. Bilder/Videos gratis über sjinn Unlimited, bezahlt nur nach OK.
 
 ## 7. Befehle
 - Vorschau: `cd site && python3 -m http.server 4370 --bind 127.0.0.1` → http://127.0.0.1:4370/ (Port 4370 = HAUSWERK, vor Link <title> prüfen)
-- Bilder: Roh-4K nach `assets-roh/<name>.jpg` (Namen: keys, house, house-exploded, room-before, room-after, caretaker, recruit, step-beratung, step-umsetzung, step-betreuung, tile-umbau, tile-sanierung, tile-hausmeister, tile-planung), dann `python3 tools/assets.py` (WebP 1800/3840 + site/assets/manifest.js; fehlende Bilder blendet die Seite aus)
-- Videos: `site/assets/video/<name>-desktop.mp4` (+ `-mobile.mp4`), Namen renovation, recruit; danach assets.py
+- Bilder W1: `assets-roh/<name>.png` (s1-schnitt, s2-fassade, k1-keller, e1-eg-vorher, e2-eg-nachher, o1/o2/o3-bad-*, d1-dach, a1-ansprechpartner, t1-team, m4-vorort), dann `python3 tools/assets.py` (schärft nach, WebP 1800/2560/nativ + manifest.js). Etagen-Lage im Schnitt-Bild: FLOORS in site/main.js. Unterseiten: `python3 tools/subpages.py`. Abnahme: `python3 tools/abnahme.py` → abnahme/. Download Dreamina: tools/dl.sh <hash8> <name>.
+- Videos: `site/assets/video/vorort-desktop.mp4` (+ `-mobile.mp4`) = Film B Hero; danach assets.py
 - Prüfen: `python3 tools/check.py http://127.0.0.1:4370/` (6 Größen, Konsole, Querscroll, Kopfzeile, Schrift <14 px, Screens in Scratchpad)
 - Repo: github.com/Engelstraenen/bfs-relaunch (öffentlich). Pages über gh-pages: `git subtree split --prefix site -b gh-pages && git push -f origin gh-pages`
 - sjinn-Zuordnung Auftrag → Datei: BFS-K1 keys · BFS-G1 house · BFS-G2 house-exploded · BFS-R1 room-before · BFS-H1 caretaker · BFS-J1 recruit · BFS-S1/S3/S4 step-beratung/-umsetzung/-betreuung · BFS-T1..T4 tile-umbau/-sanierung/-hausmeister/-planung · room-after = Edit von R1 (Referenz-Upload)
@@ -35,6 +35,7 @@ Globale Regeln. Bilder/Videos gratis über sjinn Unlimited, bezahlt nur nach OK.
 - Datenschutz der alten Seite hat Lücken ([Name des Hosting-Anbieters] usw.) → Kollege muss ergänzen. Teilleistungen (Winterdienst, Trockenbau …) mit Kollegen abgleichen.
 
 ## 9. Entschieden
+- 26.11.2026 00:20: Eugen wählt W1 „Das Haus im Schnitt“ (konzepte/v4-1-schnitt.png, Plan konzepte/w1-plan.md), weiß + CI Navy/Bronze. Gebaut + geprüft, live auf GitHub Pages.
 - 25.11.2026 23:20: Eugen lehnt Ticket-Seite ab („das ist gar nix“): Overlays auf iPad/Handy schlecht, Hausmeister = ganzes Haus, Hintergrund WEISS, Aufbau nach den Leistungen der alten Seite (Planung & Organisation, Koordination & Durchführung, Bau & Umbau, Sanierung & Renovierung, Hausmeister-Leistungen + Werte, Über uns, Kontakt). Film B (Transporter) darf bleiben. → 3 neue Storyboards.
 - 25.11.2026: NEUBAU nach V2.75. Eugen wählt Storyboard 2 „Ein Ticket geht durchs Haus“ (konzepte/v3-2-ticket.png, Sand #e9e0d0 + Ziegelrot #b5452f, Navy-Tinte). Plan: konzepte/ticket-plan.md. Alte B+-Seite wird ersetzt.
 - 23.11.2026 11:45: Eugen wählt B (hell), „cooler, nicht langweilig“ → Bau als B+ (Storyboard BFSB-PLUS in Arbeit). 12:15 Eugen: andere sjinn-Sitzungen NICHT pausieren, warten.

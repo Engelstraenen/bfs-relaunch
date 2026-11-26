@@ -1,0 +1,90 @@
+<title>BFS Relaunch Abnahme</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Abnahme-Blatt: je Kapitel ein Band – Storyboard | Laptop | Handy, darunter die Abweichung */
+:root{
+  --bg:#ffffff; --panel:#f6f5f2; --line:#e4e0d8; --fg:#1b2a49; --mut:#5f6672; --acc:#9d7a42; --ok:#2f7a4d; --warn:#a8641a;
+  --f-d:"Inter Tight",Inter,system-ui,sans-serif; --f-b:Inter,system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11161f;--panel:#19202c;--line:#2a3343;--fg:#eef0f4;--mut:#a7afbd;--acc:#c79f5f;--ok:#5fc08a;--warn:#e0a052;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11161f;--panel:#19202c;--line:#2a3343;--fg:#eef0f4;--mut:#a7afbd;--acc:#c79f5f;--ok:#5fc08a;--warn:#e0a052;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--f-b);margin:0}
+.wrap{max-width:1500px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:36px}
+h1,h2{font-family:var(--f-d);font-weight:800;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(30px,4.4vw,54px);line-height:1}
+h2{font-size:clamp(20px,2.2vw,28px);line-height:1.1}
+.top{display:grid;gap:16px}
+.eyebrow{font:600 14px var(--f-b);letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 12px;font-size:14px;font-weight:600}
+.pill b{color:var(--ok)}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:10px;background:var(--acc);color:#fff;font-weight:600;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.ch{display:grid;gap:12px;padding-top:26px;border-top:1px solid var(--line)}
+.ch-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.ch-h .n{font:800 34px/1 var(--f-d);color:var(--acc);font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:1fr 1fr .3fr;gap:12px;align-items:start}
+figure{margin:0;display:grid;gap:6px;min-width:0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:8px;cursor:zoom-in;background:var(--panel)}
+figcaption{font-size:14px;color:var(--mut);font-weight:600}
+.note{font-size:15px;background:var(--panel);border-left:3px solid var(--ok);padding:10px 14px;border-radius:0 8px 8px 0;max-width:90ch}
+.note.dev{border-left-color:var(--warn)}
+.embed{display:grid;gap:10px}
+.embed pre{margin:0;overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;font:14px/1.5 ui-monospace,Menlo,monospace}
+.copy{justify-self:start;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:600 14px var(--f-b);cursor:pointer}
+.lb{position:fixed;inset:0;z-index:20;background:rgba(10,14,22,.92);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px}
+@media (max-width:760px){.grid{grid-template-columns:1fr 1fr}.grid figure:first-child{grid-column:1/-1}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">BAU Facility Services · Relaunch W1 „Das Haus im Schnitt“</p>
+    <h1>Abnahme: Storyboard neben fertiger Seite</h1>
+    <div class="pills">
+      <span class="pill"><b>✓</b> 6 Größen geprüft: 0 Konsolenfehler, kein Querscroll</span>
+      <span class="pill"><b>✓</b> Schrift ab 14 px, Kopfzeile passt 1280–1440 px</span>
+      <span class="pill">Alle Bilder kostenlos (Unlimited, 0 Credits), nachgeschärft</span>
+    </div>
+    <div class="links">
+      <a class="btn" href="https://engelstraenen.github.io/bfs-relaunch/">Seite öffnen</a>
+      <a class="btn ghost" href="https://github.com/Engelstraenen/bfs-relaunch">GitHub-Repo</a>
+    </div>
+    <p style="margin:0;color:var(--mut)">Links: Storyboard-Panel · Mitte: Laptop 1440 × 900 · Rechts: Handy 390 × 844. Bild antippen für Vollbild.</p>
+  </header>
+
+  <main id="list" style="display:grid;gap:36px"></main>
+
+  <section class="embed" aria-label="Einbettung">
+    <h2>Einbettung für projektex.de</h2>
+    <pre id="code">&lt;iframe src="https://engelstraenen.github.io/bfs-relaunch/" title="BAU Facility Services" style="width:100%;height:100vh;border:0" loading="lazy"&gt;&lt;/iframe&gt;</pre>
+    <button class="copy" id="copyBtn" type="button">Code kopieren</button>
+  </section>
+</div>
+<div class="lb" id="lb" hidden><img id="lbImg" alt=""></div>
+
+<script>
+const CH=[
+ ['Hero mit Film B','Transporter vor dem Haus, Techniker geht zur Tür (dein Film B läuft beim Laden an).','ok'],
+ ['Das ganze Haus','Fassade löst sich beim Scrollen auf, darunter das Schnitt-Haus mit Etagen-Schildern. Abweichung: Das Haus hat 3 Etagen plus Dach statt 4, wie das erzeugte Schnitt-Bild.','dev'],
+ ['Keller · Hausmeister-Leistungen','Kamera zoomt in den Keller, dann Foto + Leistungsliste + Unterseite.','ok'],
+ ['Erdgeschoss · Bau & Umbau','Vorher/Nachher-Regler, gleiche Kamera, fährt beim Scrollen auf und ist frei ziehbar.','ok'],
+ ['1. OG · Sanierung & Renovierung','Vorher · Arbeit · Ergebnis als drei deckungsgleiche Fotos, Scrollen schaltet durch. Abweichung: Fotos statt Film (Film folgt, wenn der Dreamina-Video-Platz frei ist).','dev'],
+ ['Dach · Planung & Organisation','Planer im Dachbüro + vier Phasen.','ok'],
+ ['Koordination & Durchführung','Haus rückt zur Seite, Bronze-Linien laufen von jeder Etage zum Ansprechpartner (Symbolbild, kein echter Mitarbeiter).','ok'],
+ ['Außen · Team · Karriere','Kinetik-Typo, 60-Sekunden-Bewerbung, Unterseite Karriere.','ok'],
+ ['Werte · Über uns · Kontakt','Vier Werte, Zitat Osman Yilmaz (ohne Foto, da kein echtes vorliegt), Beispiel-Bewertungen, Kontaktformular. Abweichung: kein Porträt beim Zitat.','dev']
+];
+const list=document.getElementById('list');
+CH.forEach(([t,n,s],i)=>{const k=i+1;const sec=document.createElement('section');sec.className='ch';
+ sec.innerHTML=`<div class="ch-h"><span class="n">${k}</span><h2>${t}</h2></div><div class="grid"><figure><img src="${k}-storyboard.jpg" alt="Storyboard Panel ${k}" loading="lazy"><figcaption>Storyboard</figcaption></figure><figure><img src="${k}-laptop.jpg" alt="Laptop Kapitel ${k}" loading="lazy"><figcaption>Laptop</figcaption></figure><figure><img src="${k}-handy.jpg" alt="Handy Kapitel ${k}" loading="lazy"><figcaption>Handy</figcaption></figure></div><p class="note ${s==='dev'?'dev':''}">${n}</p>`;
+ list.appendChild(sec);});
+const lb=document.getElementById('lb'),li=document.getElementById('lbImg');
+list.addEventListener('click',e=>{if(e.target.tagName==='IMG'){li.src=e.target.src;li.alt=e.target.alt;lb.hidden=false;}});
+lb.addEventListener('click',()=>lb.hidden=true);
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true;});
+document.getElementById('copyBtn').addEventListener('click',async e=>{const t=document.getElementById('code').textContent;try{await navigator.clipboard.writeText(t);e.target.textContent='Kopiert';}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById('code'));const s=getSelection();s.removeAllRanges();s.addRange(r);e.target.textContent='Markiert – jetzt kopieren';}});
+</script>

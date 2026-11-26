@@ -131,7 +131,7 @@
     if (k === 'og') tl.to({ v: 0 }, { v: 2.99, duration: .07, ease: 'none', onUpdate() { setStep3(Math.floor(this.targets()[0].v)); } }, t + .07);
     tl.to(p, { autoAlpha: 0, duration: .02 }, t + .15)
       .to(house, { x: 0, y: 0, scale: 1, duration: .04 }, t + .155)
-      .to('.labels', { opacity: k === 'dach' ? 0 : 1, duration: .02 }, t + .175);
+
     t += .17;
   });
   // Koordination: Haus rückt nach links, Linien zu einem Ansprechpartner
@@ -143,18 +143,21 @@
     .to('#coordCopy', { opacity: 1, duration: .03 }, t + .05)
     .to({}, { duration: .06 }, t + .1);
 
-  const st = ScrollTrigger.create({ trigger: '#haus', start: 'top top', end: '+=' + LEN, pin: '#stage', scrub: true, animation: tl, anticipatePin: 1, onRefresh: drawCoord });
+  const st = ScrollTrigger.create({ trigger: '#haus', start: 'top top', end: '+=' + LEN, pin: '#stage', scrub: true, animation: tl, anticipatePin: 1, onRefresh: () => drawCoord(), onUpdate: s => { if (s.progress > at.koordination - .1) drawCoord(); } });
 
   /* Linien von jeder Etage zum Ansprechpartner (nach Endstellung berechnet) */
   function drawCoord() {
-    const svg = $('#coordSvg'), card = $('#contactCard img'); if (!svg || !card) return;
-    const sw = stage.offsetWidth, sh = stage.offsetHeight, head = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head')) || 68;
-    const W = house.offsetWidth, H = house.offsetHeight, s = mob ? .7 : .62, cx = sw / 2, cy = (sh + head) / 2 + (mob ? -sh * .1 : sh * .04);
-    const cr = card.getBoundingClientRect(), sr = stage.getBoundingClientRect();
-    const tx = cr.left - sr.left + (mob ? cr.width / 2 : 0), ty = cr.top - sr.top + (mob ? 0 : cr.height / 2) - head;
-    let d = '';
-    ['dach', 'og', 'eg', 'keller'].forEach(k => { const f = FLOORS[k]; const x = cx + (f.x + f.w - .5) * W * s, y = cy + (f.y + f.h / 2 - .5) * H * s - head; const mx = (x + tx) / 2; d += `<path pathLength="1" stroke-dasharray="1" d="M${x},${y} C${mx},${y} ${mx},${ty} ${tx},${ty}"/><circle cx="${x}" cy="${y}" r="4"/>`; });
-    svg.innerHTML = d;
+    const svg = $('#coordSvg'), card = $('#contactCard img'); if (!svg || !card || card.hidden) return;
+    if (!svg.children.length) svg.innerHTML = ['dach', 'og', 'eg', 'keller'].map(() => '<path pathLength="1" stroke-dasharray="1"/><circle r="4"/>').join('');
+    const or = $('#coord').getBoundingClientRect(), hr = house.getBoundingClientRect(), cr = card.getBoundingClientRect();
+    const narrow = innerWidth < 1021;
+    const tx = (narrow ? cr.left + cr.width / 2 : cr.left) - or.left, ty = (narrow ? cr.top : cr.top + cr.height / 2) - or.top;
+    const paths = svg.querySelectorAll('path'), dots = svg.querySelectorAll('circle');
+    ['dach', 'og', 'eg', 'keller'].forEach((k, i) => {
+      const f = FLOORS[k], x = hr.left + (f.x + f.w) * hr.width - or.left, y = hr.top + (f.y + f.h / 2) * hr.height - or.top;
+      const d = narrow ? `M${x},${y} C${x + 30},${y} ${tx},${(y + ty) / 2} ${tx},${ty}` : `M${x},${y} C${(x + tx) / 2},${y} ${(x + tx) / 2},${ty} ${tx},${ty}`;
+      paths[i].setAttribute('d', d); dots[i].setAttribute('cx', x); dots[i].setAttribute('cy', y);
+    });
   }
   drawCoord();
 
