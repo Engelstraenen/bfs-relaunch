@@ -6,8 +6,9 @@ from PIL import Image
 SB = 'konzepte/v4-1-schnitt.png'; OUT = 'abnahme/'; URL = 'http://127.0.0.1:4370/'
 os.makedirs(OUT, exist_ok=True)
 # (Kapitel, Art, Wert): pin = Fortschritt der Haus-Fahrt, sel = Abschnitt
-CH = [('start', 'sel', '#start'), ('haus', 'pin', .11), ('keller', 'pin', .24), ('eg', 'pin', .42),
-      ('og', 'pin', .58), ('dach', 'pin', .76), ('koord', 'pin', .97), ('team', 'sel', '#team'), ('werte', 'sel', '#werte')]
+CH = [('start', 'sel', '#start'), ('haus', 'pin', .08), ('keller', 'at', 'keller'), ('eg', 'at', 'eg'),
+      ('og', 'at', 'og'), ('dach', 'at', 'dach'), ('koord', 'at', 'koordination'), ('team', 'sel', '#team'), ('werte', 'sel', '#werte'),
+      ('aussen', 'at', 'aussen'), ('umbau', 'at', 'umbau'), ('sanierung', 'at', 'sanierung'), ('planung', 'at', 'planung')]
 sb = Image.open(SB).convert('RGB'); W, H = sb.size; pw, ph = W / 3, H / 3
 for i in range(9):
     r, c = divmod(i, 3)
@@ -16,10 +17,12 @@ async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch()
         for tag, w, h, mob in (('laptop', 1440, 900, False), ('handy', 390, 844, True)):
-            pg = await b.new_page(viewport={'width': w, 'height': h}, device_scale_factor=2 if mob else 1, is_mobile=mob, has_touch=mob)
+            pg = await b.new_page(viewport={'width': w, 'height': h}, device_scale_factor=2 if mob else 1, is_mobile=mob, has_touch=mob, reduced_motion='reduce')
             await pg.goto(URL, wait_until='networkidle'); await pg.wait_for_timeout(2500)
             for i, (name, kind, val) in enumerate(CH):
-                if kind == 'pin':
+                if kind == 'at':
+                    y = await pg.evaluate(f"(()=>{{const t=ScrollTrigger.getAll().find(t=>t.pin);return t.start+(t.end-t.start)*window.__at['{val}']}})()")
+                elif kind == 'pin':
                     y = await pg.evaluate(f"(()=>{{const t=ScrollTrigger.getAll().find(t=>t.pin);return t.start+(t.end-t.start)*{val}}})()")
                 else:
                     y = await pg.evaluate(f"document.querySelector('{val}').getBoundingClientRect().top+scrollY-({0 if val=='#start' else 60})")

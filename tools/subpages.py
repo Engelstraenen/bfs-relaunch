@@ -15,12 +15,12 @@ FOOT = '''<nav class="subnav" aria-label="Weitere Leistungen">{links}</nav>
 <script src="sub.js"></script></body></html>
 '''
 PAGES = [
- ('hausmeister', 'Hausmeister-Leistungen', 'keller', 'Keller · Hausmeister-Leistungen', 'Damit im Hintergrund alles reibungslos läuft.',
+ ('hausmeister', 'Hausmeister-Leistungen', 'keller', 'Vom Keller bis zum Dach', 'Damit im Hintergrund alles reibungslos läuft.',
   'Wir kümmern uns um die laufende Betreuung Ihrer Immobilie und sorgen dafür, dass Gebäude und Außenbereiche gepflegt bleiben. Mit festen Rundgängen, einem festen Ansprechpartner und dokumentierten Einsätzen.', 'k1-keller', 'Techniker prüft die Heizung im Keller',
   '''<h2>Was wir übernehmen</h2><div class="grid3">
-<article class="card"><h3>Haustechnik</h3><ul><li>Kontrollgänge Heizung, Wasser, Elektro</li><li>Zählerstände, Filter, Leuchtmittel</li><li>Störungen erkennen, bevor sie teuer werden</li></ul></article>
-<article class="card"><h3>Treppenhaus & Gebäude</h3><ul><li>Sichtkontrolle und Kleinreparaturen</li><li>Türen, Schlösser, Briefkästen</li><li>Ordnung in Keller und Gemeinschaftsräumen</li></ul></article>
-<article class="card"><h3>Außenanlagen</h3><ul><li>Grünpflege, Hecken, Laub</li><li>Mülltonnenplätze</li><li>Winterdienst mit Protokoll</li></ul></article></div>
+<article class="card"><h3>Kontrolle & Haustechnik</h3><ul><li>Kontrollgänge: Gebäude und Außenanlage</li><li>Funktionskontrolle Heizung, Aufzug, Beleuchtung</li><li>Zählerstände ablesen</li><li>Brandschutz: Fluchtwege frei, Türen schließen</li><li>Schäden mit Foto an die Verwaltung melden</li></ul></article>
+<article class="card"><h3>Gebäude & Treppenhaus</h3><ul><li>Treppenhaus- und Gebäudereinigung</li><li>Schließdienst: Türen, Schlüssel, Schließanlage</li><li>Kleine Reparaturen: Schlösser, Dichtungen, Leuchtmittel</li><li>Keller- und Müllräume, Sperrmüll entsorgen</li><li>Handwerker einlassen und begleiten</li></ul></article>
+<article class="card"><h3>Dach & Außenanlagen</h3><ul><li>Dachrinnen und Fallrohre reinigen</li><li>Gartenpflege: Rasen, Hecken, Laub</li><li>Müllservice: Tonnen raus- und reinstellen</li><li>Winterdienst mit Protokoll</li><li>Parkplätze und Tiefgarage kontrollieren</li></ul></article></div>
 <h2>Warum regelmäßige Kontrollgänge sich lohnen</h2><div class="grid3">
 <article class="card"><span class="n" data-count="4600" data-prefix="über " data-suffix=" €">0</span><p>kostet ein Leitungswasserschaden im Schnitt (2025, +7,5 % zum Vorjahr).</p></article>
 <article class="card"><span class="n">1,07 Mio.</span><p>Leitungswasserschäden wurden 2025 in der Wohngebäudeversicherung gemeldet, rund 2 pro Minute.</p></article>

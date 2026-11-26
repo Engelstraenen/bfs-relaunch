@@ -100,62 +100,103 @@
   if (window.Lenis && !reduced) { lenis = new Lenis({ lerp: .12 }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
   gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
 
-  /* Kamera auf eine Etage richten */
-  function camTo(k, fill) {
-    const f = FLOORS[k], W = house.offsetWidth, H = house.offsetHeight, sw = stage.offsetWidth, sh = stage.offsetHeight;
-    const s = Math.min(sw * (fill || .9) / (f.w * W), sh * .75 / (f.h * H));
-    const dx = (f.x + f.w / 2 - .5) * W, dy = (f.y + f.h / 2 - .5) * H;
-    return { x: -dx * s, y: -dy * s, scale: s };
+  /* ---------- Kamera ----------
+     Akt 1: einmal in den Keller zoomen, dann OHNE Rauszoomen nach oben fahren (Keller → EG → OG → Dach → Außen).
+     Akt 2: einmal ruhig zurück aufs ganze Haus, Haus steht links, Rahmen markiert, wo die Firmenleistung stattfindet. */
+  const narrow = () => innerWidth <= 700;
+  const BLD = { x: .11, y: .04, w: .63, h: .89 }; // ganzes Gebäude inkl. Außenanlage
+  const head = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head')) || 68;
+  // Position, an der das Haus-Detail (Anteile im Bild) bei Skalierung s in der Bühne landen soll
+  function aim(r, s, tx, ty) {
+    const W = house.offsetWidth, H = house.offsetHeight, sh = stage.offsetHeight, sw = stage.offsetWidth;
+    const dx = (r.x + r.w / 2 - .5) * W, dy = (r.y + r.h / 2 - .5) * H;
+    const cx = sw / 2, cy = sh / 2 + head() / 2; // Mitte der Haus-Box ohne Verschiebung
+    return { x: tx - cx - dx * s, y: ty - cy - dy * s, scale: s };
   }
+  let sRide = 1;
+  function rideScale() {
+    const W = house.offsetWidth, H = house.offsetHeight, sw = stage.offsetWidth, sh = stage.offsetHeight, hd = head(), f = FLOORS.eg;
+    sRide = narrow() ? Math.min(sw * .98 / (f.w * W), (sh - hd) * .36 / (f.h * H))
+                     : Math.min(sw * .52 / (f.w * W), (sh - hd) * .62 / (f.h * H));
+    return sRide;
+  }
+  function camFloor(k) {
+    const sw = stage.offsetWidth, sh = stage.offsetHeight, hd = head(), s = rideScale();
+    return narrow() ? aim(FLOORS[k], s, sw / 2, hd + (sh - hd) * .22) : aim(FLOORS[k], s, sw * .33, hd + (sh - hd) / 2);
+  }
+  function camAll() {
+    const W = house.offsetWidth, H = house.offsetHeight, sw = stage.offsetWidth, sh = stage.offsetHeight, hd = head();
+    if (narrow()) { const s = Math.min(sw * .9 / (BLD.w * W), (sh - hd) * .36 / (BLD.h * H)); return aim(BLD, s, sw / 2, hd + (sh - hd) * .21); }
+    const card = innerWidth > 1020 ? Math.min(560, sw * .44) : Math.min(460, sw * .48);
+    const free = sw - card - 2 * Math.max(16, Math.min(64, sw * .04)) - 24;
+    const s = Math.min(free * .92 / (BLD.w * W), (sh - hd) * .84 / (BLD.h * H));
+    return aim(BLD, s, Math.max(16, Math.min(64, sw * .04)) + free / 2, hd + (sh - hd) / 2);
+  }
+  const C = fn => ({ x: () => fn().x, y: () => fn().y, scale: () => fn().scale });
   const introX = () => innerWidth > 1020 ? stage.offsetWidth * .17 : 0;
   gsap.set(house, { xPercent: -50, yPercent: -50, x: introX(), y: 0, scale: 1 });
-  const LEN = mob ? 7000 : 9000;
+  const LEN = mob ? 9500 : 12000;
   const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
-  const at = {}; // Fortschritt je Etage für Anker
-  // Fassade löst sich von oben nach unten auf
+  const at = {}; window.__at = at; // Haltepunkte für Anker
+  const cardIn = (id, t) => tl.to(id, { autoAlpha: 1, duration: .02, ease: 'power1.out' }, t).fromTo(id, { y: 24 }, { y: 0, duration: .025, ease: 'power2.out' }, t).fromTo(id + ' > *', { y: 14, opacity: 0 }, { y: 0, opacity: 1, stagger: .002, duration: .012 }, t + .004);
+  const cardOut = (id, t) => tl.to(id, { autoAlpha: 0, y: -16, duration: .016, ease: 'power1.in' }, t);
+  const hlTo = (r, t, d = .03) => tl.to(hl, { left: r.x * 100 + '%', top: r.y * 100 + '%', width: r.w * 100 + '%', height: r.h * 100 + '%', opacity: 1, duration: d }, t);
+
+  // Fassade löst sich von oben nach unten auf (Röntgenblick), dann Etagen-Schilder
   tl.fromTo('#house .facade', { clipPath: 'inset(0% 0 0 0)' }, { clipPath: 'inset(100% 0 0 0)', duration: .08, ease: 'none' }, 0)
     .fromTo('#house', { scale: .9, x: introX }, { scale: .96, x: introX, duration: .08, ease: 'none' }, 0)
     .to('.lab', { opacity: 1, duration: .02, stagger: .012 }, .07)
     .fromTo('.lab i', { scaleX: 0 }, { scaleX: 1, duration: .02, stagger: .012 }, .07);
-  let t = .15;
-  ['keller', 'eg', 'og', 'dach'].forEach(k => {
-    const p = '#p-' + k;
-    if (k === 'keller') tl.to('#intro', { opacity: 0, y: -20, duration: .03 }, t);
-    tl.to('.labels', { opacity: 0, duration: .02 }, t)
-      .to(house, { x: () => camTo(k).x, y: () => camTo(k).y, scale: () => camTo(k).scale, duration: .05 }, t)
-      .to(p, { autoAlpha: 1, duration: .025, ease: 'power1.out' }, t + .045)
-      .fromTo(p + ' .panel__media', { scale: .94 }, { scale: 1, duration: .04, ease: 'power2.out' }, t + .045)
-      .fromTo(p + ' .panel__copy > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, stagger: .005, duration: .025 }, t + .05);
-    at[k] = t + .08;
-    if (k === 'eg') tl.to({ v: 92 }, { v: 50, duration: .05, ease: 'power2.inOut', onUpdate() { setX(this.targets()[0].v); } }, t + .07);
-    if (k === 'og') tl.to({ v: 0 }, { v: 2.99, duration: .07, ease: 'none', onUpdate() { setStep3(Math.floor(this.targets()[0].v)); } }, t + .07);
-    tl.to(p, { autoAlpha: 0, duration: .02 }, t + .15)
-      .to(house, { x: 0, y: 0, scale: 1, duration: .04 }, t + .155)
 
-    t += .17;
-  });
-  // Koordination: Haus rückt nach links, Linien zu einem Ansprechpartner
-  at.koordination = t + .06;
-  tl.to(house, { x: 0, y: () => mob ? -stage.offsetHeight * .1 : stage.offsetHeight * .04, scale: mob ? .7 : .62, duration: .05 }, t)
-    .to('#coord', { opacity: 1, duration: .02 }, t + .045)
-    .fromTo('#coordSvg path', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .05, stagger: .008, ease: 'none' }, t + .05)
-    .to('#contactCard', { opacity: 1, y: 0, duration: .03 }, t + .07)
-    .to('#coordCopy', { opacity: 1, duration: .03 }, t + .05)
-    .to({}, { duration: .06 }, t + .1);
+  // Akt 1: Hausmeister-Rundgang
+  let t = .14;
+  tl.to('#intro', { opacity: 0, y: -20, duration: .03 }, t).to('.labels', { opacity: 0, duration: .02 }, t)
+    .to(house, { ...C(() => camFloor('keller')), duration: .06 }, t);
+  cardIn('#c-keller', t + .05); at.keller = t + .08;
+  const RIDE = ['keller', 'eg', 'og', 'dach', 'aussen'];
+  t += .12;
+  for (let i = 1; i < RIDE.length; i++) {
+    const k = RIDE[i], prev = RIDE[i - 1];
+    cardOut('#c-' + prev, t);
+    tl.to(house, { ...C(() => camFloor(k)), duration: .05, ease: 'power1.inOut' }, t + .006); // Fahrt, gleiche Zoomstufe
+    cardIn('#c-' + k, t + .04); at[k] = t + .07;
+    t += .11;
+  }
+  // Akt 2: einmal zurück aufs ganze Haus, Rahmen zeigt, wo das Bauteam arbeitet
+  cardOut('#c-aussen', t);
+  tl.to(house, { ...C(camAll), duration: .07 }, t + .006);
+  hlTo(FLOORS.eg, t + .05, .02);
+  cardIn('#c-umbau', t + .06); at.umbau = t + .09;
+  tl.to({ v: 92 }, { v: 50, duration: .05, onUpdate() { setX(this.targets()[0].v); } }, t + .08);
+  t += .15;
+  cardOut('#c-umbau', t); hlTo(FLOORS.og, t + .01); cardIn('#c-sanierung', t + .03); at.sanierung = t + .065;
+  tl.to({ v: 0 }, { v: 2.99, duration: .07, ease: 'none', onUpdate() { setStep3(Math.floor(this.targets()[0].v)); } }, t + .05);
+  t += .14;
+  cardOut('#c-sanierung', t); hlTo(BLD, t + .01); cardIn('#c-planung', t + .03); at.planung = t + .065;
+  t += .12;
+  // Koordination: Linien von jeder Etage zum Ansprechpartner
+  cardOut('#c-planung', t); tl.to(hl, { opacity: 0, duration: .02 }, t);
+  cardIn('#contactCard', t + .02);
+  tl.to('#coord', { opacity: 1, duration: .02 }, t + .03)
+    .fromTo('#coordSvg path', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .05, stagger: .008, ease: 'none' }, t + .035);
+  at.koordination = t + .07;
+  tl.to({}, { duration: .07 }, t + .09);
+  const TOT = tl.duration();
+  for (const k in at) at[k] /= TOT;
 
-  const st = ScrollTrigger.create({ trigger: '#haus', start: 'top top', end: '+=' + LEN, pin: '#stage', scrub: true, animation: tl, anticipatePin: 1, onRefresh: () => drawCoord(), onUpdate: s => { if (s.progress > at.koordination - .1) drawCoord(); } });
+  const st = ScrollTrigger.create({ trigger: '#haus', start: 'top top', end: '+=' + LEN, pin: '#stage', scrub: true, animation: tl, anticipatePin: 1, invalidateOnRefresh: true, onRefresh: () => drawCoord(), onUpdate: s => { if (s.progress > at.koordination - .12) drawCoord(); } });
 
-  /* Linien von jeder Etage zum Ansprechpartner (nach Endstellung berechnet) */
+  /* Linien von jeder Etage zum Ansprechpartner (live gemessen) */
   function drawCoord() {
     const svg = $('#coordSvg'), card = $('#contactCard img'); if (!svg || !card || card.hidden) return;
     if (!svg.children.length) svg.innerHTML = ['dach', 'og', 'eg', 'keller'].map(() => '<path pathLength="1" stroke-dasharray="1"/><circle r="4"/>').join('');
     const or = $('#coord').getBoundingClientRect(), hr = house.getBoundingClientRect(), cr = card.getBoundingClientRect();
-    const narrow = innerWidth < 1021;
-    const tx = (narrow ? cr.left + cr.width / 2 : cr.left) - or.left, ty = (narrow ? cr.top : cr.top + cr.height / 2) - or.top;
+    const nw = narrow();
+    const tx = (nw ? cr.left + cr.width / 2 : cr.left) - or.left, ty = (nw ? cr.top : cr.top + cr.height / 2) - or.top;
     const paths = svg.querySelectorAll('path'), dots = svg.querySelectorAll('circle');
     ['dach', 'og', 'eg', 'keller'].forEach((k, i) => {
       const f = FLOORS[k], x = hr.left + (f.x + f.w) * hr.width - or.left, y = hr.top + (f.y + f.h / 2) * hr.height - or.top;
-      const d = narrow ? `M${x},${y} C${x + 30},${y} ${tx},${(y + ty) / 2} ${tx},${ty}` : `M${x},${y} C${(x + tx) / 2},${y} ${(x + tx) / 2},${ty} ${tx},${ty}`;
+      const d = nw ? `M${x},${y} C${x + 30},${y} ${tx},${(y + ty) / 2} ${tx},${ty}` : `M${x},${y} C${(x + tx) / 2},${y} ${(x + tx) / 2},${ty} ${tx},${ty}`;
       paths[i].setAttribute('d', d); dots[i].setAttribute('cx', x); dots[i].setAttribute('cy', y);
     });
   }
