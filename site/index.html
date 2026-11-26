@@ -18,7 +18,7 @@
   <div class="seg" role="group" aria-label="Objektart wählen"><button type="button" data-mode="wohn" aria-pressed="true">Privat</button><button type="button" data-mode="firma" aria-pressed="false">Gewerblich</button></div>
   <ul class="nav__links">
     <li><a href="#keller">Hausmeister</a></li>
-    <li><a href="#umbau">Zusatzleistungen</a></li>
+    <li><a href="zusatzleistungen.html">Zusatzleistungen</a></li>
     <li><a href="#werte">Über uns</a></li>
     <li><a href="#team">Karriere</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
@@ -29,7 +29,7 @@
 </header>
 <div class="progress" aria-hidden="true"></div>
 <nav class="menu" id="menu" hidden aria-label="Menü">
-  <a href="#keller">Hausmeister-Leistungen</a><a href="#umbau">Zusätzlich: Bau & Umbau</a><a href="#sanierung">Zusätzlich: Sanierung & Renovierung</a><a href="#planung">Zusätzlich: Planung & Organisation</a><a href="#koordination">Koordination & Ansprechpartner</a><a href="#team">Karriere</a><a href="#kontakt">Kontakt</a>
+  <a href="#keller">Hausmeister-Leistungen</a><a href="#koordination">Ihr Ansprechpartner</a><a href="zusatzleistungen.html">Zusatzleistungen: Bau, Sanierung, Planung</a><a href="#team">Karriere</a><a href="#kontakt">Kontakt</a>
 </nav>
 
 <main>
@@ -76,55 +76,35 @@
     <article class="sc sc--hm" id="c-dach" aria-live="polite"></article>
     <article class="sc sc--hm" id="c-aussen" aria-live="polite"></article>
 
-    <div class="bridge" id="bridge" aria-hidden="true">
-      <p class="eyebrow">Zusätzlich zum Hausmeisterdienst</p>
-      <h2>Was wir außerdem für Ihr Haus tun.</h2>
-      <p class="lead">Keine Hausmeister-Arbeit, sondern Projekte unserer Bauteams und Fachbetriebe.</p>
-    </div>
-
-    <!-- Akt 2 · Wenn mehr ansteht: Leistungen unserer Bau- und Projektteams -->
-    <article class="sc sc--svc" id="c-umbau" aria-labelledby="t-umbau">
-      <div class="sc__media">
-        <div class="wipe" id="wipe" role="slider" tabindex="0" aria-label="Vorher-Nachher-Vergleich Umbau" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-          <img data-img="e1-eg-vorher" alt="Vorher: alter Büroraum">
-          <img class="after" data-img="e2-eg-nachher" alt="Nachher: heller, offener Wohnraum">
-          <span class="tag tag--l">Vorher</span><span class="tag tag--r">Nachher</span>
-          <div class="wipe__line"></div><div class="wipe__knob" aria-hidden="true">‹ ›</div>
-        </div>
-      </div>
-      <p class="crumb">Zusatzleistung · <b>Bau & Umbau</b></p>
-      <h2 id="t-umbau">Aus Räumen Chancen machen.</h2>
-      <p class="lead">Neue Raumaufteilung, Modernisierung oder umfangreicher Umbau: von unseren Bauteams und Fachbetrieben fachgerecht umgesetzt.</p>
-      <a class="more" href="bau-umbau.html">Mehr zu Bau & Umbau <span class="arrow">→</span></a>
-    </article>
-    <article class="sc sc--svc" id="c-sanierung" aria-labelledby="t-sanierung">
-      <div class="sc__media"><div class="steps3" id="steps3"><img class="on" data-img="o1-bad-vorher" alt="Vorher: altes Bad"><img data-img="o2-bad-arbeit" alt="Arbeit: Fliesenleger verlegt neue Fliesen"><img data-img="o3-bad-ergebnis" alt="Ergebnis: neues Bad"></div></div>
-      <p class="crumb">Zusatzleistung · <b>Sanierung & Renovierung</b></p>
-      <h2 id="t-sanierung">Räume wieder in Bestform.</h2>
-      <div class="prog" id="prog"><i></i><button data-s="0" class="on">Vorher</button><button data-s="1">Arbeit</button><button data-s="2">Ergebnis</button></div>
-      <a class="more" href="sanierung.html">Mehr zu Sanierung & Renovierung <span class="arrow">→</span></a>
-    </article>
-    <article class="sc sc--svc" id="c-planung" aria-labelledby="t-planung">
-      <div class="sc__media"><img data-img="d1-dach" alt="Projektleiter plant einen Umbau mit Grundrissen"></div>
-      <p class="crumb">Zusatzleistung · <b>Planung & Organisation</b></p>
-      <h2 id="t-planung">Ihr Projekt, sauber geplant.</h2>
-      <ol class="phases"><li><span>1</span><div><b>Analyse</b><p>Bestand erfassen, Bedarf klären.</p></div></li><li><span>2</span><div><b>Konzeption</b><p>Lösung, Kosten und Termine festlegen.</p></div></li><li><span>3</span><div><b>Umsetzung</b><p>Gewerke einplanen, Qualität sichern.</p></div></li><li><span>4</span><div><b>Übergabe</b><p>Abnahme, danach laufende Betreuung.</p></div></li></ol>
-      <a class="more" href="planung.html">Mehr zu Planung & Organisation <span class="arrow">→</span></a>
-    </article>
-
     <!-- Koordination -->
     <div class="coord" id="coord"><svg id="coordSvg" aria-hidden="true"></svg></div>
     <article class="sc sc--coord" id="contactCard" aria-labelledby="t-coord">
       <img data-img="a1-ansprechpartner" alt="Ihr fester Ansprechpartner bei BAU Facility Services (Symbolbild)">
-      <p class="crumb">Koordination & Durchführung</p>
-      <h2 id="t-coord">Ein Ansprechpartner. Alle Gewerke.</h2>
-      <p class="lead">Hausmeister, Bauteam, Fachbetriebe: Wir stimmen alles aufeinander ab und behalten den Ablauf für Sie im Blick.</p>
-      <a class="more" href="koordination.html">Mehr zur Koordination <span class="arrow">→</span></a>
+      <p class="crumb">Ein Objekt · ein Ansprechpartner</p>
+      <h2 id="t-coord">Ein fester Ansprechpartner für Ihre Anlage.</h2>
+      <p class="lead">Ihr Hausmeister kennt jede Etage. Sie haben eine Nummer für alles, mit Foto-Protokoll nach jedem Einsatz.</p>
+      <div class="row"><a class="more" href="#kontakt">Hausmeister anfragen <span class="arrow">→</span></a><a class="more" href="zusatzleistungen.html">Zusatzleistungen <span class="arrow">→</span></a></div>
     </article>
     </div>
   </div>
 </section>
-<span id="keller" class="sr"></span><span id="eg" class="sr"></span><span id="og" class="sr"></span><span id="dach" class="sr"></span><span id="aussen" class="sr"></span><span id="umbau" class="sr"></span><span id="sanierung" class="sr"></span><span id="planung" class="sr"></span><span id="koordination" class="sr"></span>
+<span id="keller" class="sr"></span><span id="eg" class="sr"></span><span id="og" class="sr"></span><span id="dach" class="sr"></span><span id="aussen" class="sr"></span><span id="koordination" class="sr"></span>
+
+<!-- ZUSATZLEISTUNGEN (Teaser, eigene Seite) -->
+<section class="zteaser" id="zusatz" aria-labelledby="zt-h">
+  <div class="zteaser__head">
+    <p class="eyebrow">Zusätzlich zum Hausmeisterdienst</p>
+    <h2 id="zt-h">Wenn mehr ansteht als der Hausmeister.</h2>
+    <p class="lead">Umbau, Sanierung, Planung und die Koordination aller Gewerke übernehmen unsere Bauteams und Fachbetriebe. Alles erklärt, mit Vorher und Nachher.</p>
+  </div>
+  <div class="zteaser__grid">
+    <a class="ztile" href="zusatzleistungen.html#umbau"><img data-img="e2-eg-nachher" alt="Umgebauter, heller Wohnraum" loading="lazy"><span>Bau & Umbau</span></a>
+    <a class="ztile" href="zusatzleistungen.html#sanierung"><img data-img="o3-bad-ergebnis" alt="Saniertes Bad" loading="lazy"><span>Sanierung & Renovierung</span></a>
+    <a class="ztile" href="zusatzleistungen.html#planung"><img data-img="d1-dach" alt="Projektleiter plant mit Grundrissen" loading="lazy"><span>Planung & Organisation</span></a>
+    <a class="ztile ztile--svg" href="zusatzleistungen.html#koordination"><svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M100 60 40 22M100 60 160 22M100 60 30 78M100 60 170 78M100 60 72 108M100 60 128 108"/></g><g fill="currentColor"><circle cx="40" cy="22" r="6"/><circle cx="160" cy="22" r="6"/><circle cx="30" cy="78" r="6"/><circle cx="170" cy="78" r="6"/><circle cx="72" cy="108" r="6"/><circle cx="128" cy="108" r="6"/></g><circle cx="100" cy="60" r="14" fill="#9d7a42"/></svg><span>Koordination & Durchführung</span></a>
+  </div>
+  <a class="btn btn--or" href="zusatzleistungen.html">Alle Zusatzleistungen ansehen <span class="arrow">→</span></a>
+</section>
 
 <!-- 8 · AUSSEN / TEAM -->
 <section class="team" id="team">

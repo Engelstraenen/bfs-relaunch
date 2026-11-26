@@ -3,9 +3,9 @@
 import os
 OUT = 'site'
 HEAD = '''<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{title} · BAU Facility Services</title><meta name="description" content="{desc}"><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="styles.css"><script src="assets/manifest.js"></script></head><body>
-<header class="nav"><a class="nav__logo" href="index.html" aria-label="Zur Startseite"><img src="assets/logo.svg" alt="BAU Facility Services" width="170" height="61"></a><a class="btn btn--ghost btn--sm" href="index.html#{anchor}" style="margin-left:auto">← Zurück ins Haus</a></header>
+<header class="nav"><a class="nav__logo" href="index.html" aria-label="Zur Startseite"><img src="assets/logo.svg" alt="BAU Facility Services" width="170" height="61"></a><a class="btn btn--ghost btn--sm" href="{back}" style="margin-left:auto">← {backtxt}</a></header>
 <main class="sub">
-<a class="back" href="index.html#{anchor}">← Zurück zu „{floor}“</a>
+<a class="back" href="{back}">← {backtxt}</a>
 <div class="sub__hero"><div style="display:grid;gap:16px"><p class="eyebrow">{floor}</p><h1>{h1}</h1><p class="lead">{lead}</p><div class="row"><a class="btn btn--or" href="#kontakt">Anfrage stellen</a></div></div><img data-img="{img}" alt="{alt}"></div>
 '''
 FOOT = '''<nav class="subnav" aria-label="Weitere Leistungen">{links}</nav>
@@ -57,6 +57,8 @@ PAGES = [
 ]
 links = ''.join(f'<a class="btn btn--ghost btn--sm" href="{p[0]}.html">{p[1]}</a>' for p in PAGES)
 for slug, title, anchor, floor, h1, lead, img, alt, body in PAGES:
-    html = HEAD.format(title=title, desc=f'{title} von BAU Facility Services in Ratingen. {h1}', anchor=anchor, floor=floor, h1=h1, lead=lead, img=img, alt=alt) + body + FOOT.format(links=links)
+    back = 'index.html#keller' if slug == 'hausmeister' else f'zusatzleistungen.html#{anchor}'
+    backtxt = 'Zurück zum Hausmeister-Rundgang' if slug == 'hausmeister' else 'Zurück zu den Zusatzleistungen'
+    html = HEAD.format(title=title, desc=f'{title} von BAU Facility Services in Ratingen. {h1}', back=back, backtxt=backtxt, anchor=anchor, floor=floor, h1=h1, lead=lead, img=img, alt=alt) + body + FOOT.format(links=links)
     open(os.path.join(OUT, slug + '.html'), 'w').write(html)
 print('ok', len(PAGES))
