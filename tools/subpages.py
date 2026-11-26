@@ -29,21 +29,21 @@ PAGES = [
 <h2>Häufige Fragen</h2>
 <details><summary>Wie oft kommt der Hausmeister?</summary><p>Das legen wir mit Ihnen je Objekt fest, zum Beispiel wöchentlich oder zweiwöchentlich, im Winter nach Wetterlage.</p></details>
 <details><summary>Haben wir einen festen Ansprechpartner?</summary><p>Ja. Ein fester Ansprechpartner kennt Ihr Objekt und hält Sie auf dem Laufenden.</p></details>'''),
- ('bau-umbau', 'Bau & Umbau', 'eg', 'Erdgeschoss · Bau & Umbau', 'Aus Räumen Chancen machen.',
+ ('bau-umbau', 'Bau & Umbau', 'umbau', 'Zusatzleistung · Bau & Umbau', 'Aus Räumen Chancen machen.',
   'Ob neue Raumaufteilung, Modernisierung oder umfangreicher Umbau: Wir setzen Ihre Vorstellungen fachgerecht und zuverlässig um, mit passenden Fachbetrieben und einem Ansprechpartner.', 'e2-eg-nachher', 'Umgebauter heller Wohnraum',
   '''<h2>Typische Umbauten</h2><div class="grid3">
 <article class="card"><h3>Grundriss ändern</h3><p>Wände versetzen oder öffnen, aus Büro wird Wohnung, aus zwei Räumen einer.</p></article>
 <article class="card"><h3>Modernisieren</h3><p>Böden, Türen, Elektro, Licht und Oberflächen auf den heutigen Stand bringen.</p></article>
 <article class="card"><h3>Ausbau</h3><p>Trockenbau, Dachausbau, neue Nutzungen für bestehende Flächen.</p></article></div>
 <h2>So läuft ein Umbau</h2><ol class="timeline"><li><b>Besichtigung</b><p>Wir sehen uns Raum und Ziel vor Ort an.</p></li><li><b>Planung</b><p>Ablauf, Gewerke, Termine und Kosten klar festgelegt.</p></li><li><b>Umsetzung</b><p>Koordiniert, sauber, termintreu.</p></li><li><b>Übergabe</b><p>Gemeinsame Abnahme, danach auf Wunsch laufende Betreuung.</p></li></ol>'''),
- ('sanierung', 'Sanierung & Renovierung', 'og', '1. OG · Sanierung & Renovierung', 'Für Immobilien mit Zukunft.',
+ ('sanierung', 'Sanierung & Renovierung', 'sanierung', 'Zusatzleistung · Sanierung & Renovierung', 'Für Immobilien mit Zukunft.',
   'Wir bringen Immobilien wieder in Bestform und schaffen moderne, funktionale Räume, die langfristig ihren Wert behalten. Vom einzelnen Bad bis zur kompletten Wohnung.', 'o3-bad-ergebnis', 'Renoviertes Bad',
   '''<h2>Leistungen</h2><div class="grid3">
 <article class="card"><h3>Bad & Sanitär</h3><p>Komplettsanierung mit Fliesen, Sanitär und Elektro aus einer Hand.</p></article>
 <article class="card"><h3>Wohnungen</h3><p>Renovierung bei Mieterwechsel: Wände, Böden, Türen, Licht.</p></article>
 <article class="card"><h3>Schäden beheben</h3><p>Nach Wasser- oder Feuchteschäden: trocknen, instand setzen, dokumentieren.</p></article></div>
 <h2>Vorher · Arbeit · Ergebnis</h2><div class="grid3"><img data-img="o1-bad-vorher" alt="Vorher" style="border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%"><img data-img="o2-bad-arbeit" alt="Arbeit" style="border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%"><img data-img="o3-bad-ergebnis" alt="Ergebnis" style="border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%"></div>'''),
- ('planung', 'Planung & Organisation', 'dach', 'Dach · Planung & Organisation', 'Strukturiert. Wirtschaftlich. Verlässlich.',
+ ('planung', 'Planung & Organisation', 'planung', 'Zusatzleistung · Planung & Organisation', 'Strukturiert. Wirtschaftlich. Verlässlich.',
   'Wir planen Ihr Projekt von Anfang an strukturiert und sorgen für klare Abläufe, verlässliche Termine und eine effiziente Umsetzung.', 'd1-dach', 'Planer mit Grundrissen',
   '''<h2>Vier Phasen</h2><ol class="timeline"><li><b>Analyse</b><p>Bestand erfassen, Bedarf und Budget klären.</p></li><li><b>Konzeption</b><p>Lösung entwickeln, Gewerke und Termine planen.</p></li><li><b>Umsetzung</b><p>Arbeiten koordinieren, Qualität sichern.</p></li><li><b>Übergabe</b><p>Abnahme und Übergabe in die laufende Betreuung.</p></li></ol>
 <h2>Was Sie bekommen</h2><div class="grid3"><article class="card"><h3>Klarer Zeitplan</h3><p>Wann welches Gewerk wo arbeitet.</p></article><article class="card"><h3>Ein Budget</h3><p>Alle Leistungen in einem Rahmen.</p></article><article class="card"><h3>Ein Ansprechpartner</h3><p>Für alle Fragen, vom Start bis zur Übergabe.</p></article></div>'''),

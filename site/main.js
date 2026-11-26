@@ -135,7 +135,7 @@
   const C = fn => ({ x: () => fn().x, y: () => fn().y, scale: () => fn().scale });
   const introX = () => innerWidth > 1020 ? stage.offsetWidth * .17 : 0;
   gsap.set(house, { xPercent: -50, yPercent: -50, x: introX(), y: 0, scale: 1 });
-  const LEN = mob ? 9500 : 12000;
+  const LEN = mob ? 10000 : 12500;
   const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
   const at = {}; window.__at = at; // Haltepunkte für Anker
   const cardIn = (id, t) => tl.to(id, { autoAlpha: 1, duration: .02, ease: 'power1.out' }, t).fromTo(id, { y: 24 }, { y: 0, duration: .025, ease: 'power2.out' }, t).fromTo(id + ' > *', { y: 14, opacity: 0 }, { y: 0, opacity: 1, stagger: .002, duration: .012 }, t + .004);
@@ -165,10 +165,14 @@
   // Akt 2: einmal zurück aufs ganze Haus, Rahmen zeigt, wo das Bauteam arbeitet
   cardOut('#c-aussen', t);
   tl.to(house, { ...C(camAll), duration: .07 }, t + .006);
-  hlTo(FLOORS.eg, t + .05, .02);
-  cardIn('#c-umbau', t + .06); at.umbau = t + .09;
-  tl.to({ v: 92 }, { v: 50, duration: .05, onUpdate() { setX(this.targets()[0].v); } }, t + .08);
-  t += .15;
+  // Überleitung: ab hier Zusatzleistungen, keine Hausmeister-Arbeit
+  tl.to('#bridge', { autoAlpha: 1, duration: .02 }, t + .02).fromTo('#bridge > *', { y: 18, opacity: 0 }, { y: 0, opacity: 1, stagger: .004, duration: .02 }, t + .02);
+  at.zusatz = t + .06;
+  tl.to('#bridge', { autoAlpha: 0, y: -16, duration: .016 }, t + .09);
+  hlTo(FLOORS.eg, t + .1, .02);
+  cardIn('#c-umbau', t + .105); at.umbau = t + .135;
+  tl.to({ v: 92 }, { v: 50, duration: .05, onUpdate() { setX(this.targets()[0].v); } }, t + .125);
+  t += .2;
   cardOut('#c-umbau', t); hlTo(FLOORS.og, t + .01); cardIn('#c-sanierung', t + .03); at.sanierung = t + .065;
   tl.to({ v: 0 }, { v: 2.99, duration: .07, ease: 'none', onUpdate() { setStep3(Math.floor(this.targets()[0].v)); } }, t + .05);
   t += .14;
