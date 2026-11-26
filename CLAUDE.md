@@ -35,6 +35,7 @@ Globale Regeln. Bilder/Videos gratis über sjinn Unlimited, bezahlt nur nach OK.
 - Datenschutz der alten Seite hat Lücken ([Name des Hosting-Anbieters] usw.) → Kollege muss ergänzen. Teilleistungen (Winterdienst, Trockenbau …) mit Kollegen abgleichen.
 
 ## 9. Entschieden
+- 26.11.2026 08:05: Eugen nimmt die Seite ab (Wohn-/Firmenanlage, Fotos in Karten, Zusatzleistungen-Seite) und leitet sie an den Kunden weiter. Hero-Film + Team-Foto bleiben.
 - 26.11.2026 06:00: Kein Einfamilienhaus mehr. Umschalter Privat/Gewerblich (Kopfzeile, links neben Hausmeister): Wohnanlage (w1-schnitt/w2-fassade) und Firmenanlage (f1-schnitt/f2-fassade), je eigene Hausmeister-Aufgaben. Erst Hausmeister-Leistungen, dann Zusatzleistungen (Bau, Sanierung, Planung) mit Überleitung. Türen: jede genau eine Klinke.
 - 26.11.2026 00:20: Eugen wählt W1 „Das Haus im Schnitt“ (konzepte/v4-1-schnitt.png, Plan konzepte/w1-plan.md), weiß + CI Navy/Bronze. Gebaut + geprüft, live auf GitHub Pages.
 - 25.11.2026 23:20: Eugen lehnt Ticket-Seite ab („das ist gar nix“): Overlays auf iPad/Handy schlecht, Hausmeister = ganzes Haus, Hintergrund WEISS, Aufbau nach den Leistungen der alten Seite (Planung & Organisation, Koordination & Durchführung, Bau & Umbau, Sanierung & Renovierung, Hausmeister-Leistungen + Werte, Über uns, Kontakt). Film B (Transporter) darf bleiben. → 3 neue Storyboards.
