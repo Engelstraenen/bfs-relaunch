@@ -20,7 +20,7 @@
   $$('img[data-img]').forEach(img => {
     const s = srcFor(img.dataset.img); if (!s) { img.hidden = true; return; }
     img.srcset = s.srcset; img.src = s.src; img.decoding = 'async';
-    img.sizes = img.closest('.house') ? '92vw' : img.closest('.contact-card') ? '240px' : '(max-width:1020px) 100vw, 60vw';
+    img.sizes = img.closest('.house') ? '(max-width:700px) 240vw, 260vw' : img.closest('.contact-card') ? '240px' : '(max-width:1020px) 100vw, 60vw';
   });
   $$('video[data-video]').forEach(v => { const e = A.video[v.dataset.video]; if (!e) { v.remove(); return; } v.src = (mob && e.mobile) || e.desktop; });
   const hasCut = !!A.img['s1-schnitt'];
@@ -84,7 +84,7 @@
       if (l.dataset.f === 'aussen') Object.assign(l.style, { left: 'auto', right: (1 - f.x) * 100 + '%', top: (f.y + f.h * .3) * 100 + '%', transform: 'translateY(-50%)', flexDirection: 'row-reverse' });
       else Object.assign(l.style, { left: (f.x + f.w) * 100 + '%', top: (f.y + f.h / 2) * 100 + '%', transform: 'translateY(-50%)' });
       const hw = house.getBoundingClientRect().width || innerWidth * .9;
-      const room = l.dataset.f === 'aussen' ? hw * f.x - (narrow ? 60 : 150) : hw * (1 - f.x - f.w) - (narrow ? 70 : 190);
+      const room = narrow ? 8 : (l.dataset.f === 'aussen' ? hw * f.x - 150 : hw * (1 - f.x - f.w) - 190);
       l.style.setProperty('--len', Math.max(16, Math.min(110, room)) + 'px');
     });
   }

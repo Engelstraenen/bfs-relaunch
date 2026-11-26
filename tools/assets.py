@@ -10,7 +10,7 @@ for f in sorted(glob.glob(f'{R}/*')):
     if ext.lower() not in ('.jpg','.jpeg','.png','.webp'): continue
     im=Image.open(f).convert('RGB'); W,H=im.size; sizes=[]
     im=im.filter(ImageFilter.UnsharpMask(radius=1.6,percent=70,threshold=2))  # V2.65 nachschärfen
-    for w in (1800,2560,3840):
+    for w in sorted(set([1800,2560,3840]+([W] if 2560<W<3840 else []))):
         if w>W: continue
         out=f'{O}/{n}-{w}.webp'
         if not os.path.exists(out) or os.path.getmtime(out)<os.path.getmtime(f):
